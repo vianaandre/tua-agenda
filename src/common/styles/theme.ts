@@ -29,10 +29,15 @@ export const theme = {
       500: '#262626',
       1000: '#000000',
     },
+    BLUE: {
+      200: '#25324B',
+    },
   },
   fonts: {
     sizes: {
+      64: '4rem',
       56: '3.5rem',
+      48: '3rem',
       40: '2.5rem',
       32: '2rem',
       24: '1.5rem',
@@ -44,10 +49,12 @@ export const theme = {
     family: {
       PRIMARY: "'DM Sans', 'Inter', sans-serif",
       SECONDARY: "'Epilogue', 'DM Sans', 'Inter', sans-serif",
-      ALTERNATIVE: "'Clash Display', 'DM Sans', 'Epilogue', 'Inter', sans-serif",
+      TITLE: "'Clash Display', 'DM Sans', 'Epilogue', 'Inter', sans-serif",
+      ALTERNATIVE: "'Inter', 'DM Sans', sans-serif",
     },
     height: {
       100: '100%',
+      110: '110%',
       125: '125%',
       150: '150%',
       160: '160%',
@@ -63,6 +70,6 @@ export const theme = {
   breakpoints: {
     mobile: '767px',
     tablet: '1024px',
-    desktop: '1440px',
+    desktop: '1192px',
   },
 };

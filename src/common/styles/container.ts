@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    width: 1440px;
+    width: ${({ theme }) => theme.breakpoints.desktop};
     margin: 0 auto;
     padding: 0 ${({ theme }) => theme.spacing(4)};
 
