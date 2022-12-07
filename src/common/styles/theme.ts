@@ -6,6 +6,7 @@ export const theme = {
     PRIMARY: {
       0: '#FBF9FE',
       250: '#EAE4F5',
+      350: '#CCCCF5',
       500: '#5129A6',
       800: '#201042',
     },

@@ -1,20 +1,19 @@
 import type { GetStaticProps, NextPage } from 'next';
-import { ThemeProvider } from 'styled-components';
 
 import { SEO } from 'components/SEO';
-import { theme } from 'common/styles/theme';
-import { GlobalStyles } from 'common/styles/globalStyles';
+import { Banner } from 'components/Home/Banner';
+import React from 'react';
 
 const Home: NextPage = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
+    <React.Fragment>
       <SEO
         nome={process.env.WEBSITE_NAME}
         description="Sistema de agendamento para demonstrar como será o sistema do cliente. Tua Agenda - Sua agenda sempre em mãos"
         pathname="/"
       />
-    </ThemeProvider>
+      <Banner />
+    </React.Fragment>
   );
 };
 

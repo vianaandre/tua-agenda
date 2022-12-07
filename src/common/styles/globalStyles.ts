@@ -143,6 +143,18 @@ export const GlobalStyles = createGlobalStyle`
         line-height: ${({ theme }) => theme.fonts.height[160]};
         font-style: normal;
     }
+    p.small {
+        font-size: ${({ theme }) => theme.fonts.sizes[14]};
+        font-family: ${({ theme }) => theme.fonts.family.SECONDARY};
+        line-height: ${({ theme }) => theme.fonts.height[160]};
+        font-style: normal;
+    }
+    p.great {
+        font-size: ${({ theme }) => theme.fonts.sizes[20]};
+        font-family: ${({ theme }) => theme.fonts.family.SECONDARY};
+        line-height: ${({ theme }) => theme.fonts.height[160]};
+        font-style: normal;
+    }
     p.color_light {
         color: ${({ theme }) => theme.colors.GREY[850]};
         font-weight: 400;

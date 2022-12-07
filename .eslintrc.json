@@ -69,6 +69,7 @@
       "consistent-return": "off",
       "jsx-a11y/no-autofocus": "off",
       "max-len": "off",
-      "react/jsx-no-constructed-context-values": "off"
+      "react/jsx-no-constructed-context-values": "off",
+      "jsx-a11y/anchor-is-valid": "off"
   }
 }

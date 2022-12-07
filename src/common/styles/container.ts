@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.div.attrs({
+  className: 'container',
+})`
     width: ${({ theme }) => theme.breakpoints.desktop};
     margin: 0 auto;
     padding: 0 ${({ theme }) => theme.spacing(4)};
+    position: relative;
 
     @media(max-width: ${({ theme }) => theme.breakpoints.desktop}) {
         width: 1024px;
