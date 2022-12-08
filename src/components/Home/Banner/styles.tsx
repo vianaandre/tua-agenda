@@ -4,6 +4,7 @@ export const ContainerBanner = styled.div`
     position: relative;
     width: 100vw;
     background-color: ${({ theme }) => theme.colors.PRIMARY[0]};
+    overflow-y: hidden;
 
     div.container {
         height: fit-content;

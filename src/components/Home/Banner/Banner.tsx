@@ -5,6 +5,7 @@ import HomeBannerBg from 'common/assets/home/banner-bg.png';
 import HomeBannerPhoto from 'common/assets/home/banner-photo.png';
 import { Container } from 'common/styles/container';
 import { ContainerBanner, ContainerBannerImageBg } from './styles';
+import { FormSearch } from './FormSearch';
 
 export const Banner: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ export const Banner: React.FC = () => {
           <p className="great color_light">
             Usada por pessoas que procuram deixar as coisas mais simples.
           </p>
+          <FormSearch />
         </div>
       </Container>
     </ContainerBanner>
