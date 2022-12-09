@@ -95,7 +95,9 @@ export const ContainerInputInput = styled.div<{
   }};
         }
     };
+    transition: 400ms;
     &.focus {
+        transition: 400ms;
         border-color: ${({ theme, variant }) => {
     switch (variant) {
       case InputVariantProps.PRIMARY:
@@ -143,7 +145,6 @@ export const ContainerInputInput = styled.div<{
             }
         }
     }
-
 `;
 
 export const ContainerInputIcon = styled.div`

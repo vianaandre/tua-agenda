@@ -24,7 +24,9 @@ const sharedStyles = css<{
   }};
   background-color: ${({ variant, theme }) => {
     switch (variant) {
-      case ButtonVariantProps.PRIMARY || ButtonVariantProps.FULL:
+      case ButtonVariantProps.PRIMARY:
+        return theme.colors.PRIMARY[500];
+      case ButtonVariantProps.FULL:
         return theme.colors.PRIMARY[500];
       default:
         return 'transparent';
@@ -32,7 +34,9 @@ const sharedStyles = css<{
   }};
     color: ${({ variant, theme }) => {
     switch (variant) {
-      case ButtonVariantProps.PRIMARY || ButtonVariantProps.FULL:
+      case ButtonVariantProps.PRIMARY:
+        return theme.colors.WHITE;
+      case ButtonVariantProps.FULL:
         return theme.colors.WHITE;
       default:
         return theme.colors.PRIMARY[500];
@@ -45,6 +49,16 @@ const sharedStyles = css<{
     border-radius: ${({ theme }) => theme.spacing(1)};
     display: flex;
     align-items: center;
+    justify-content: ${({ variant }) => {
+    switch (variant) {
+      case ButtonVariantProps.PRIMARY:
+        return 'center';
+      case ButtonVariantProps.FULL:
+        return 'flex-start';
+      default:
+        return 'center';
+    }
+  }};;
     gap: ${({ theme }) => theme.spacing(1)};
     position: relative;
     overflow: hidden;
@@ -54,7 +68,9 @@ const sharedStyles = css<{
         transition: 400ms;
         background-color: ${({ variant, theme }) => {
     switch (variant) {
-      case ButtonVariantProps.PRIMARY || ButtonVariantProps.FULL:
+      case ButtonVariantProps.PRIMARY:
+        return theme.colors.PRIMARY[500];
+      case ButtonVariantProps.FULL:
         return theme.colors.PRIMARY[500];
       default:
         return theme.colors.PRIMARY[350];
@@ -62,7 +78,9 @@ const sharedStyles = css<{
   }};
         filter: ${({ variant }) => {
     switch (variant) {
-      case ButtonVariantProps.PRIMARY || ButtonVariantProps.FULL:
+      case ButtonVariantProps.PRIMARY:
+        return 'brightness(0.9)';
+      case ButtonVariantProps.FULL:
         return 'brightness(0.9)';
       default:
         return 'none';
