@@ -5,7 +5,6 @@ export const Container = styled.div.attrs({
 })`
     width: ${({ theme }) => theme.breakpoints.desktop};
     margin: 0 auto;
-    padding: 0 ${({ theme }) => theme.spacing(4)};
     position: relative;
 
     @media(max-width: ${({ theme }) => theme.breakpoints.desktop}) {

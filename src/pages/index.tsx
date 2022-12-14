@@ -1,8 +1,11 @@
+import React from 'react';
 import type { GetStaticProps, NextPage } from 'next';
 
 import { SEO } from 'components/SEO';
 import { Banner } from 'components/Home/Banner';
-import React from 'react';
+import { Categories } from 'components/Home/Categories';
+import { ActionAPP } from 'components/Home/ActionAPP';
+import { CompanyHighlights } from 'components/Home/CompanyHighlights';
 
 const Home: NextPage = () => {
   return (
@@ -13,6 +16,9 @@ const Home: NextPage = () => {
         pathname="/"
       />
       <Banner />
+      <Categories />
+      <ActionAPP />
+      <CompanyHighlights />
     </React.Fragment>
   );
 };

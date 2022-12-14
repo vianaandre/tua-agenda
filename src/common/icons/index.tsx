@@ -4,3 +4,4 @@ export { Translation } from './Translation';
 export { Calendar } from './Calendar';
 export { Search } from './Search';
 export { ArrowSelect } from './ArrowSelect';
+export { Arrow } from './Arrow';

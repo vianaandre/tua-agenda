@@ -1,0 +1,1 @@
+export { CompanyHighlights } from './CompanyHighlights';

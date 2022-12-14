@@ -12,9 +12,11 @@ export const ContainerBanner = styled.div`
         div.banne_photo {
             position: absolute;
             right: 0;
+            top: ${({ theme }) => theme.spacing(2)};
         }
         div.banner_content {
             padding: ${({ theme }) => theme.spacing(11.5)} 0px;
+            min-height: calc(794px - 78px);
             display: flex;
             flex-direction: column;
             gap: ${({ theme }) => theme.spacing(3)};
