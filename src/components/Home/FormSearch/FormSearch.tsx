@@ -5,16 +5,22 @@ import { Input, Select } from 'components/Form';
 import { InputVariantProps } from 'common/interface/InputVariantProps';
 import { Search, Location } from 'common/icons';
 import { theme } from 'common/styles/theme';
-import { cities } from 'utils/cities';
 import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
+import { useCities } from 'common/hooks/useCities';
 import { ContainerFormSearch, ContainerFormInputs } from './styles';
+import { FormProps } from './interface';
 
 export const FormSearch: React.FC = () => {
-  const methods = useForm();
+  const methods = useForm<FormProps>();
+  const { cities } = useCities();
+
+  const onSubmit = (data: FormProps) => {
+    console.log(data);
+  };
 
   return (
-    <ContainerFormSearch>
+    <ContainerFormSearch onSubmit={methods.handleSubmit(onSubmit)}>
       <FormProvider {...methods}>
         <ContainerFormInputs>
           <Input
@@ -27,6 +33,13 @@ export const FormSearch: React.FC = () => {
               icon: <Search width={24} height={25} stroke={2} color={theme.colors.BLACK[500]} />,
               direction: 'left',
             }}
+            rules={{
+              required: {
+                message: 'Campo obrigatório.',
+                value: true,
+              },
+            }}
+            error={methods.formState.errors.name?.message}
           />
         </ContainerFormInputs>
         <ContainerFormInputs>
@@ -38,7 +51,10 @@ export const FormSearch: React.FC = () => {
               direction: 'left',
             }}
             variant={InputVariantProps.OUTLINE}
-            options={cities}
+            options={cities.map((item) => ({
+              innerText: item.city,
+              value: item.city,
+            }))}
             widthOption={231}
             left={19}
           />

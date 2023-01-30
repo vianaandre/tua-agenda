@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 
 import { Controller, useFormContext } from 'react-hook-form';
 import { InputVariantProps } from 'common/interface/InputVariantProps';
-import { ContainerInput, ContainerInputIcon, ContainerInputInput } from './styles';
+import {
+  ContainerInput, ContainerInputIcon, ContainerInputInput, ContainerInputInputInput,
+} from './styles';
 import { IInput } from './interface';
 
 export const Input: React.FC<IInput> = ({
-  id, name, type, label, variant = InputVariantProps.PRIMARY, rules, icon, ...rest
+  id, name, type, label, variant = InputVariantProps.PRIMARY, rules, icon, error, ...rest
 }) => {
   const [isFocus, setIsFocus] = useState<boolean>(false);
   const { control } = useFormContext();
@@ -27,13 +29,18 @@ export const Input: React.FC<IInput> = ({
             )}
           </label>
           )}
-          <ContainerInputInput variant={variant} className={`${isFocus ? 'focus' : ''}`}>
+          <ContainerInputInput variant={variant} className={`${isFocus ? 'focus' : ''} ${error ? 'error' : ''}`}>
             {icon && icon.direction === 'left' && (
             <ContainerInputIcon className={`${variant !== InputVariantProps.OUTLINE ? 'padding_left' : 'padding_right'}`}>
               {icon.icon}
             </ContainerInputIcon>
             )}
-            <input type={type} name={name} value={value} onChange={onChange} id={id} onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)} {...rest} />
+            <ContainerInputInputInput variant={variant}>
+              <input type={type} name={name} value={value} onChange={onChange} id={id} onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)} {...rest} />
+              {error && (
+              <p className="error">{error}</p>
+              )}
+            </ContainerInputInputInput>
           </ContainerInputInput>
         </ContainerInput>
       )}

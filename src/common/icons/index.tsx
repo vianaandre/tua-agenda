@@ -5,3 +5,5 @@ export { Calendar } from './Calendar';
 export { Search } from './Search';
 export { ArrowSelect } from './ArrowSelect';
 export { Arrow } from './Arrow';
+export { Evaluation } from './Evaluation';
+export { ArrowAlternative } from './ArrowAlternative';

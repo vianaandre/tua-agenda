@@ -10,6 +10,7 @@ export const theme = {
       500: '#5129A6',
       800: '#201042',
     },
+    PRIMARY_LIGHT: 'rgba(81, 41, 166, 0.1)',
     DANGER: '#E95432',
     WARNING: '#FAAD13',
     SUCCESS: '#0FAB60',
@@ -26,6 +27,7 @@ export const theme = {
       1000: '#636363',
     },
     WHITE: '#FFFFFF',
+    WHITE_LIGHT: 'rgba(255, 255, 255, 0.1)',
     BLACK: {
       500: '#262626',
       1000: '#000000',
@@ -46,6 +48,8 @@ export const theme = {
       18: '1.125rem',
       16: '1rem',
       14: '0.875rem',
+      12: '0.75rem',
+      10: '0.625rem',
     },
     family: {
       PRIMARY: "'DM Sans', 'Inter', sans-serif",

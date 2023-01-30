@@ -17,4 +17,5 @@ export interface SelectProps {
     options: OptionSelectProps<string, string>[];
     widthOption: number;
     left: number;
+    error?: string;
 }

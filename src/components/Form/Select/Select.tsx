@@ -35,17 +35,21 @@ export const Select: React.FC<SelectProps> = ({
                   <ArrowSelect width={16} height={16} color={theme.colors.GREY[850]} />
                 </SelectRadix.Icon>
               </SelectRadix.Trigger>
-              <SelectRadix.Content className="content">
-                <SelectRadix.Group>
-                  {options.map((item) => (
-                    <SelectRadix.Item value={item.value} className={`item ${item.value === value ? 'item_active' : ''}`} key={item.value}>
-                      <SelectRadix.ItemText className="item_text">
-                        {item.innerText}
-                      </SelectRadix.ItemText>
-                    </SelectRadix.Item>
-                  ))}
-                </SelectRadix.Group>
-              </SelectRadix.Content>
+              <SelectRadix.Portal>
+                <SelectRadix.Content className="content-select">
+                  <SelectRadix.Viewport>
+                    <SelectRadix.Group>
+                      {options.map((item) => (
+                        <SelectRadix.Item value={item.value} className={`item ${item.value === value ? 'item_active' : ''}`} key={item.value}>
+                          <SelectRadix.ItemText className="item_text">
+                            {item.innerText}
+                          </SelectRadix.ItemText>
+                        </SelectRadix.Item>
+                      ))}
+                    </SelectRadix.Group>
+                  </SelectRadix.Viewport>
+                </SelectRadix.Content>
+              </SelectRadix.Portal>
             </SelectRadix.Root>
           </ContainerSelectSelect>
         </ContainerSelect>

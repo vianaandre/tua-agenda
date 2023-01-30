@@ -112,51 +112,6 @@ export const ContainerSelectSelect = styled.div<{
             }
          }
     }
-
-    .content {
-        width: 100%;
-        background-color: ${({ theme }) => theme.colors.WHITE};
-        margin-top: ${({ theme }) => theme.spacing(23)};
-        margin-left: ${({ variant, left }) => {
-    switch (variant) {
-      case InputVariantProps.OUTLINE:
-        return `${left}%`;
-      case InputVariantProps.PRIMARY:
-        return '0px';
-      default:
-        return '0px';
-    }
-  }};
-        overflow: hidden;
-        border-radius: 0px 0px 4px 4px;
-        .item {
-            padding: ${({ theme }) => theme.spacing(1.5)};
-            display: flex;
-            cursor: pointer;
-            width: ${({ widthOption }) => `${widthOption}px`};
-            border: none;
-            outline: none;
-            span {
-                font-size: ${({ theme }) => theme.fonts.sizes[14]};
-                font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
-                color: ${({ theme }) => theme.colors.PRIMARY[800]};
-                font-weight: 500;
-            }
-            &.item_active {
-                background-color: ${({ theme }) => theme.colors.PRIMARY[500]};
-                span {
-                    color: ${({ theme }) => theme.colors.WHITE};
-                }
-            }
-            &:hover {
-                background-color: ${({ theme }) => theme.colors.PRIMARY[500]};
-
-                span {
-                    color: ${({ theme }) => theme.colors.WHITE};
-                }
-            }
-        }
-    }
 `;
 
 export const ContainerSelectIcon = styled.div`

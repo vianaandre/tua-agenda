@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ContainerCardCategory = styled.li`
-    width: 100%;
+    width: calc(100% / 4 - ${({ theme }) => theme.spacing(3)});
     button {
         width: 100%;
         height: 214px;
@@ -36,7 +36,7 @@ export const ContainerCardCategory = styled.li`
                 font-size: ${({ theme }) => theme.fonts.sizes[18]};
             }
         }
-        &:hover {
+        &:hover, &.active {
             transition: 400ms;
             background-color: ${({ theme }) => theme.colors.PRIMARY[500]};
             div.icon {

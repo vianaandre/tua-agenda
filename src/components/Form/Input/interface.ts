@@ -14,4 +14,5 @@ export interface IInput extends InputHTMLAttributes<HTMLInputElement> {
         icon: React.ReactNode;
         direction: 'left';
     }
+    error?: string;
 }

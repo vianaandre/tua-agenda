@@ -1,0 +1,1 @@
+export { CardCity } from './CardCity';

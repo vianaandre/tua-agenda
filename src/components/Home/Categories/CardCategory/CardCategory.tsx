@@ -6,15 +6,18 @@ import {
 import { Arrow } from 'common/icons';
 import { CategoryProps } from 'common/interface/CategoryProps';
 import { theme } from 'common/styles/theme';
+import { useCategories } from 'common/hooks/useCategories';
 import { ContainerCardCategory } from './styles';
-import { ICardCategory } from './interface';
+import { CardCategoryProps } from './interface';
 
-export const CardCategory: React.FC<ICardCategory> = ({ category, countProfessionals, title }) => {
+export const CardCategory: React.FC<CardCategoryProps> = ({ category, countProfessionals, title }) => {
+  const { category: categoryContext, onChangeCaregory } = useCategories();
+
   const isIcon = useMemo(() => {
     switch (category) {
       case CategoryProps.BELEZA:
         return <Beleza />;
-      case CategoryProps.CABELEIRO:
+      case CategoryProps.CABELELEIRO:
         return <Cabeleleiro />;
       case CategoryProps.CILIOS:
         return <Cilios />;
@@ -35,7 +38,15 @@ export const CardCategory: React.FC<ICardCategory> = ({ category, countProfessio
 
   return (
     <ContainerCardCategory>
-      <button type="button">
+      <button
+        type="button"
+        className={categoryContext?.type === category ? 'active' : ''}
+        onClick={() => onChangeCaregory({
+          countProfessionals,
+          description: title,
+          type: category,
+        })}
+      >
         <div className="icon">
           {isIcon}
         </div>

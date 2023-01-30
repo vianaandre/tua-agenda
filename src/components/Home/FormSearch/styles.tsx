@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
 export const ContainerFormSearch = styled.form`
-    max-width: 852px;
+    width: 100%;
     position: relative;
     /* z-index: ${({ theme }) => theme.zIndex.BASE}; */
     background-color: ${({ theme }) => theme.colors.WHITE};
-    padding: ${({ theme }) => theme.spacing(2)};
-    padding-left: ${({ theme }) => theme.spacing(4)};
+    padding: ${({ theme }) => theme.spacing(2)} ${({ theme }) => theme.spacing(4)};
     display: flex;
     align-items: center;
     gap: ${({ theme }) => theme.spacing(3)};
@@ -15,7 +14,7 @@ export const ContainerFormSearch = styled.form`
     button {
         min-height: 60px;
         min-width: 209px;
-    }
+    };
 `;
 
 export const ContainerFormInputs = styled.div`

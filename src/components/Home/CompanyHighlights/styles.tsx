@@ -7,7 +7,7 @@ export const ContainerCompanyHighlights = styled.section`
         header {
             width: 100%;
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             justify-content: space-between;
 
             button {
@@ -23,6 +23,12 @@ export const ContainerCompanyHighlights = styled.section`
                     transition: 400ms;
                 }
             }
+        }
+        ul {
+            display: flex;
+            gap: ${({ theme }) => theme.spacing(4)};
+            flex-wrap: wrap;
+            margin-top: ${({ theme }) => theme.spacing(6)};
         }
     }
 `;

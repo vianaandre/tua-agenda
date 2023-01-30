@@ -34,6 +34,7 @@ export const ContainerCategoriesCards = styled.div`
     ul {
         width: 100%;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         gap: ${({ theme }) => theme.spacing(4)};
     }

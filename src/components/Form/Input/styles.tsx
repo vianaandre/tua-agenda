@@ -48,53 +48,6 @@ export const ContainerInputInput = styled.div<{
         return theme.spacing(1);
     }
   }};
-    input {
-        width: 100%;
-        padding: ${({ theme }) => theme.spacing(2.25)} ${({ theme, variant }) => {
-  switch (variant) {
-    case InputVariantProps.OUTLINE:
-      return 0;
-    case InputVariantProps.PRIMARY:
-      return theme.spacing(2.5);
-    default:
-      return theme.spacing(2.5);
-  }
-}};
-        border: none;
-        border-bottom: ${({ theme, variant }) => {
-    switch (variant) {
-      case InputVariantProps.PRIMARY:
-        return 'none';
-      case InputVariantProps.OUTLINE:
-        return `2px solid ${theme.colors.PRIMARY[250]}`;
-      default:
-        return 'none';
-    }
-  }};
-        background-color: transparent;
-        font-size: ${({ theme }) => theme.fonts.sizes[16]};
-        font-weight: 500;
-        font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
-        color: ${({ theme }) => theme.colors.PRIMARY[800]};
-        &::placeholder {
-            color: ${({ theme }) => theme.colors.GREY[700]};
-            font-weight: 400
-        };
-        &:focus {
-            outline: none;
-            box-shadow: none;
-            border-color: ${({ theme, variant }) => {
-    switch (variant) {
-      case InputVariantProps.PRIMARY:
-        return 'none';
-      case InputVariantProps.OUTLINE:
-        return theme.colors.PRIMARY[500];
-      default:
-        return 'none';
-    }
-  }};
-        }
-    };
     transition: 400ms;
     &.focus {
         transition: 400ms;
@@ -144,6 +97,129 @@ export const ContainerInputInput = styled.div<{
   }}
             }
         }
+    }
+    &.error {
+        transition: 400ms;
+        border-color: ${({ theme, variant }) => {
+    switch (variant) {
+      case InputVariantProps.PRIMARY:
+        return theme.colors.DANGER;
+      case InputVariantProps.OUTLINE:
+        return 'none';
+      default:
+        return theme.colors.DANGER;
+    }
+  }};
+        svg {
+            path {
+                fill: ${({ theme, variant }) => {
+    switch (variant) {
+      case InputVariantProps.PRIMARY:
+        return theme.colors.DANGER;
+      case InputVariantProps.OUTLINE:
+        return theme.colors.DANGER;
+      default:
+        return theme.colors.DANGER;
+    }
+  }};
+                stroke: ${({ theme, variant }) => {
+    switch (variant) {
+      case InputVariantProps.PRIMARY:
+        return theme.colors.DANGER;
+      case InputVariantProps.OUTLINE:
+        return theme.colors.DANGER;
+      default:
+        return theme.colors.DANGER;
+    }
+  }}
+            }
+            circle {
+                stroke: ${({ theme, variant }) => {
+    switch (variant) {
+      case InputVariantProps.PRIMARY:
+        return theme.colors.DANGER;
+      case InputVariantProps.OUTLINE:
+        return theme.colors.DANGER;
+      default:
+        return theme.colors.DANGER;
+    }
+  }}
+            }
+        }
+        input {
+            border-bottom: ${({ theme, variant }) => {
+    switch (variant) {
+      case InputVariantProps.PRIMARY:
+        return 'none';
+      case InputVariantProps.OUTLINE:
+        return `2px solid ${theme.colors.DANGER} !important`;
+      default:
+        return 'none';
+    }
+  }};
+        }
+    }
+`;
+
+export const ContainerInputInputInput = styled.div<{
+    variant: InputVariantProps;
+}>`
+    width: 100%;
+    input {
+        width: 100%;
+        padding: ${({ theme }) => theme.spacing(2.25)} ${({ theme, variant }) => {
+  switch (variant) {
+    case InputVariantProps.OUTLINE:
+      return 0;
+    case InputVariantProps.PRIMARY:
+      return theme.spacing(2.5);
+    default:
+      return theme.spacing(2.5);
+  }
+}};
+        border: none;
+        border-bottom: ${({ theme, variant }) => {
+    switch (variant) {
+      case InputVariantProps.PRIMARY:
+        return 'none';
+      case InputVariantProps.OUTLINE:
+        return `2px solid ${theme.colors.PRIMARY[250]}`;
+      default:
+        return 'none';
+    }
+  }};
+        background-color: transparent;
+        font-size: ${({ theme }) => theme.fonts.sizes[16]};
+        font-weight: 500;
+        font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
+        color: ${({ theme }) => theme.colors.PRIMARY[800]};
+        &::placeholder {
+            color: ${({ theme }) => theme.colors.GREY[700]};
+            font-weight: 400
+        };
+        &:focus {
+            outline: none;
+            box-shadow: none;
+            border-color: ${({ theme, variant }) => {
+    switch (variant) {
+      case InputVariantProps.PRIMARY:
+        return 'none';
+      case InputVariantProps.OUTLINE:
+        return theme.colors.PRIMARY[500];
+      default:
+        return 'none';
+    }
+  }};
+        }
+    };
+    position: relative;
+    p.error {
+        position: absolute;
+        bottom: -18px;
+        font-size: ${({ theme }) => theme.fonts.sizes[12]};
+        font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
+        font-weight: 500;
+        color: ${({ theme }) => theme.colors.DANGER};
     }
 `;
 

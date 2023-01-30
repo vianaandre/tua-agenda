@@ -23,6 +23,14 @@ export const ContainerBanner = styled.div`
             h1.title {
                 max-width: 629px;
             }
+            position: relative;
+            img {
+                position: absolute;
+                top: 225px
+            }
+            div.form_search {
+                max-width: 852px;
+            }
         }
     }
 `;

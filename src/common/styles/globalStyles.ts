@@ -7,7 +7,7 @@ export const GlobalStyles = createGlobalStyle`
     }
     /* Handle */
     *::-webkit-scrollbar-thumb {
-        background: ${({ theme }) => theme.colors.PRIMARY};
+        background: ${({ theme }) => theme.colors.PRIMARY[500]};
         border-radius: 6px;
     }
     * {
@@ -166,5 +166,49 @@ export const GlobalStyles = createGlobalStyle`
     p.color_dark {
         color: ${({ theme }) => theme.colors.PRIMARY[800]};
         font-weight: 400;
+    }
+    .color_white {
+        color: ${({ theme }) => theme.colors.WHITE} !important;
+    }
+    .color_grey_600 {
+        color: ${({ theme }) => theme.colors.GREY[600]} !important;
+    }
+    .color_grey_700 {
+        color: ${({ theme }) => theme.colors.GREY[700]} !important;
+    }
+    .font_weight_500 {
+        font-weight: 500;
+    }
+    div.content-select {
+        width: 100%;
+        background-color: ${({ theme }) => theme.colors.WHITE} !important;
+        overflow: hidden;
+        border-radius: 4px;
+        .item {
+            padding: ${({ theme }) => theme.spacing(1.5)};
+            display: flex;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            span {
+                font-size: ${({ theme }) => theme.fonts.sizes[14]};
+                font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
+                color: ${({ theme }) => theme.colors.PRIMARY[800]};
+                font-weight: 500;
+            }
+            &.item_active {
+                background-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+                span {
+                    color: ${({ theme }) => theme.colors.WHITE};
+                }
+            }
+            &:hover {
+                background-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+
+                span {
+                    color: ${({ theme }) => theme.colors.WHITE};
+                }
+            }
+        }
     }
 `;

@@ -1,6 +1,6 @@
 export enum CategoryProps {
     BELEZA = 'BELEZA',
-    CABELEIRO = 'CABELEIRO',
+    CABELELEIRO = 'CABELELEIRO',
     UNHAS = 'UNHAS',
     TATUAGEM = 'TATUAGEM',
     CILIOS = 'CILIOS',

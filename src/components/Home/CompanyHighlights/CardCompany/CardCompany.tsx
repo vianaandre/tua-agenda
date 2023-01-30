@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 
 import { Avatar } from 'components/Avatar';
+import { Evaluation } from 'common/icons';
+import { theme } from 'common/styles/theme';
 import { ContainerCardCompany, ContainerCardCompanyImage, ContainerCardCompanyInfos } from './styles';
 import { ICardCompany } from './interface';
 
@@ -12,12 +14,12 @@ export const CardCompany: React.FC<ICardCompany> = ({
     <ContainerCardCompany>
       <ContainerCardCompanyImage image={image} />
       <ContainerCardCompanyInfos>
-        <header>
+        <div className="header">
           <Avatar image={logo} username={name} />
           <Link href="#" passHref legacyBehavior>
             <a>Agendar agora</a>
           </Link>
-        </header>
+        </div>
         <div className="name_address">
           <h6 className="title">{name}</h6>
           <p className="normal color_dark">
@@ -28,6 +30,7 @@ export const CardCompany: React.FC<ICardCompany> = ({
         </div>
         <div className="footer">
           <p className="normal color_light">
+            <Evaluation width={24} height={24} color={theme.colors.WARNING} />
             {evaluation.toFixed(1)}
             {' '}
             / 10 avaliações

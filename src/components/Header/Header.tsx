@@ -3,11 +3,12 @@ import Link from 'next/link';
 
 import { Container } from 'common/styles/container';
 import {
-  Logo, Location, Translation,
+  Logo, Location,
 } from 'common/icons';
 import { theme } from 'common/styles/theme';
 import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
+import { Translation } from 'components/Translation';
 import { ContainerHeader, ContainerHeaderLeft, ContainerHeaderRight } from './styles';
 
 export const Header: React.FC = () => {
@@ -28,8 +29,7 @@ export const Header: React.FC = () => {
         <ContainerHeaderRight>
           <ul>
             <li>
-              <Translation width={22} height={22} color={theme.colors.GREY[950]} />
-              <p className="small">PT</p>
+              <Translation variant="primary" />
             </li>
             <li>
               <Button.Link
