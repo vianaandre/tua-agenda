@@ -59,7 +59,7 @@ const sharedStyles = css<{
         return 'center';
     }
   }};;
-    gap: ${({ theme }) => theme.spacing(1)};
+    gap: ${({ theme }) => theme.spacing(2)};
     position: relative;
     overflow: hidden;
     transition: 400ms;
@@ -72,6 +72,8 @@ const sharedStyles = css<{
         return theme.colors.PRIMARY[500];
       case ButtonVariantProps.FULL:
         return theme.colors.PRIMARY[500];
+      case ButtonVariantProps.OUTLINE_TEXT:
+        return 'transparent';
       default:
         return theme.colors.PRIMARY[350];
     }
@@ -82,11 +84,14 @@ const sharedStyles = css<{
         return 'brightness(0.9)';
       case ButtonVariantProps.FULL:
         return 'brightness(0.9)';
+      case ButtonVariantProps.OUTLINE_TEXT:
+        return 'brightness(1.3)';
       default:
         return 'none';
     }
   }};
-    }
+    };
+    height: fit-content
 `;
 
 export const ContainerButton = styled.button<{

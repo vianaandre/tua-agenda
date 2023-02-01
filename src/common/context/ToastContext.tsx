@@ -24,7 +24,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   return (
     <ToastContext.Provider value={{ onToast: handleToast }}>
       <ToastContainer
-        autoClose={3000}
+        autoClose={4000}
         position="top-right"
         style={{
           fontSize: theme.fonts.sizes[14],

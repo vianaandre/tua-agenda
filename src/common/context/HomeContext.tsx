@@ -9,6 +9,7 @@ import { CategoriesProps } from 'common/interface/CategoriesProps';
 import { useToast } from 'common/hooks/useToast';
 import api from 'services/api';
 import { GET_SERVICES } from 'services/routes';
+import { SearchServiceFormProps } from 'common/interface/Form/SearchServiceFormProps';
 
 export interface HomeContextProps {
     services: ServiceProps[];
@@ -24,6 +25,10 @@ export interface HomeContextProps {
     onUpdateIsViewMore: (viewMore: boolean) => void;
     onChangeCaregory: (category: CategoriesProps) => void;
     onLoadServicesPerCategory: () => Promise<void>;
+    onClearSearchServices: () => void;
+    onLoadServicePerServiceAndCity: ({ name, city }: SearchServiceFormProps) => Promise<void>;
+    onLoadServicesPerCity: (city: string) => Promise<void>;
+    onLoadServicesAll: () => Promise<void>;
 }
 
 export const HomeContext = createContext({} as HomeContextProps);
@@ -85,6 +90,63 @@ export function HomeProvider({ children }: { children: React.ReactNode }): JSX.E
     }
   }, [onToast, isCategory]);
 
+  const handleLoadServicePerServiceAndCity = useCallback(async ({ name, city }: SearchServiceFormProps) => {
+    try {
+      setIsLoadingSearch(true);
+      const { data } = await api.post(GET_SERVICES, {
+        service: name,
+        city,
+      });
+
+      setIsSearchServices(data);
+      setIsLoadingSearch(false);
+    } catch (err) {
+      setIsLoadingSearch(false);
+      onToast({
+        message: 'Houve um problema de comunicação.',
+        type: 'error',
+      });
+    }
+  }, [onToast]);
+
+  const handleLoadServicesPerCity = useCallback(async (city: string) => {
+    try {
+      setIsLoadingSearch(true);
+      const { data } = await api.post(GET_SERVICES, {
+        city,
+      });
+
+      setIsSearchServices(data);
+      setIsLoadingSearch(false);
+    } catch (err) {
+      setIsLoadingSearch(false);
+      onToast({
+        message: 'Houve um problema de comunicação.',
+        type: 'error',
+      });
+    }
+  }, [onToast]);
+
+  const handleClearSearchServices = useCallback(() => {
+    setIsSearchServices(undefined);
+  }, []);
+
+  const handleLoadServicesAll = useCallback(async () => {
+    try {
+      setIsLoadingSearch(true);
+      const { data } = await api.get(GET_SERVICES);
+
+      setIsSearchServices(data);
+      setIsLoadingSearch(false);
+    } catch (err) {
+      setIsLoadingSearch(false);
+      onToast({
+        message: 'Houve um problema de comunicação.',
+        type: 'error',
+      });
+    }
+  }, [onToast]);
+
   const isListCities = useMemo((): CityProps[] => {
     if (isViewMore) {
       return isCities;
@@ -113,6 +175,10 @@ export function HomeProvider({ children }: { children: React.ReactNode }): JSX.E
       onUpdateIsViewMore: handleUpdateIsViewMore,
       onChangeCaregory: handleChangeCaregory,
       onLoadServicesPerCategory: handleLoadServicesPerCategory,
+      onClearSearchServices: handleClearSearchServices,
+      onLoadServicePerServiceAndCity: handleLoadServicePerServiceAndCity,
+      onLoadServicesPerCity: handleLoadServicesPerCity,
+      onLoadServicesAll: handleLoadServicesAll,
     }}
     >
       {children}

@@ -211,4 +211,32 @@ export const GlobalStyles = createGlobalStyle`
             }
         }
     }
+    .dialog_overlay {
+        background-color: rgba(0, 0, 0, 0.44);
+        position: fixed;
+        inset: 0;
+        animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: ${({ theme }) => theme.zIndex.DROPDOWN};
+    }
+    .dialog_content {
+        width: 100vw !important;
+        height: 100vh !important;
+        min-height: 500px;
+        width: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed !important;
+        top: 0;
+        z-index: ${({ theme }) => theme.zIndex.MODAL};
+    }
+
+    @keyframes animationInModalDialog {
+        from {
+            transform: scale(0.8);
+        }
+        to {
+            transform: scale((1));
+        }
+    }
 `;

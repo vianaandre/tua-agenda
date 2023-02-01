@@ -1,4 +1,6 @@
-export interface ICardCompany {
+export type VarientCardCompanyProps = 'small' | 'large';
+
+export interface CardCompanyProps {
     image: string;
     logo?: string;
     name: string;
@@ -8,4 +10,5 @@ export interface ICardCompany {
     };
     evaluation: number;
     categories: string[];
+    variant: VarientCardCompanyProps;
 }

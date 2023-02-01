@@ -7,3 +7,5 @@ export { ArrowSelect } from './ArrowSelect';
 export { Arrow } from './Arrow';
 export { Evaluation } from './Evaluation';
 export { ArrowAlternative } from './ArrowAlternative';
+export { ArrowLeft } from './ArrowLeft';
+export { Close } from './Close';

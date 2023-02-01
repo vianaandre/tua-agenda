@@ -5,13 +5,13 @@ import { Avatar } from 'components/Avatar';
 import { Evaluation } from 'common/icons';
 import { theme } from 'common/styles/theme';
 import { ContainerCardCompany, ContainerCardCompanyImage, ContainerCardCompanyInfos } from './styles';
-import { ICardCompany } from './interface';
+import { CardCompanyProps } from './interface';
 
-export const CardCompany: React.FC<ICardCompany> = ({
-  address, categories, evaluation, image, logo, name,
+export const CardCompany: React.FC<CardCompanyProps> = ({
+  address, categories, evaluation, image, logo, name, variant,
 }) => {
   return (
-    <ContainerCardCompany>
+    <ContainerCardCompany variant={variant}>
       <ContainerCardCompanyImage image={image} />
       <ContainerCardCompanyInfos>
         <div className="header">

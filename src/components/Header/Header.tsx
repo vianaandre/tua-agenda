@@ -9,9 +9,12 @@ import { theme } from 'common/styles/theme';
 import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
 import { Translation } from 'components/Translation';
+import { useLocation } from 'common/hooks/useLocation';
 import { ContainerHeader, ContainerHeaderLeft, ContainerHeaderRight } from './styles';
 
 export const Header: React.FC = () => {
+  const { onGetLocationBrowser, locationPerCityAndState } = useLocation();
+
   return (
     <ContainerHeader>
       <Container>
@@ -21,10 +24,12 @@ export const Header: React.FC = () => {
               <Logo width={159} height={19} color={theme.colors.PRIMARY[500]} />
             </a>
           </Link>
-          <button type="button">
-            <Location width={22} height={22} color={theme.colors.GREY[950]} />
-            <p className="small">Permitir localização</p>
-          </button>
+          {!locationPerCityAndState && (
+            <button type="button" onClick={onGetLocationBrowser}>
+              <Location width={22} height={22} color={theme.colors.GREY[950]} />
+              <p className="small">Permitir localização</p>
+            </button>
+          )}
         </ContainerHeaderLeft>
         <ContainerHeaderRight>
           <ul>

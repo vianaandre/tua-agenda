@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
-export const ContainerCardCompany = styled.li`
-    width: calc(100% / 4 - ${({ theme }) => theme.spacing(3)});
+import { VarientCardCompanyProps } from './interface';
+
+export const ContainerCardCompany = styled.li<{
+    variant: VarientCardCompanyProps;
+}>`
+    width: calc(100% / ${({ variant }) => (variant === 'large' ? 3 : 4)} - ${({ theme }) => theme.spacing(3)});
     padding: ${({ theme }) => theme.spacing(2)};
     display: flex;
     flex-direction: column;

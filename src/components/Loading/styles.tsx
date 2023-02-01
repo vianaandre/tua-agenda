@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 
 export const ContainerLoading = styled.div`
-    display: none;
+    opacity: 1;
+    position: fixed;
+    z-index: 1 !important;
+    display: flex;
 
-    &.active {
-        display: flex;
+    &.disabled {
+        transition: 400ms;
+        opacity: 0;
+        z-index: -1 !important;
     }
 
     background-color: ${({ theme }) => theme.colors.PRIMARY[250]};
@@ -14,7 +19,6 @@ export const ContainerLoading = styled.div`
     width: 100vw;
     min-width: 200px;
     min-height: 500px;
-    position: fixed;
     top: 0;
     z-index: ${({ theme }) => theme.zIndex.OVERLAY};
 `;

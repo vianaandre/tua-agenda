@@ -12,6 +12,7 @@
     "db": "npx json-server --watch mock.json --port 3004"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-select": "^1.1.2",
     "@radix-ui/react-toast": "^1.1.2",
     "axios": "^1.2.6",
@@ -19,6 +20,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.40.0",
+    "react-intl": "^6.2.7",
     "react-toastify": "^9.1.1",
     "scheduler": "^0.23.0",
     "styled-components": "^5.3.6",

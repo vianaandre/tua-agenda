@@ -8,15 +8,17 @@ import { theme } from 'common/styles/theme';
 import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
 import { useCities } from 'common/hooks/useCities';
+import { SearchServiceFormProps } from 'common/interface/Form/SearchServiceFormProps';
+import { useHome } from 'common/hooks/useHome';
 import { ContainerFormSearch, ContainerFormInputs } from './styles';
-import { FormProps } from './interface';
 
 export const FormSearch: React.FC = () => {
-  const methods = useForm<FormProps>();
+  const methods = useForm<SearchServiceFormProps>();
   const { cities } = useCities();
+  const { onLoadServicePerServiceAndCity } = useHome();
 
-  const onSubmit = (data: FormProps) => {
-    console.log(data);
+  const onSubmit = (data: SearchServiceFormProps) => {
+    onLoadServicePerServiceAndCity(data);
   };
 
   return (

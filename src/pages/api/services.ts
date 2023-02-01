@@ -5,6 +5,37 @@ import services from 'services/mock/services.json';
 
 function handler(req: NextApiRequest, res: NextApiResponse) {
   const { category }: { category?: CategoryProps } = req.body;
+  const { city, service } = req.body;
+
+  if (city) {
+    const servicesPerCity = [] as ServiceProps[];
+
+    services.forEach((item) => {
+      if (item.address.city === city) {
+        servicesPerCity.push(item);
+      }
+    });
+
+    return res.status(200).json(servicesPerCity);
+  }
+
+  if (service) {
+    const servicesPerServiceAndCity = [] as ServiceProps[];
+
+    services.forEach((item) => {
+      if (item.service.toLocaleLowerCase().includes(service.toLocaleLowerCase())) {
+        if (city) {
+          if (item.address.city === city) {
+            servicesPerServiceAndCity.push(item);
+          }
+        } else {
+          servicesPerServiceAndCity.push(item);
+        }
+      }
+    });
+
+    return res.status(200).json(servicesPerServiceAndCity);
+  }
 
   if (category) {
     const servicesPerCategory = [] as ServiceProps[];
