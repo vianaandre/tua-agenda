@@ -6,6 +6,12 @@ export const ContainerCardCompany = styled.li<{
     variant: VarientCardCompanyProps;
 }>`
     width: calc(100% / ${({ variant }) => (variant === 'large' ? 3 : 4)} - ${({ theme }) => theme.spacing(3)});
+    @media(max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+        width: calc(100% / 2 - ${({ theme }) => theme.spacing(3)});
+    }
+    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        width: 100%;
+    }
     padding: ${({ theme }) => theme.spacing(2)};
     display: flex;
     flex-direction: column;
@@ -61,10 +67,12 @@ export const ContainerCardCompanyInfos = styled.div`
             margin-top: ${({ theme }) => theme.spacing(1)};
             p.small {
                 padding: ${({ theme }) => theme.spacing(0.5)} ${({ theme }) => theme.spacing(2)};
+                padding-bottom: ${({ theme }) => theme.spacing(0.20)};
                 border-radius: 80px;
                 background-color: ${({ theme }) => theme.colors.PRIMARY[250]};
                 color: ${({ theme }) => theme.colors.PRIMARY[500]};
                 font-weight: 500;
+                font-size: ${({ theme }) => theme.fonts.sizes[12]};
             }
         }
     }

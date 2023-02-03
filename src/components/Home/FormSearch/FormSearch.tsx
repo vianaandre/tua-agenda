@@ -61,7 +61,7 @@ export const FormSearch: React.FC = () => {
             left={19}
           />
         </ContainerFormInputs>
-        <Button.Normal type="submit" text="Buscar" variant={ButtonVariantProps.PRIMARY} />
+        <Button.Normal type="submit" text="Buscar" variant={ButtonVariantProps.PRIMARY} className="btn_submit" />
       </FormProvider>
     </ContainerFormSearch>
   );

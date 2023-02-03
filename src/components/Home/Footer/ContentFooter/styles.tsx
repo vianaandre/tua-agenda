@@ -4,12 +4,22 @@ export const ContainerContentFooter = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
+    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        flex-direction: column;
+        justify-content: center;
+        gap: ${({ theme }) => theme.spacing(6)};
+    }
 `;
 
 export const ContainerContentFooterCardLeft = styled.div`
     display: flex;
     flex-direction: column;
     gap: ${({ theme }) => theme.spacing(4)};
+
+    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        align-items: center;
+        text-align: center;
+    }
 
     p.normal {
         max-width: 376px;
@@ -24,8 +34,12 @@ export const ContainerContentFooterCardRight = styled.div`
         gap: ${({ theme }) => theme.spacing(2)};
         
         li {
+            @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                display: flex;
+                justify-content: center;
+            }
             a {
-               p {
+                p {
                     position: relative;
                     width: fit-content;
                     transition: 400ms;
@@ -53,5 +67,13 @@ export const ContainerContentFooterCardRight = styled.div`
         }
     }
     display: flex;
-    gap: ${({ theme }) => theme.spacing(8)}
+    gap: ${({ theme }) => theme.spacing(8)};
+    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        align-items: center;
+        flex-direction: column;
+        gap: ${({ theme }) => theme.spacing(3)};
+        div.menu_about, div.menu_legal {
+            text-align: center;
+        }
+    }
 `;

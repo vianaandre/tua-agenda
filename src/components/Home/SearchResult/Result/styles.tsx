@@ -18,7 +18,14 @@ export const ContainerResult = styled.div`
                 }
                 margin-bottom: ${({ theme }) => theme.spacing(1)};
             }
+            @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                gap: ${({ theme }) => theme.spacing(2)};
+                button {
+                    min-width: 128px;
+                    margin-top: ${({ theme }) => theme.spacing(-1)};
+                }
             }
+        }
         ul {
             margin-top: ${({ theme }) => theme.spacing(4)};
             display: flex;

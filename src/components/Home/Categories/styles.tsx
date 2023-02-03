@@ -8,7 +8,7 @@ export const ContainerCategories = styled.section`
             width: 100%;
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
+            align-items: center;
 
             button {
                 display: flex;
@@ -31,11 +31,34 @@ export const ContainerCategoriesCards = styled.div`
     display: flex;
     flex-direction: column;
     gap: ${({ theme }) => theme.spacing(4)};
-    ul {
+    ul.desktop {
         width: 100%;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         gap: ${({ theme }) => theme.spacing(4)};
+
+        @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+            &.desktop {
+                display: none;
+            }
+        }
+    };
+    div.carousel_categories {
+        display: none;
+    }
+    @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        div.carousel_categories {
+            display: flex;
+            ul {
+                li {
+                    margin-right: 16px;
+                    @media(max-width: 524px) {
+                        margin-right: 0px;
+                        padding: 0px ${({ theme }) => theme.spacing(1)}
+                    }
+                }
+            }
+        }
     }
 `;

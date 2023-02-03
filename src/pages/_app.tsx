@@ -7,18 +7,21 @@ import { Header } from 'components/Header';
 import { ToastProvider } from 'common/context/ToastContext';
 import 'react-toastify/dist/ReactToastify.css';
 import { LocationProvider } from 'common/context/LocationContext';
+import { AnimationProvider } from 'common/context/AnimationContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ToastProvider>
-      <LocationProvider>
-        <ThemeProvider theme={theme}>
-          <GlobalStyles />
-          <Header />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </LocationProvider>
-    </ToastProvider>
+    <AnimationProvider>
+      <ToastProvider>
+        <LocationProvider>
+          <ThemeProvider theme={theme}>
+            <GlobalStyles />
+            <Header />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </LocationProvider>
+      </ToastProvider>
+    </AnimationProvider>
   );
 }
 

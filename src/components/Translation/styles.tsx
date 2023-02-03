@@ -24,6 +24,10 @@ export const ContainerTranslationModal = styled.div`
     display: flex;
     flex-direction: column;
     gap: ${({ theme }) => theme.spacing(4)};
+    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        padding: ${({ theme }) => theme.spacing(2.5)} ${({ theme }) => theme.spacing(2.5)};
+        width: 95%;
+    }
     .dialog_title {
         font-size: ${({ theme }) => theme.fonts.sizes[32]};
         font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
@@ -31,6 +35,9 @@ export const ContainerTranslationModal = styled.div`
         font-style: normal;
         text-align: left;
         color: ${({ theme }) => theme.colors.GREY[1000]};
+        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+            font-size: ${({ theme }) => theme.fonts.sizes[24]};
+        }
     }
     .dialog_description {
         font-size: ${({ theme }) => theme.fonts.sizes[16]};
@@ -62,6 +69,9 @@ export const ContainerTranslationModal = styled.div`
                 color: ${({ theme }) => theme.colors.PRIMARY[0]};
                 transition: 400ms;
                 background-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+            }
+            @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                padding: ${({ theme }) => theme.spacing(1.25)};
             }
         }
     }

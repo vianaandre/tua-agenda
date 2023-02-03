@@ -9,6 +9,15 @@ export const ContainerCompanyHighlights = styled.section`
             display: flex;
             align-items: center;
             justify-content: space-between;
+            @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+                h2 {
+                    flex: 1;
+                }
+            }
+            @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                flex-wrap: wrap;
+                gap: ${({ theme }) => theme.spacing(2)};
+            }
 
             button {
                 display: flex;

@@ -25,6 +25,11 @@ export const ContainerSocialMedia = styled.div<{
                 align-items: center;
                 justify-content: center;
                 width: fit-content;
+                transition: 400ms;
+                &:hover {
+                    transition: 400ms;
+                    filter: brightness(0.8)
+                }
             }
         }
     }

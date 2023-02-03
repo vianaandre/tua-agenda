@@ -91,7 +91,8 @@ const sharedStyles = css<{
     }
   }};
     };
-    height: fit-content
+    position: relative;
+    height: fit-content;
 `;
 
 export const ContainerButton = styled.button<{

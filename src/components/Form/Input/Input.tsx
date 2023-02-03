@@ -31,7 +31,7 @@ export const Input: React.FC<IInput> = ({
           )}
           <ContainerInputInput variant={variant} className={`${isFocus ? 'focus' : ''} ${error ? 'error' : ''}`}>
             {icon && icon.direction === 'left' && (
-            <ContainerInputIcon className={`${variant !== InputVariantProps.OUTLINE ? 'padding_left' : 'padding_right'}`}>
+            <ContainerInputIcon className={`${variant !== InputVariantProps.OUTLINE ? 'padding_left' : 'padding_right'} icon_input`}>
               {icon.icon}
             </ContainerInputIcon>
             )}

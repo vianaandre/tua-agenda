@@ -17,7 +17,7 @@ export const Translation: React.FC<TranslationProps> = ({ variant }) => {
       <Dialog.Root>
         <Dialog.Trigger className="dialog_button">
           <TranslationIcon width={22} height={22} color={variant === 'primary' ? theme.colors.GREY[950] : theme.colors.GREY[700]} />
-          <p className={`small font_weight_500 ${variant === 'primary' ? '' : 'color_grey_700'}`}>PT (Brasil)</p>
+          <p className={`small font_weight_500 ${variant === 'primary' ? 'color_grey_950' : 'color_grey_700'}`}>PT (Brasil)</p>
         </Dialog.Trigger>
         <Dialog.Portal>
           <Dialog.Overlay className="dialog_overlay" />

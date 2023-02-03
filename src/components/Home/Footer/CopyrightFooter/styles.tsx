@@ -8,4 +8,8 @@ export const ContainerCopyRightFooter = styled.div`
     padding-top: ${({ theme }) => theme.spacing(5)};
     display: flex;
     justify-content: space-between;
+    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        margin-top: ${({ theme }) => theme.spacing(9)};
+        padding-bottom: 0px;
+    }
 `;

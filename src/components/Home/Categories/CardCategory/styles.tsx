@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 export const ContainerCardCategory = styled.li`
     width: calc(100% / 4 - ${({ theme }) => theme.spacing(3)});
+    @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        width: 100%;
+    }
     button {
         width: 100%;
         height: 214px;
@@ -14,6 +17,15 @@ export const ContainerCardCategory = styled.li`
         border: 1px solid ${({ theme }) => theme.colors.GREY[500]};
         border-radius: ${({ theme }) => theme.spacing(1)};
         cursor: pointer;
+        @media(max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+            padding-left: ${({ theme }) => theme.spacing(2)};
+        }
+        @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+            padding-left: ${({ theme }) => theme.spacing(4)};
+        }
+        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+            padding-left: ${({ theme }) => theme.spacing(3)};
+        }
         div.icon {
             svg {
                 path {
@@ -31,6 +43,9 @@ export const ContainerCardCategory = styled.li`
             display: flex;
             align-items: center;
             gap: ${({ theme }) => theme.spacing(2)};
+            @media(max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+                gap: ${({ theme }) => theme.spacing(1.5)};
+            }
             p.great {
                 transition: 400ms;
                 font-size: ${({ theme }) => theme.fonts.sizes[18]};

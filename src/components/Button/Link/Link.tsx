@@ -4,6 +4,7 @@ import LinkNext from 'next/link';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
 import { ContainerLink } from '../styles';
 import { ILink } from './interface';
+// import {} from 'common/'
 
 export const Link: React.FC<ILink> = ({
   text, variant = ButtonVariantProps.PRIMARY, icon, href, ...rest

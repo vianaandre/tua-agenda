@@ -68,6 +68,9 @@ export const GlobalStyles = createGlobalStyle`
         font-feature-settings: 'cv11' on;
         line-height: ${({ theme }) => theme.fonts.height[110]};
         color: ${({ theme }) => theme.colors.BLACK[500]};
+        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+            font-size: ${({ theme }) => theme.fonts.sizes[48]};
+        }
     }
     h2.title {
         font-size: ${({ theme }) => theme.fonts.sizes[48]};
@@ -77,6 +80,9 @@ export const GlobalStyles = createGlobalStyle`
         font-feature-settings: 'cv11' on;
         line-height: ${({ theme }) => theme.fonts.height[110]};
         color: ${({ theme }) => theme.colors.BLUE[200]};
+        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+            font-size: ${({ theme }) => theme.fonts.sizes[32]};
+        }
     }
     h3.title {
         font-size: ${({ theme }) => theme.fonts.sizes[48]};
@@ -86,6 +92,9 @@ export const GlobalStyles = createGlobalStyle`
         font-feature-settings: 'cv11' on;
         line-height: ${({ theme }) => theme.fonts.height[110]};
         color: ${({ theme }) => theme.colors.BLACK[500]};
+        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+            font-size: ${({ theme }) => theme.fonts.sizes[32]};
+        }
     }
     h4.title {
         font-size: ${({ theme }) => theme.fonts.sizes[32]};
@@ -94,6 +103,9 @@ export const GlobalStyles = createGlobalStyle`
         font-style: normal;
         line-height: ${({ theme }) => theme.fonts.height[125]};
         color: ${({ theme }) => theme.colors.WHITE};
+        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+            font-size: ${({ theme }) => theme.fonts.sizes[24]};
+        }
     };
     h5.title {
         font-size: ${({ theme }) => theme.fonts.sizes[24]};
@@ -154,6 +166,9 @@ export const GlobalStyles = createGlobalStyle`
         font-family: ${({ theme }) => theme.fonts.family.SECONDARY};
         line-height: ${({ theme }) => theme.fonts.height[160]};
         font-style: normal;
+        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+            font-size: ${({ theme }) => theme.fonts.sizes[16]};
+        }
     }
     p.color_light {
         color: ${({ theme }) => theme.colors.GREY[850]};
@@ -175,6 +190,9 @@ export const GlobalStyles = createGlobalStyle`
     }
     .color_grey_700 {
         color: ${({ theme }) => theme.colors.GREY[700]} !important;
+    }
+    .color_grey_950 {
+        color: ${({ theme }) => theme.colors.GREY[950]} !important;
     }
     .font_weight_500 {
         font-weight: 500;
@@ -216,7 +234,7 @@ export const GlobalStyles = createGlobalStyle`
         position: fixed;
         inset: 0;
         animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
-        z-index: ${({ theme }) => theme.zIndex.DROPDOWN};
+        z-index: ${({ theme }) => theme.zIndex.OVERLAY};
     }
     .dialog_content {
         width: 100vw !important;

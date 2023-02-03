@@ -9,10 +9,14 @@ export const ContainerBanner = styled.div`
     div.container {
         height: fit-content;
         overflow-y: hidden;
+        overflow-x: hidden;
         div.banne_photo {
             position: absolute;
             right: 0;
             top: ${({ theme }) => theme.spacing(2)};
+            @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+                display: none;
+            }
         }
         div.banner_content {
             padding: ${({ theme }) => theme.spacing(11.5)} 0px;
@@ -26,10 +30,23 @@ export const ContainerBanner = styled.div`
             position: relative;
             img {
                 position: absolute;
-                top: 225px
+                top: 225px;
+                @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                    top: 240px;
+                }
             }
             div.form_search {
                 max-width: 852px;
+            }
+            @media(max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+                p {
+                    max-width: 500px;
+                }
+            }
+            @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+                p {
+                    max-width: 100%;
+                }
             }
         }
     }

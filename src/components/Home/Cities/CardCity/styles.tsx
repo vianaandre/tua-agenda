@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 export const ContainerCardCity = styled.li`
     width: calc(100% / 2 - ${({ theme }) => theme.spacing(2)});
+    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        width: 100%;
+    }
     button {
         width: 100%;
         padding: ${({ theme }) => theme.spacing(3)} ${({ theme }) => theme.spacing(5)};

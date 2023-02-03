@@ -24,7 +24,7 @@ export const Select: React.FC<SelectProps> = ({
           )}
           <ContainerSelectSelect variant={variant} widthOption={widthOption} className={`${isOpen ? 'focus' : ''}`} left={left}>
             {icon && icon.direction === 'left' && variant === InputVariantProps.OUTLINE && (
-            <ContainerSelectIcon className={`${variant === InputVariantProps.OUTLINE ? 'padding_right' : 'padding_left'}`}>
+            <ContainerSelectIcon className={`${variant === InputVariantProps.OUTLINE ? 'padding_right' : 'padding_left'} icon_select`}>
               {icon.icon}
             </ContainerSelectIcon>
             )}
