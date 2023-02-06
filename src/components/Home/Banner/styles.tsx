@@ -26,9 +26,18 @@ export const ContainerBanner = styled.div`
             gap: ${({ theme }) => theme.spacing(3)};
             h1.title {
                 max-width: 629px;
+                
+                animation: fadeIn;
+                animation-duration: 0.5s;
+            }
+            p {
+                animation: fadeIn;
+                animation-duration: 1s;
             }
             position: relative;
             img {
+                animation: fadeIn;
+                animation-duration: 0.5s;
                 position: absolute;
                 top: 225px;
                 @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -37,6 +46,8 @@ export const ContainerBanner = styled.div`
             }
             div.form_search {
                 max-width: 852px;
+                animation: fadeIn;
+                animation-duration: 1.5s;
             }
             @media(max-width: ${({ theme }) => theme.breakpoints.desktop}) {
                 p {

@@ -38,6 +38,15 @@ export const ContainerCompanyHighlights = styled.section`
             gap: ${({ theme }) => theme.spacing(4)};
             flex-wrap: wrap;
             margin-top: ${({ theme }) => theme.spacing(6)};
+            div.animate__animated {
+                width: calc(100% / 4 - ${({ theme }) => theme.spacing(3)});
+                @media(max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+                    width: calc(100% / 2 - ${({ theme }) => theme.spacing(3)});
+                }
+                @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                    width: 100%;
+                }
+            }
         }
     }
 `;

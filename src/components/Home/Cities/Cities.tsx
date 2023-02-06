@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Image from 'next/image';
+import { AnimationOnScroll } from 'react-animation-on-scroll';
 
 import { Title } from 'components/Home/Title';
 import { Container } from 'common/styles/container';
@@ -24,7 +25,9 @@ export const Cities: React.FC<{ cities: CityProps[] }> = ({ cities }) => {
         <Image src={CitiesBgEffect.src} width={CitiesBgEffect.width} height={CitiesBgEffect.height} alt="Imagem de fundo" />
       </ContainerCitiesBgEffect>
       <Container>
-        <Title title="Explore" emphasis="cidades" />
+        <AnimationOnScroll animateIn="animate__fadeInUp" duration={0.5} animateOnce>
+          <Title title="Explore" emphasis="cidades" />
+        </AnimationOnScroll>
         <ul>
           {listCities.map((item) => (
             <CardCity key={item.city} city={item.city} />

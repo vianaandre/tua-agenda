@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+import { AnimationOnScroll } from 'react-animation-on-scroll';
 
 import { Title } from 'components/Home/Title';
 import { Container } from 'common/styles/container';
@@ -10,7 +12,6 @@ import { useCategories } from 'common/hooks/useCategories';
 import { carouselCategories } from 'utils/carousel';
 import { ContainerCategories, ContainerCategoriesCards } from './styles';
 import { CardCategory } from './CardCategory';
-import 'react-multi-carousel/lib/styles.css';
 
 export const Categories: React.FC<{ categories: CategoriesProps[] }> = ({ categories }) => {
   const { category, onUpdateStateCategories, onLoadServicesPerCategory } = useCategories();
@@ -23,23 +24,29 @@ export const Categories: React.FC<{ categories: CategoriesProps[] }> = ({ catego
     <ContainerCategories>
       <Container>
         <header>
-          <Title title="Principais" emphasis="categorias" />
+          <AnimationOnScroll animateIn="animate__fadeInUp" duration={0.5} animateOnce>
+            <Title title="Principais" emphasis="categorias" />
+          </AnimationOnScroll>
           {category && (
+          <AnimationOnScroll animateIn="animate__fadeIn" duration={0.5} animateOnce>
             <button type="button" onClick={onLoadServicesPerCategory}>
               <p className="normal color_normal">Buscar</p>
               <Arrow width={24} height={24} color={theme.colors.PRIMARY[500]} />
             </button>
+          </AnimationOnScroll>
           )}
         </header>
         <ContainerCategoriesCards>
           <ul className="desktop">
             {categories.map((item) => (
-              <CardCategory
-                key={item.description}
-                title={item.description}
-                category={item.type}
-                countProfessionals={item.countProfessionals}
-              />
+              <AnimationOnScroll animateIn="animate__fadeInUp" animateOnce>
+                <CardCategory
+                  key={item.description}
+                  title={item.description}
+                  category={item.type}
+                  countProfessionals={item.countProfessionals}
+                />
+              </AnimationOnScroll>
             ))}
           </ul>
           <Carousel

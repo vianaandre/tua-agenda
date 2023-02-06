@@ -15,6 +15,11 @@ export const ContainerHeaderLeft = styled.div`
     align-items: center;
     gap: ${({ theme }) => theme.spacing(4)};
 
+    a {
+        animation: fadeIn;
+        animation-duration: 0.5s;
+    }
+
     button {
         display: flex;
         gap: ${({ theme }) => theme.spacing(1)};

@@ -8,6 +8,7 @@ import { ToastProvider } from 'common/context/ToastContext';
 import 'react-toastify/dist/ReactToastify.css';
 import { LocationProvider } from 'common/context/LocationContext';
 import { AnimationProvider } from 'common/context/AnimationContext';
+import 'animate.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

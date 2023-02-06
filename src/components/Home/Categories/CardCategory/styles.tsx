@@ -1,10 +1,7 @@
 import styled from 'styled-components';
 
 export const ContainerCardCategory = styled.li`
-    width: calc(100% / 4 - ${({ theme }) => theme.spacing(3)});
-    @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-        width: 100%;
-    }
+    width: 100%;
     button {
         width: 100%;
         height: 214px;

@@ -46,6 +46,12 @@ export const Result: React.FC = () => {
               {searchServices.map((item) => (
                 <CardCompany address={item.address} categories={item.categories} evaluation={item.evaluation} image={item.image} name={item.name} logo={item.logo} key={`${item.name}-${item.id}`} variant="large" />
               ))}
+              {searchServices.map((item) => (
+                <CardCompany address={item.address} categories={item.categories} evaluation={item.evaluation} image={item.image} name={item.name} logo={item.logo} key={`${item.name}-${item.id}`} variant="large" />
+              ))}
+              {searchServices.map((item) => (
+                <CardCompany address={item.address} categories={item.categories} evaluation={item.evaluation} image={item.image} name={item.name} logo={item.logo} key={`${item.name}-${item.id}`} variant="large" />
+              ))}
             </ul>
           </React.Fragment>
         ) : (

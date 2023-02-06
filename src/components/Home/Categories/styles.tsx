@@ -10,7 +10,14 @@ export const ContainerCategories = styled.section`
             justify-content: space-between;
             align-items: center;
 
+            h2 {
+                animation: fadeInUp;
+                animation-duration: 500ms;
+            }
+
             button {
+                animation: fadeIn;
+                animation-duration: 500ms;
                 display: flex;
                 align-items: center;
                 gap: ${({ theme }) => theme.spacing(2)};
@@ -37,7 +44,37 @@ export const ContainerCategoriesCards = styled.div`
         flex-wrap: wrap;
         align-items: center;
         gap: ${({ theme }) => theme.spacing(4)};
-
+        div.animate__animated {
+            width: calc(100% / 4 - ${({ theme }) => theme.spacing(3)}) !important;
+            @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+                width: 100% !important;
+            }
+        }
+        div.animate__animated:nth-child(1) {
+            animation-duration: 400ms !important;
+        }
+        div.animate__animated:nth-child(5) {
+            animation-duration: 600ms !important;
+        }
+        div.animate__animated:nth-child(2) {
+            animation-duration: 600ms !important;
+        }
+        div.animate__animated:nth-child(6) {
+            animation-duration: 800ms !important;
+        }
+        div.animate__animated:nth-child(3) {
+            animation-duration: 800ms !important;
+        }
+        div.animate__animated:nth-child(7) {
+            animation-duration: 1000ms !important;
+        } 
+        div.animate__animated:nth-child(4) {
+            animation-duration: 1000ms !important;
+        }
+        div.animate__animated:nth-child(8) {
+            animation-duration: 1200ms !important;
+        } 
+        
         @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
             &.desktop {
                 display: none;
@@ -51,8 +88,13 @@ export const ContainerCategoriesCards = styled.div`
         div.carousel_categories {
             display: flex;
             ul {
+                width: 100%;
                 li {
+                    width: 246px;
                     margin-right: 16px;
+                    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                        width: 246px;
+                    }
                     @media(max-width: 524px) {
                         margin-right: 0px;
                         padding: 0px ${({ theme }) => theme.spacing(1)}

@@ -5,9 +5,9 @@ import { VarientCardCompanyProps } from './interface';
 export const ContainerCardCompany = styled.li<{
     variant: VarientCardCompanyProps;
 }>`
-    width: calc(100% / ${({ variant }) => (variant === 'large' ? 3 : 4)} - ${({ theme }) => theme.spacing(3)});
+    width: ${({ theme, variant }) => (variant === 'large' ? `calc(100% / 3 - ${theme.spacing(3)})` : '100%')};
     @media(max-width: ${({ theme }) => theme.breakpoints.desktop}) {
-        width: calc(100% / 2 - ${({ theme }) => theme.spacing(3)});
+        width:  ${({ theme, variant }) => (variant === 'large' ? `calc(100% / 2 - ${theme.spacing(3)})` : '100%')};
     }
     @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
         width: 100%;

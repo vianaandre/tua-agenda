@@ -63,7 +63,7 @@ const sharedStyles = css<{
     position: relative;
     overflow: hidden;
     transition: 400ms;
-    cursor: pointer; 
+    cursor: pointer;
     &:hover {
         transition: 400ms;
         background-color: ${({ variant, theme }) => {
@@ -75,13 +75,26 @@ const sharedStyles = css<{
       case ButtonVariantProps.OUTLINE_TEXT:
         return 'transparent';
       default:
-        return theme.colors.PRIMARY[350];
+        return theme.colors.PRIMARY[500];
+    }
+  }};
+        border-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+        color: ${({ variant, theme }) => {
+    switch (variant) {
+      case ButtonVariantProps.PRIMARY:
+        return theme.colors.WHITE;
+      case ButtonVariantProps.FULL:
+        return theme.colors.WHITE;
+      case ButtonVariantProps.OUTLINE_TEXT:
+        return theme.colors.WHITE;
+      default:
+        return theme.colors.WHITE;
     }
   }};
         filter: ${({ variant }) => {
     switch (variant) {
       case ButtonVariantProps.PRIMARY:
-        return 'brightness(0.9)';
+        return 'brightness(1.2)';
       case ButtonVariantProps.FULL:
         return 'brightness(0.9)';
       case ButtonVariantProps.OUTLINE_TEXT:
@@ -91,6 +104,9 @@ const sharedStyles = css<{
     }
   }};
     };
+    &:active {
+        filter: brightness(1.6)
+    }
     position: relative;
     height: fit-content;
 `;

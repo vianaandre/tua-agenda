@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import 'animate.css/animate.min.css';
 
 import HomeBannerBg from 'common/assets/home/banner-bg.png';
 import HomeBannerPhoto from 'common/assets/home/banner-photo.png';
