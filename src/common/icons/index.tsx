@@ -9,3 +9,7 @@ export { Evaluation } from './Evaluation';
 export { ArrowAlternative } from './ArrowAlternative';
 export { ArrowLeft } from './ArrowLeft';
 export { Close } from './Close';
+export { ArrowRight } from './ArrowRight';
+export { Google } from './Google';
+export { Facebook } from './Facebook';
+export { Phone } from './Phone';

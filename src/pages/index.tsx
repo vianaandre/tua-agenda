@@ -1,7 +1,7 @@
 import React from 'react';
 import type { NextPage } from 'next';
 
-import api from 'services/api';
+import { apiMock } from 'services/api';
 import { GET_SERVICES, GET_CATEGORIES, GET_CITIES } from 'services/routes';
 import { ServiceProps } from 'common/interface/ServiceProps';
 import { CityProps } from 'common/interface/CityProps';
@@ -23,9 +23,9 @@ const HomePage: NextPage<HomeProps> = ({ services, categories, cities }) => {
 };
 
 export async function getStaticProps() {
-  const { data: services } = await api.get(GET_SERVICES) as { data: ServiceProps[] };
-  const { data: categories } = await api.get(GET_CATEGORIES) as { data: CategoriesProps[] };
-  const { data: cities } = await api.get(GET_CITIES) as { data: CityProps[] };
+  const { data: services } = await apiMock.get(GET_SERVICES) as { data: ServiceProps[] };
+  const { data: categories } = await apiMock.get(GET_CATEGORIES) as { data: CategoriesProps[] };
+  const { data: cities } = await apiMock.get(GET_CITIES) as { data: CityProps[] };
 
   return {
     props: {

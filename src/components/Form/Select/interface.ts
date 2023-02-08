@@ -18,4 +18,6 @@ export interface SelectProps {
     widthOption: number;
     left: number;
     error?: string;
+    placeholder: string;
+    disabled?: boolean;
 }

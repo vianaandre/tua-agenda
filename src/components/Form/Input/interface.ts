@@ -15,4 +15,5 @@ export interface IInput extends InputHTMLAttributes<HTMLInputElement> {
         direction: 'left';
     }
     error?: string;
+    mask?: string;
 }

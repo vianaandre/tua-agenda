@@ -86,7 +86,7 @@ const sharedStyles = css<{
       case ButtonVariantProps.FULL:
         return theme.colors.WHITE;
       case ButtonVariantProps.OUTLINE_TEXT:
-        return theme.colors.WHITE;
+        return theme.colors.PRIMARY[500];
       default:
         return theme.colors.WHITE;
     }
