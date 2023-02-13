@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <ThemeProvider theme={theme}>
             <GlobalStyles />
             <AuthProvider>
-              {pathname !== '/login' ? <Header /> : null}
+              {pathname !== '/login' && pathname !== '/register' ? <Header /> : null}
               <Component {...pageProps} />
             </AuthProvider>
           </ThemeProvider>

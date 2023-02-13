@@ -13,3 +13,5 @@ export { ArrowRight } from './ArrowRight';
 export { Google } from './Google';
 export { Facebook } from './Facebook';
 export { Phone } from './Phone';
+export { PasswordNotView } from './PasswordNotView';
+export { PasswordView } from './PasswordView';

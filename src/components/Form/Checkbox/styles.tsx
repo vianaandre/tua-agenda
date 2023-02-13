@@ -22,6 +22,7 @@ export const ContainerCheckbox = styled.div`
         align-items: center;
         justify-content: center;
         transition: 400ms;
+        padding-top: 1px;
         &.active {
             border-color: ${({ theme }) => theme.colors.PRIMARY[500]};
         }

@@ -8,13 +8,22 @@ const apiMock = axios.create({
 });
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_BACK_END_CLIENT,
+  baseURL: process.env.REACT_APP_BACKEND_CLIENT,
   headers: {
     'Content-Type': 'application/json',
+  },
+});
+
+const apiAlternative = axios.create({
+  baseURL: process.env.REACT_APP_BACKEND_G_CLIENT,
+  headers: {
+    'Content-Type': 'application/json',
+    token: process.env.APP_TOKEN,
   },
 });
 
 export {
   api,
   apiMock,
+  apiAlternative,
 };

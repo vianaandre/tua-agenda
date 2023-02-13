@@ -1,22 +1,22 @@
 import { UserProps } from 'common/interface/UserProps';
-import { User, UserInfo } from 'firebase/auth';
+import { User } from 'firebase/auth';
 import { api } from 'services/api';
 import { CREATE_USER } from 'services/routes';
 
-export async function createUser(user: UserProps, firebaseUser: User) {
+export async function createUser(user: UserProps, firebaseUser: User, tokenId: string) {
   try {
-    const tokenId = await firebaseUser.getIdToken();
+    const isTokenId = tokenId;
     const authUid = firebaseUser.uid;
 
     const { data } = await api.post(CREATE_USER, user, {
       timeout: 10000,
       headers: {
-        'token-id': tokenId,
+        'token-id': isTokenId,
         'auth-uid': authUid,
       },
     });
 
-    console.log('data', data);
+    return data;
   } catch (err) {
     return new Error('Ocorreu um erro de comunicação.');
   }

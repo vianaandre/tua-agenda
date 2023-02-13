@@ -12,4 +12,5 @@ export interface INormal extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     };
     type: 'submit' | 'button';
     isLink?: LinkProps;
+    loading?: boolean;
 }

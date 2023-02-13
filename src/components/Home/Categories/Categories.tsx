@@ -24,7 +24,7 @@ export const Categories: React.FC<{ categories: CategoriesProps[] }> = ({ catego
     <ContainerCategories>
       <Container>
         <header>
-          <AnimationOnScroll animateIn="animate__fadeInUp" duration={0.5} animateOnce>
+          <AnimationOnScroll animateIn="animate__fadeInUp" duration={0.5} animateOnce animatePreScroll={false}>
             <Title title="Principais" emphasis="categorias" />
           </AnimationOnScroll>
           {category && (

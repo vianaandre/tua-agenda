@@ -8,7 +8,7 @@ import { LoginAndRegister } from 'components/LoginAndRegister';
 const LoginPage: NextPage<HomeProps> = () => {
   return (
     <HomeProvider>
-      <LoginAndRegister type="login" />
+      <LoginAndRegister type="register" />
     </HomeProvider>
   );
 };

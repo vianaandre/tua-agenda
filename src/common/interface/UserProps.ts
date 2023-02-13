@@ -1,7 +1,7 @@
-import { MethodLoginProps } from './MethodLoginProps';
+import { RefreshTokenProps } from './RefreshTokenProps';
 
 export interface UserProps {
-    nome: string | null;
+    nome?: string | null;
     email?: string | null;
     senha?: string;
     keepConnected?: boolean;
@@ -9,5 +9,9 @@ export interface UserProps {
     codPais?: string;
     id?: string;
     imageUrl?: string | null;
-    metodoLogin: MethodLoginProps;
+    metodoLogin?: string;
+    ['auth-uid']?: string;
+    provider?: string;
+    raw?: RefreshTokenProps;
+    token_whypwd?: string;
 }

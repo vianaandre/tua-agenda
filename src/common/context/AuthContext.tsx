@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import {
+  GoogleAuthProvider, signInWithPopup,
+} from 'firebase/auth';
 
 import { StepperProps } from 'common/interface/StepperProps';
 import { UserProps } from 'common/interface/UserProps';
@@ -12,20 +14,32 @@ import { OptionSelectProps } from 'common/interface/OptionSelectProps';
 import { CountryProps } from 'common/interface/CountryProps';
 import { useToast } from 'common/hooks/useToast';
 import { AuthPerPhoneProps } from 'common/interface/AuthPerPhoneProps';
-import { auth, saveUser } from 'services/firebase';
+import {
+  saveUser, verifyPhone, validatorCode, loginUser, registerUser, forgotPassword,
+} from 'services/modules/user';
 import { MethodLoginProps } from 'common/interface/MethodLoginProps';
+import { formatPhone } from 'utils/format';
+import { ResponseProps } from 'common/interface/ResponseProps';
+import { auth } from 'services/firebase';
 
 interface AuthContextProps {
     user?: UserProps;
     stepperTypeAuthPerPhone?: StepperProps;
     optionsCountry: OptionSelectProps<string, string>[];
     countrys: CountryProps[];
+    loadingAuthGoogle: boolean;
+    expirationMessageSMS?: number;
+    loadingAuthPerPhone: boolean;
+    loadingLoginUser: boolean;
+    forgotPassword: boolean;
     onLoginUser: (user: UserProps) => void;
     onNextAuthPerPhone: (data: AuthPerPhoneProps) => void;
     onFlowAuthPerPhone: () => void;
     onLoadCountry: () => Promise<void>;
     onBackStepperFlowAuthPerPhone: () => void;
     onLoginGoogle: () => Promise<void>;
+    onRegisterUser: (user: UserProps) => Promise<void>;
+    onForgotPassword: (email: string) => Promise<void>;
 }
 
 export const AuthContext = createContext({} as AuthContextProps);
@@ -37,10 +51,79 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isStepperTypeAuthPerPhone, setIsStepperTypeAuthPerPhone] = useState<StepperProps>();
   const [isOptionsCountry, setIsOptionCountry] = useState<OptionSelectProps<string, string>[]>([]);
   const [isCountrys, setIsCountrys] = useState<CountryProps[]>([]);
+  const [isLoadingAuthGoogle, setIsLoadingAuthGoogle] = useState<boolean>(false);
+  const [isLoadingAuthPerPhone, setIsLoadingAuthPerPhone] = useState<boolean>(false);
+  const [isExpirationMessageSMS, setIsExpirationMessageSMS] = useState<number>();
+  const [isLoadingLoginUser, setIsLoadingLoginUser] = useState<boolean>(false);
+  const [isForgotPassword, setIsForgotPassword] = useState<boolean>(false);
 
-  const handleLoginUser = useCallback((user: UserProps) => {
-    setIsUser(user);
-  }, []);
+  const handleLoginUser = useCallback(async (user: UserProps) => {
+    try {
+      setIsLoadingLoginUser(true);
+      if (user && user.email && user.senha) {
+        const result = await loginUser(user.senha, user.email);
+
+        setIsUser(result);
+        onToast({
+          message: 'Sessão iniciada com sucesso.',
+          type: 'success',
+        });
+      } else {
+        onToast({
+          message: 'Insira seu e-mail e senha.',
+          type: 'info',
+        });
+      }
+      setIsLoadingLoginUser(false);
+    } catch (err: any) {
+      setIsLoadingLoginUser(false);
+      onToast({
+        message: err.message || 'Ocorreu um erro de comunicação.',
+        type: 'error',
+      });
+    }
+  }, [onToast]);
+
+  const handleRegisterUser = useCallback(async (user: UserProps) => {
+    try {
+      setIsLoadingLoginUser(true);
+      if (user && user.email && user.senha && user.nome) {
+        const result = await registerUser(user);
+
+        setIsUser(result);
+        onToast({
+          message: 'Sessão iniciada com sucesso.',
+          type: 'success',
+        });
+      } else {
+        onToast({
+          message: 'Insira seu nome, e-mail e senha.',
+          type: 'info',
+        });
+      }
+      setIsLoadingLoginUser(false);
+    } catch (err: any) {
+      setIsLoadingLoginUser(false);
+      onToast({
+        message: err.message || 'Ocorreu um erro de comunicação.',
+        type: 'error',
+      });
+    }
+  }, [onToast]);
+
+  const handleForgotPassword = useCallback(async (email: string) => {
+    try {
+      const isSuccess = await forgotPassword(email);
+
+      console.log('isSuccess', isSuccess);
+      setIsForgotPassword(true);
+    } catch (err: any) {
+      onToast({
+        message: err || 'Ocorreu um erro de comunicação.',
+        type: 'error',
+      });
+    }
+  }, [onToast]);
 
   const handleBackStepperFlowAuthPerPhone = useCallback(() => {
     if (isStepperTypeAuthPerPhone && isStepperTypeAuthPerPhone.stepper === 0) {
@@ -57,14 +140,49 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  const handleNextAuthPerPhone = useCallback((data: AuthPerPhoneProps) => {
-    if (data && data.phone && data.country) {
-      setIsStepperTypeAuthPerPhone({
-        stepper: stepperAuthPerPhone[1].stepper,
-        stage: stepperAuthPerPhone[1].stage,
+  const handleNextAuthPerPhone = useCallback(async (data: AuthPerPhoneProps) => {
+    try {
+      setIsLoadingAuthPerPhone(true);
+      const phoneFormatted = formatPhone(data.phone);
+      if (isStepperTypeAuthPerPhone && isStepperTypeAuthPerPhone.stepper === 0 && data && phoneFormatted && data.country) {
+        const phoneFormatted = formatPhone(data.phone);
+        const result = await verifyPhone(phoneFormatted, data.country, location) as ResponseProps<{
+            expirationTimestamp: number;
+            expirationDateFmt: string;
+        }>;
+
+        if (result.obj && result.ok) {
+          setIsStepperTypeAuthPerPhone({
+            stepper: stepperAuthPerPhone[1].stepper,
+            stage: stepperAuthPerPhone[1].stage,
+          });
+          setIsExpirationMessageSMS(result.obj.expirationTimestamp);
+        }
+
+        if (!result.ok) {
+          throw new Error(result.mensagem);
+        }
+      }
+      if (isStepperTypeAuthPerPhone && isStepperTypeAuthPerPhone.stepper === 1 && data && data.code && phoneFormatted && data.country) {
+        const result = await validatorCode(phoneFormatted, data.country, data.code, location);
+
+        if (result) {
+          setIsUser(result);
+          onToast({
+            message: 'Sessão iniciada com sucesso.',
+            type: 'success',
+          });
+        }
+      }
+      setIsLoadingAuthPerPhone(false);
+    } catch (err: any) {
+      setIsLoadingAuthPerPhone(false);
+      onToast({
+        message: err.message || 'Ocorreu um erro de comunicação.',
+        type: 'error',
       });
     }
-  }, []);
+  }, [location, onToast, isStepperTypeAuthPerPhone]);
 
   const handleLoadCountry = useCallback(async () => {
     try {
@@ -83,7 +201,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setIsCountrys(data);
     } catch (err) {
       onToast({
-        message: 'Houve um problema de comunicação.',
+        message: 'Ocorreu um erro de comunicação.',
         type: 'error',
       });
     }
@@ -91,16 +209,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const handleLoginGoogle = useCallback(async () => {
     try {
+      setIsLoadingAuthGoogle(true);
       const googleProvider = new GoogleAuthProvider();
       const { user } = await signInWithPopup(auth, googleProvider);
+      const tokenId = await user.getIdToken();
 
-      const result = await saveUser(user, MethodLoginProps.GOOGLE);
+      const result = await saveUser(user, tokenId, MethodLoginProps.GOOGLE) as ResponseProps<UserProps>;
 
-      console.log(result);
-    } catch (err) {
-      console.log(err);
+      if (result && !result.ok) {
+        throw new Error(result.mensagem);
+      }
+      if (result && result.obj) {
+        setIsUser(result.obj);
+
+        onToast({
+          message: 'Sessão iniciada com sucesso.',
+          type: 'success',
+        });
+      }
+      setIsLoadingAuthGoogle(false);
+    } catch (err: any) {
+      onToast({
+        message: err && err.mensagem ? err.mensagem : 'Ocorreu um erro de comunicação.',
+        type: 'error',
+      });
+      setIsLoadingAuthGoogle(false);
     }
-  }, []);
+  }, [onToast]);
 
   return (
     <AuthContext.Provider value={{
@@ -111,9 +246,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       onLoadCountry: handleLoadCountry,
       optionsCountry: isOptionsCountry,
       countrys: isCountrys,
+      loadingAuthGoogle: isLoadingAuthGoogle,
+      loadingAuthPerPhone: isLoadingAuthPerPhone,
+      expirationMessageSMS: isExpirationMessageSMS,
+      loadingLoginUser: isLoadingLoginUser,
+      forgotPassword: isForgotPassword,
       onFlowAuthPerPhone: handleFlowAuthPerPhone,
       onBackStepperFlowAuthPerPhone: handleBackStepperFlowAuthPerPhone,
       onLoginGoogle: handleLoginGoogle,
+      onRegisterUser: handleRegisterUser,
+      onForgotPassword: handleForgotPassword,
     }}
     >
       {children}

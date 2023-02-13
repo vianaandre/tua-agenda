@@ -12,7 +12,7 @@ import { StepTwo } from './StepTwo';
 export const AuthPerPhone: React.FC = () => {
   const methods = useForm<AuthPerPhoneProps>();
   const {
-    onLoadCountry, onNextAuthPerPhone, stepperTypeAuthPerPhone, countrys,
+    onLoadCountry, onNextAuthPerPhone, stepperTypeAuthPerPhone, countrys, loadingAuthPerPhone, optionsCountry,
   } = useAuth();
 
   useEffect(() => {
@@ -20,6 +20,12 @@ export const AuthPerPhone: React.FC = () => {
       onLoadCountry();
     }
   }, [onLoadCountry, countrys]);
+
+  useEffect(() => {
+    if (optionsCountry && optionsCountry.length > 0) {
+      methods.setValue('country', optionsCountry[4].value);
+    }
+  }, [optionsCountry, methods]);
 
   return (
     <ContainerAuthPerPhone onSubmit={methods.handleSubmit(onNextAuthPerPhone)}>
@@ -31,7 +37,7 @@ export const AuthPerPhone: React.FC = () => {
         <StepTwo />
         )}
         <div className="btn_submit">
-          <Button.Normal text="Enviar" variant={ButtonVariantProps.PRIMARY} type="submit" disabled={Object.entries(methods.formState.errors).length > 0} />
+          <Button.Normal text="Enviar" variant={ButtonVariantProps.PRIMARY} type="submit" disabled={Object.entries(methods.formState.errors).length > 0 || loadingAuthPerPhone} loading={loadingAuthPerPhone} />
         </div>
       </FormProvider>
     </ContainerAuthPerPhone>

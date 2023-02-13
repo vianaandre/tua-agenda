@@ -16,13 +16,17 @@ export const ContainerAuthSocial = styled.div`
         color: ${({ theme }) => theme.colors.PRIMARY[800]};
         border-radius: 8px;
         transition: 400ms;
-        &:hover {
+        &:not(:disabled):hover {
             transition: 400ms;
-            filter: brightness(0.9)
+            filter: brightness(0.9);
         }
-        &:active {
+        &:not(:disabled):active {
             filter: brightness(0.7);
         }
+        &:disabled {
+            opacity: 1;
+        }
+        min-height: 57px;
     }
 `;
 

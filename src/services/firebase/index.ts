@@ -1,6 +1,5 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { saveUser } from './saveUser';
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -17,5 +16,4 @@ const auth = getAuth(app);
 
 export {
   auth,
-  saveUser,
 };

@@ -12,7 +12,8 @@ export const Input: React.FC<IInput> = ({
   id, name, type, label, variant = InputVariantProps.PRIMARY, rules, icon, error, mask, ...rest
 }) => {
   const [isFocus, setIsFocus] = useState<boolean>(false);
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
+  const field = watch(name);
 
   return (
     <Controller
@@ -22,7 +23,7 @@ export const Input: React.FC<IInput> = ({
       render={({ field: { name, value, onChange } }) => (
         <ContainerInput variant={variant}>
           {label && variant === InputVariantProps.PRIMARY && (
-          <label htmlFor={name}>
+          <label htmlFor={name} className={`${isFocus ? 'focus' : ''} ${field ? 'focus' : ''}`}>
             {label}
             {' '}
             {rules && rules.required && (
@@ -30,7 +31,7 @@ export const Input: React.FC<IInput> = ({
             )}
           </label>
           )}
-          <ContainerInputInput variant={variant} className={`${isFocus ? 'focus' : ''} ${error ? 'error' : ''}`}>
+          <ContainerInputInput variant={variant} className={`${isFocus ? 'focus' : ''} ${error ? 'error' : ''} ${field ? 'focus' : ''}`}>
             {icon && icon.direction === 'left' && (
             <ContainerInputIcon className={`${variant !== InputVariantProps.OUTLINE ? 'padding_left' : 'padding_right'} icon_input`}>
               {icon.icon}
@@ -48,6 +49,11 @@ export const Input: React.FC<IInput> = ({
               <p className="error">{error}</p>
               )}
             </ContainerInputInputInput>
+            {icon && icon.direction === 'right' && (
+            <ContainerInputIcon className={`${variant !== InputVariantProps.OUTLINE ? 'padding_left' : 'padding_right'} icon_input ${icon.direction === 'right' ? 'right' : ''}`}>
+              {icon.icon}
+            </ContainerInputIcon>
+            )}
           </ContainerInputInput>
         </ContainerInput>
       )}

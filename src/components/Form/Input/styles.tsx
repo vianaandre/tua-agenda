@@ -20,6 +20,9 @@ export const ContainerInput = styled.div<{
         b {
             color: ${({ theme }) => theme.colors.DANGER}
         }
+        &.focus {
+            color: ${({ theme }) => theme.colors.PRIMARY[800]};
+        }
     }
 `;
 
@@ -76,7 +79,7 @@ export const ContainerInputInput = styled.div<{
                 stroke: ${({ theme, variant }) => {
     switch (variant) {
       case InputVariantProps.PRIMARY:
-        return theme.colors.PRIMARY[800];
+        return 'transparent';
       case InputVariantProps.OUTLINE:
         return theme.colors.PRIMARY[500];
       default:
@@ -125,11 +128,11 @@ export const ContainerInputInput = styled.div<{
                 stroke: ${({ theme, variant }) => {
     switch (variant) {
       case InputVariantProps.PRIMARY:
-        return theme.colors.DANGER;
+        return 'transparent';
       case InputVariantProps.OUTLINE:
         return theme.colors.DANGER;
       default:
-        return theme.colors.DANGER;
+        return 'transparent';
     }
   }}
             }
@@ -231,4 +234,7 @@ export const ContainerInputIcon = styled.div`
         padding-right: ${({ theme }) => theme.spacing(2.5)};
     }
     display: flex;
+    &.right {
+        padding-right: ${({ theme }) => theme.spacing(2)};
+    }
 `;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { Select, Input } from 'components/Form';
@@ -8,16 +8,8 @@ import { ContainerInputPhone } from './styles';
 import { InputPhoneProps } from './interface';
 
 export const InputPhone: React.FC<InputPhoneProps> = ({ options, countrys }) => {
-  const { setValue, watch, formState } = useFormContext<AuthPerPhoneProps>();
+  const { watch, formState } = useFormContext<AuthPerPhoneProps>();
   const country = watch('country');
-
-  useEffect(() => {
-    if (options && options.length > 0) {
-      setValue('country', options[4].value);
-    }
-
-    return () => setValue('country', '');
-  }, [options, setValue]);
 
   return (
     <ContainerInputPhone>
