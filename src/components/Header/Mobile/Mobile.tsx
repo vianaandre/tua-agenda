@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Logo, Close, Location } from 'common/icons';
 import { theme } from 'common/styles/theme';
@@ -13,6 +13,16 @@ import { ContainerMobile, ContainerMobileMenu } from './styles';
 export const Mobile: React.FC = () => {
   const { onShowMenu, showMenu, onCloseMenu } = useAnimation();
   const { locationPerCityAndState, onGetLocationBrowser } = useLocation();
+
+  useEffect(() => {
+    if (showMenu) {
+      document.body.style.overflowY = 'hidden';
+    }
+
+    return () => {
+      document.body.style.overflowY = 'auto';
+    };
+  }, [showMenu, onCloseMenu]);
 
   return (
     <ContainerMobile>

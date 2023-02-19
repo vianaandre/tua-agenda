@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { createContext } from 'use-context-selector';
 
 interface AnimationContextProps {
@@ -43,14 +43,6 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
 
     btn.appendChild(circle);
   }, []);
-
-  useEffect(() => {
-    if (isShowMenu) {
-      document.body.style.overflowY = 'hidden';
-    } else {
-      document.body.style.overflowY = 'auto';
-    }
-  }, [isShowMenu]);
 
   return (
     <AnimationContext.Provider value={{
