@@ -26,4 +26,7 @@ export const ContainerCitiesBgEffect = styled.div`
     position: absolute;
     right: 0;
     bottom: 0;
+    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        bottom: -10px;
+    }
 `;

@@ -37,29 +37,27 @@ export const CardCategory: React.FC<CardCategoryProps> = ({ category, countProfe
   }, [category]);
 
   return (
-    <ContainerCardCategory>
-      <button
-        type="button"
-        className={categoryContext?.type === category ? 'active' : ''}
-        onClick={() => onChangeCaregory({
-          countProfessionals,
-          description: title,
-          type: category,
-        })}
-      >
-        <div className="icon">
-          {isIcon}
-        </div>
-        <h5 className="title">{title}</h5>
-        <div className="count_professionals">
-          <p className="great color_light">
-            {countProfessionals}
-            {' '}
-            profissionais
-          </p>
-          <Arrow width={24} height={24} color={theme.colors.BLACK[500]} />
-        </div>
-      </button>
+    <ContainerCardCategory
+      type="button"
+      className={categoryContext?.type === category ? 'active' : ''}
+      onClick={() => onChangeCaregory({
+        countProfessionals,
+        description: title,
+        type: category,
+      })}
+    >
+      <div className="icon">
+        {isIcon}
+      </div>
+      <h5 className="title">{title}</h5>
+      <div className="count_professionals">
+        <p className="great color_light">
+          {countProfessionals}
+          {' '}
+          profissionais
+        </p>
+        <Arrow width={24} height={24} color={theme.colors.BLACK[500]} />
+      </div>
     </ContainerCardCategory>
   );
 };

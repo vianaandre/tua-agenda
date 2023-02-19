@@ -2,10 +2,9 @@ import React from 'react';
 import Image from 'next/image';
 
 import { Container } from 'common/styles/container';
-import ActionAppButtonApp from 'common/assets/home/action-app-button-app.png';
-import ActionAppButtonPlay from 'common/assets/home/action-app-button-play.png';
 import ActionAppMobile from 'common/assets/home/action-app-mobile.png';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
+import { AppStore, PlayStore } from 'common/icons';
 import {
   ContainerActionAPP, ContainerActionAPPCardLeft, ContainerActionAPPCardRight, CoontainerActionBlockLeft, CoontainerActionBlockRight,
 } from './styles';
@@ -23,10 +22,10 @@ export const ActionAPP: React.FC = () => {
             </p>
             <div className="action_buttons">
               <a href="#" target="_black">
-                <Image src={ActionAppButtonApp.src} width={ActionAppButtonApp.width} height={ActionAppButtonApp.height} alt="App Store" />
+                <PlayStore />
               </a>
               <a href="#" target="_black">
-                <Image src={ActionAppButtonPlay.src} width={ActionAppButtonPlay.width} height={ActionAppButtonPlay.height} alt="Play Store" />
+                <AppStore />
               </a>
             </div>
           </ContainerActionAPPCardLeft>

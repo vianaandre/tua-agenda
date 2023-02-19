@@ -35,11 +35,12 @@ export const ContainerBanner = styled.div`
                 animation-duration: 1s;
             }
             position: relative;
-            img {
+            div.effect_title {
                 animation: fadeIn;
                 animation-duration: 0.5s;
                 position: absolute;
                 top: 225px;
+                left: -12px;
                 @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
                     top: 240px;
                 }

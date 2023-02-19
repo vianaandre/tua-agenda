@@ -11,6 +11,7 @@ export const ContainerTranslation = styled.div<{
         cursor: pointer;
         p {
             text-transform: capitalize !important;
+            line-height: 100% !important;
         };
     };
 `;
@@ -51,6 +52,9 @@ export const ContainerTranslationModal = styled.div`
         display: flex;
         align-items: center;
         gap: ${({ theme }) => theme.spacing(2.25)};
+        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+            gap: ${({ theme }) => theme.spacing(1)};
+        }
         button {
             width: 110px;
             padding: ${({ theme }) => theme.spacing(1.5)};

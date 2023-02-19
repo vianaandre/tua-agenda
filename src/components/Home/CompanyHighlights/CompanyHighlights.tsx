@@ -28,10 +28,8 @@ export const CompanyHighlights: React.FC<{ services: ServiceProps[] }> = ({ serv
           </AnimationOnScroll>
         </header>
         <ul>
-          {services.slice(0, 4).map((item, index) => (
-            <AnimationOnScroll animateIn="animate__fadeInUp" duration={0.3 * (index + 1)} animateOnce>
-              <CardCompany key={`${item.name}-${item.id}`} address={item.address} categories={item.categories} evaluation={item.evaluation} image={item.image} name={item.name} logo={item.logo} variant="small" />
-            </AnimationOnScroll>
+          {services.slice(0, 4).map((item) => (
+            <CardCompany key={`${item.name}`} address={item.address} categories={item.categories} evaluation={item.evaluation} image={item.image} name={item.name} logo={item.logo} variant="small" />
           ))}
         </ul>
       </Container>

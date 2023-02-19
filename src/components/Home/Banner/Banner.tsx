@@ -5,8 +5,9 @@ import 'animate.css/animate.min.css';
 import HomeBannerBg from 'common/assets/home/banner-bg.png';
 import HomeBannerPhoto from 'common/assets/home/banner-photo.png';
 import { Container } from 'common/styles/container';
-import BannerTitleEffect from 'common/assets/home/banner-title-effect.png';
 import { FormSearch } from 'components/Home/FormSearch';
+import { EffectTitle } from 'common/icons';
+import { theme } from 'common/styles/theme';
 import { ContainerBanner, ContainerBannerImageBg } from './styles';
 
 export const Banner: React.FC = () => {
@@ -19,7 +20,9 @@ export const Banner: React.FC = () => {
         </div>
         <div className="banner_content">
           <h1 className="title">Descubra e agende profissionais de várias áreas bem perto de você</h1>
-          <img src={BannerTitleEffect.src} alt="Efeito visual" />
+          <div className="effect_title">
+            <EffectTitle width={411} height={25} color={theme.colors.PRIMARY[500]} />
+          </div>
           <p className="great color_light">
             Usada por pessoas que procuram deixar as coisas mais simples.
           </p>

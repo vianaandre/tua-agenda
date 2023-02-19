@@ -9,3 +9,6 @@ export { Evaluation } from './Evaluation';
 export { ArrowAlternative } from './ArrowAlternative';
 export { ArrowLeft } from './ArrowLeft';
 export { Close } from './Close';
+export { EffectTitle } from './EffectTitle';
+export { AppStore } from './AppStore';
+export { PlayStore } from './PlayStore';

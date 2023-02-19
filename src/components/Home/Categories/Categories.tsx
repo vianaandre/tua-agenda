@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { AnimationOnScroll } from 'react-animation-on-scroll';
 
 import { Title } from 'components/Home/Title';
 import { Container } from 'common/styles/container';
@@ -24,29 +23,24 @@ export const Categories: React.FC<{ categories: CategoriesProps[] }> = ({ catego
     <ContainerCategories>
       <Container>
         <header>
-          <AnimationOnScroll animateIn="animate__fadeInUp" duration={0.5} animateOnce>
-            <Title title="Principais" emphasis="categorias" />
-          </AnimationOnScroll>
+          <Title title="Principais" emphasis="categorias" />
           {category && (
-          <AnimationOnScroll animateIn="animate__fadeIn" duration={0.5} animateOnce>
             <button type="button" onClick={onLoadServicesPerCategory}>
               <p className="normal color_normal">Buscar</p>
               <Arrow width={24} height={24} color={theme.colors.PRIMARY[500]} />
             </button>
-          </AnimationOnScroll>
           )}
         </header>
         <ContainerCategoriesCards>
           <ul className="desktop">
             {categories.map((item) => (
-              <AnimationOnScroll animateIn="animate__fadeInUp" animateOnce>
+              <li key={item.type}>
                 <CardCategory
-                  key={item.description}
                   title={item.description}
                   category={item.type}
                   countProfessionals={item.countProfessionals}
                 />
-              </AnimationOnScroll>
+              </li>
             ))}
           </ul>
           <Carousel
@@ -75,12 +69,13 @@ export const Categories: React.FC<{ categories: CategoriesProps[] }> = ({ catego
             swipeable
           >
             {categories.map((item) => (
-              <CardCategory
-                key={item.description}
-                title={item.description}
-                category={item.type}
-                countProfessionals={item.countProfessionals}
-              />
+              <div className="item" key={item.description}>
+                <CardCategory
+                  title={item.type}
+                  category={item.type}
+                  countProfessionals={item.countProfessionals}
+                />
+              </div>
             ))}
           </Carousel>
         </ContainerCategoriesCards>

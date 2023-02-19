@@ -44,13 +44,13 @@ export const Result: React.FC = () => {
             </div>
             <ul>
               {searchServices.map((item) => (
-                <CardCompany address={item.address} categories={item.categories} evaluation={item.evaluation} image={item.image} name={item.name} logo={item.logo} key={`${item.name}-${item.id}`} variant="large" />
+                <CardCompany address={item.address} categories={item.categories} evaluation={item.evaluation} image={item.image} name={item.name} logo={item.logo} key={`${item.name}`} variant="large" />
               ))}
               {searchServices.map((item) => (
-                <CardCompany address={item.address} categories={item.categories} evaluation={item.evaluation} image={item.image} name={item.name} logo={item.logo} key={`${item.name}-${item.id}`} variant="large" />
+                <CardCompany address={item.address} categories={item.categories} evaluation={item.evaluation} image={item.image} name={item.name} logo={item.logo} key={`${item.name}`} variant="large" />
               ))}
               {searchServices.map((item) => (
-                <CardCompany address={item.address} categories={item.categories} evaluation={item.evaluation} image={item.image} name={item.name} logo={item.logo} key={`${item.name}-${item.id}`} variant="large" />
+                <CardCompany address={item.address} categories={item.categories} evaluation={item.evaluation} image={item.image} name={item.name} logo={item.logo} key={`${item.name}`} variant="large" />
               ))}
             </ul>
           </React.Fragment>

@@ -10,6 +10,11 @@ export const ContainerCategories = styled.section`
             justify-content: space-between;
             align-items: center;
 
+            @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                flex-wrap: wrap;
+                gap: ${({ theme }) => theme.spacing(2)};
+            }
+
             h2 {
                 animation: fadeInUp;
                 animation-duration: 500ms;
@@ -44,7 +49,7 @@ export const ContainerCategoriesCards = styled.div`
         flex-wrap: wrap;
         align-items: center;
         gap: ${({ theme }) => theme.spacing(4)};
-        div.animate__animated {
+        li {
             width: calc(100% / 4 - ${({ theme }) => theme.spacing(3)}) !important;
             @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
                 width: 100% !important;
@@ -88,16 +93,18 @@ export const ContainerCategoriesCards = styled.div`
         div.carousel_categories {
             display: flex;
             ul {
-                width: 100%;
                 li {
-                    width: 246px;
                     margin-right: 16px;
-                    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-                        width: 246px;
-                    }
+                    display: flex;
+                    align-items: center;
+                    padding: 0px ${({ theme }) => theme.spacing(1)};
+                    
                     @media(max-width: 524px) {
                         margin-right: 0px;
                         padding: 0px ${({ theme }) => theme.spacing(1)}
+                    }
+                    div.item {
+                        width: 100%;
                     }
                 }
             }

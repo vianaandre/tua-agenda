@@ -32,7 +32,7 @@ export const Mobile: React.FC = () => {
       <ContainerMobileMenu showMenu={showMenu}>
         <div className="header">
           <button type="button" onClick={onCloseMenu} className="close_button">
-            <Close width={24} height={24} color={theme.colors.PRIMARY[500]} stroke={2} />
+            <Close width={24} height={24} color={theme.colors.PRIMARY[500]} stroke={3} />
             <p className="normal color_normal">Fechar</p>
           </button>
           {!locationPerCityAndState && (
