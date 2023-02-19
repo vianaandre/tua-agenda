@@ -12,7 +12,8 @@ export interface IInput extends InputHTMLAttributes<HTMLInputElement> {
     rules?: Omit<RegisterOptions, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>;
     icon?: {
         icon: React.ReactNode;
-        direction: 'left';
+        direction: 'left' | 'right';
     }
     error?: string;
+    mask?: string;
 }

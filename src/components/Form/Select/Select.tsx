@@ -9,7 +9,7 @@ import { ContainerSelect, ContainerSelectIcon, ContainerSelectSelect } from './s
 import { SelectProps } from './interface';
 
 export const Select: React.FC<SelectProps> = ({
-  id, name, defaultValue, rules, variant = InputVariantProps.OUTLINE, label, options, widthOption, icon, left,
+  id, name, defaultValue, rules, variant = InputVariantProps.OUTLINE, label, options, widthOption, icon, left, placeholder, disabled = false,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -28,9 +28,9 @@ export const Select: React.FC<SelectProps> = ({
               {icon.icon}
             </ContainerSelectIcon>
             )}
-            <SelectRadix.Root name={name} value={value} onValueChange={onChange} defaultValue={defaultValue} open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
+            <SelectRadix.Root name={name} value={value} onValueChange={onChange} defaultValue={defaultValue} open={isOpen} onOpenChange={() => setIsOpen(!isOpen)} disabled={disabled}>
               <SelectRadix.Trigger className="trigger">
-                <SelectRadix.Value placeholder="Cidade" />
+                <SelectRadix.Value placeholder={placeholder} />
                 <SelectRadix.Icon>
                   <ArrowSelect width={16} height={16} color={theme.colors.GREY[850]} />
                 </SelectRadix.Icon>

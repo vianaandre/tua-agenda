@@ -43,6 +43,8 @@ export const GlobalStyles = createGlobalStyle`
         box-shadow: none;
         border: none;
         background-color: transparent;
+        position: relative;
+        overflow: hidden;
     }
     a {
         text-decoration: none;
@@ -255,6 +257,14 @@ export const GlobalStyles = createGlobalStyle`
         }
         to {
             transform: scale((1));
+        }
+    }
+    @keyframes spin {
+        0% { 
+            transform: rotate(0deg); 
+        }
+        100% { 
+            transform: rotate(360deg); 
         }
     }
 `;

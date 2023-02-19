@@ -7,7 +7,7 @@ import { ServiceProps } from 'common/interface/ServiceProps';
 import { CityProps } from 'common/interface/CityProps';
 import { CategoriesProps } from 'common/interface/CategoriesProps';
 import { useToast } from 'common/hooks/useToast';
-import api from 'services/api';
+import { apiMock } from 'services/api';
 import { GET_SERVICES } from 'services/routes';
 import { SearchServiceFormProps } from 'common/interface/Form/SearchServiceFormProps';
 
@@ -67,7 +67,7 @@ export function HomeProvider({ children }: { children: React.ReactNode }): JSX.E
     try {
       if (isCategory) {
         setIsLoadingSearch(true);
-        const { data } = await api.post(GET_SERVICES, {
+        const { data } = await apiMock.post(GET_SERVICES, {
           category: isCategory.type,
         });
 
@@ -93,7 +93,7 @@ export function HomeProvider({ children }: { children: React.ReactNode }): JSX.E
   const handleLoadServicePerServiceAndCity = useCallback(async ({ name, city }: SearchServiceFormProps) => {
     try {
       setIsLoadingSearch(true);
-      const { data } = await api.post(GET_SERVICES, {
+      const { data } = await apiMock.post(GET_SERVICES, {
         service: name,
         city,
       });
@@ -112,7 +112,7 @@ export function HomeProvider({ children }: { children: React.ReactNode }): JSX.E
   const handleLoadServicesPerCity = useCallback(async (city: string) => {
     try {
       setIsLoadingSearch(true);
-      const { data } = await api.post(GET_SERVICES, {
+      const { data } = await apiMock.post(GET_SERVICES, {
         city,
       });
 
@@ -134,7 +134,7 @@ export function HomeProvider({ children }: { children: React.ReactNode }): JSX.E
   const handleLoadServicesAll = useCallback(async () => {
     try {
       setIsLoadingSearch(true);
-      const { data } = await api.get(GET_SERVICES);
+      const { data } = await apiMock.get(GET_SERVICES);
 
       setIsSearchServices(data);
       setIsLoadingSearch(false);

@@ -59,6 +59,7 @@ export const FormSearch: React.FC = () => {
             }))}
             widthOption={231}
             left={19}
+            placeholder="Cidade"
           />
         </ContainerFormInputs>
         <Button.Normal type="submit" text="Buscar" variant={ButtonVariantProps.PRIMARY} className="btn_submit" />
