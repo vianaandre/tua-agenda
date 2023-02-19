@@ -22,17 +22,28 @@ export const ContainerCheckbox = styled.div`
         align-items: center;
         justify-content: center;
         transition: 400ms;
-        padding-top: 1px;
         &.active {
             border-color: ${({ theme }) => theme.colors.PRIMARY[500]};
         }
     }
     span.indicator {
         transition: 400ms;
-        display: flex;
-        width: 90%;
-        height: 90%;
-        border-radius: 2px;
-        background-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+        width: ${({ theme }) => theme.spacing(2)};
+        height: ${({ theme }) => theme.spacing(2)};
+        div {
+            transition: 400ms;
+            width: ${({ theme }) => theme.spacing(2)};
+            height: ${({ theme }) => theme.spacing(2)};
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            div.active_indicator {
+                transition: 400ms;
+                width: 10px;
+                height: 10px;
+                border-radius: 2px;
+                background-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+            }
+        }
     }
 `;

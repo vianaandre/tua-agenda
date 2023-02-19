@@ -13,7 +13,7 @@ export function codeErrorsFirabase(e: { code: string, message: string }) {
       return 'O e-mail informado já está em uso.';
       break;
     case 'auth/popup-closed-by-user':
-      return mensagem; // só fechou a tela, não precisa mostrar o erro.
+      return mensagem;
       break;
     default:
       return e.message;

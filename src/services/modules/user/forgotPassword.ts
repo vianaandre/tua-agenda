@@ -4,11 +4,9 @@ import { sendPasswordResetEmailFirebase } from 'services/firebase/sendPasswordRe
 export async function forgotPassword(email: string) {
   try {
     if (email) {
-      const isSuccess = await sendPasswordResetEmailFirebase(email);
+      await sendPasswordResetEmailFirebase(email);
 
-      console.log('isSuccess', isSuccess);
-
-      return isSuccess;
+      return true;
     }
     throw new Error('Email é obrigatório para recuperação de senha.');
   } catch (err: any) {

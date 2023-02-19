@@ -32,6 +32,8 @@ interface AuthContextProps {
     loadingAuthPerPhone: boolean;
     loadingLoginUser: boolean;
     forgotPassword: boolean;
+    loadingSendForgotPassword: boolean;
+    sendForgotPassword?: string;
     onLoginUser: (user: UserProps) => void;
     onNextAuthPerPhone: (data: AuthPerPhoneProps) => void;
     onFlowAuthPerPhone: () => void;
@@ -39,7 +41,8 @@ interface AuthContextProps {
     onBackStepperFlowAuthPerPhone: () => void;
     onLoginGoogle: () => Promise<void>;
     onRegisterUser: (user: UserProps) => Promise<void>;
-    onForgotPassword: (email: string) => Promise<void>;
+    onForgotPassword: (forgotPassword: boolean) => void;
+    onSendEmailForForgotPassword: (user: UserProps) => Promise<void>;
 }
 
 export const AuthContext = createContext({} as AuthContextProps);
@@ -56,6 +59,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isExpirationMessageSMS, setIsExpirationMessageSMS] = useState<number>();
   const [isLoadingLoginUser, setIsLoadingLoginUser] = useState<boolean>(false);
   const [isForgotPassword, setIsForgotPassword] = useState<boolean>(false);
+  const [isSendForgotPassword, setIsSendForgotPassword] = useState<string>();
+  const [isLoadingSendForgotPassword, setIsLoadingSendForgotPassword] = useState<boolean>(false);
 
   const handleLoginUser = useCallback(async (user: UserProps) => {
     try {
@@ -111,19 +116,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [onToast]);
 
-  const handleForgotPassword = useCallback(async (email: string) => {
+  const handleSendEmailForForgotPassword = useCallback(async (user: UserProps) => {
     try {
-      const isSuccess = await forgotPassword(email);
+      setIsLoadingSendForgotPassword(true);
+      if (user.email) {
+        const isSuccess = await forgotPassword(user.email);
 
-      console.log('isSuccess', isSuccess);
-      setIsForgotPassword(true);
+        if (isSuccess) {
+          setIsSendForgotPassword(user.email);
+        }
+      } else {
+        onToast({
+          message: 'Insira um e-mail válido.',
+          type: 'warning',
+        });
+      }
+      setIsLoadingSendForgotPassword(false);
     } catch (err: any) {
+      setIsLoadingSendForgotPassword(false);
       onToast({
-        message: err || 'Ocorreu um erro de comunicação.',
+        message: err.message || 'Ocorreu um erro de comunicação.',
         type: 'error',
       });
     }
   }, [onToast]);
+
+  const handleForgotPassword = useCallback((forgotPassword: boolean) => {
+    setIsForgotPassword(forgotPassword);
+    if (!forgotPassword) {
+      setIsSendForgotPassword(undefined);
+    }
+  }, []);
 
   const handleBackStepperFlowAuthPerPhone = useCallback(() => {
     if (isStepperTypeAuthPerPhone && isStepperTypeAuthPerPhone.stepper === 0) {
@@ -251,11 +274,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       expirationMessageSMS: isExpirationMessageSMS,
       loadingLoginUser: isLoadingLoginUser,
       forgotPassword: isForgotPassword,
+      loadingSendForgotPassword: isLoadingSendForgotPassword,
+      sendForgotPassword: isSendForgotPassword,
       onFlowAuthPerPhone: handleFlowAuthPerPhone,
       onBackStepperFlowAuthPerPhone: handleBackStepperFlowAuthPerPhone,
       onLoginGoogle: handleLoginGoogle,
       onRegisterUser: handleRegisterUser,
       onForgotPassword: handleForgotPassword,
+      onSendEmailForForgotPassword: handleSendEmailForForgotPassword,
     }}
     >
       {children}

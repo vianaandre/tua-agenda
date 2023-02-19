@@ -10,7 +10,7 @@ export const ContainerForm = styled.form`
         display: flex;
         align-items: center;
         justify-content: space-between;
-        a {
+        button {
             padding-right: 0px;
         }
     }
@@ -20,6 +20,9 @@ export const ContainerForm = styled.form`
         display: flex;
         flex-direction: column;
         gap: ${({ theme }) => theme.spacing(3)};
+        @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+            align-items: center;
+        }
         button {
             width: 100%;
         }

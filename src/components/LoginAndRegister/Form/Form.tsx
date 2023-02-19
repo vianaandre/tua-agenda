@@ -16,20 +16,31 @@ import { FormProps } from './interface';
 export const Form: React.FC<FormProps> = ({ type }) => {
   const methods = useForm<UserProps>();
   const {
-    onLoginUser, onRegisterUser, loadingLoginUser, forgotPassword,
+    onLoginUser, onRegisterUser, loadingLoginUser, forgotPassword, onForgotPassword, onSendEmailForForgotPassword, loadingSendForgotPassword, sendForgotPassword,
   } = useAuth();
   const [isTypePassword, setIsTypePassword] = useState<'password' | 'text'>('password');
 
   const isSubmit = useMemo(() => {
     switch (type) {
       case 'login':
-        return onLoginUser;
+        return !forgotPassword ? onLoginUser : onSendEmailForForgotPassword;
       case 'register':
         return onRegisterUser;
       default:
         return onLoginUser;
     }
-  }, [type, onLoginUser, onRegisterUser]);
+  }, [type, onLoginUser, onRegisterUser, onSendEmailForForgotPassword, forgotPassword]);
+
+  const isTextButton = useMemo(() => {
+    switch (type) {
+      case 'login':
+        return !forgotPassword ? 'Entrar' : 'Redefinir senha';
+      case 'register':
+        return 'Criar conta';
+      default:
+        return !forgotPassword ? 'Entrar' : 'Redefinir senha';
+    }
+  }, [type, forgotPassword]);
 
   return (
     <ContainerForm onSubmit={methods.handleSubmit(isSubmit)}>
@@ -50,6 +61,7 @@ export const Form: React.FC<FormProps> = ({ type }) => {
           error={methods.formState.errors.nome?.message}
         />
         )}
+        {(!sendForgotPassword || !forgotPassword) && (
         <Input
           id="email"
           name="email"
@@ -63,11 +75,12 @@ export const Form: React.FC<FormProps> = ({ type }) => {
             },
             pattern: {
               value: email,
-              message: 'Easasmail é inválido! Verifique.',
+              message: 'E-mail é inválido! Verifique.',
             },
           }}
           error={methods.formState.errors.email?.message}
         />
+        )}
         {!forgotPassword && (
         <Input
           id="senha"
@@ -103,28 +116,34 @@ export const Form: React.FC<FormProps> = ({ type }) => {
           }}
         />
         )}
-        {!forgotPassword && (
         <React.Fragment>
-          <div className="checkbox">
-            <Checkbox
-              id="keep-connected"
-              name="keep-connected"
-              label="Manter conectado"
-            />
-            {type === 'login' && (
-            <Button.Link variant={ButtonVariantProps.OUTLINE_TEXT} text="Esqueceu a senha?" href="#" />
-            )}
-          </div>
+          {!forgotPassword && (
+            <div className="checkbox">
+              <Checkbox
+                id="keep-connected"
+                name="keep-connected"
+                label="Manter conectado"
+              />
+              {type === 'login' && (
+              <Button.Normal variant={ButtonVariantProps.OUTLINE_TEXT} text="Esqueceu a senha?" type="button" onClick={() => onForgotPassword(!forgotPassword)} />
+              )}
+            </div>
+          )}
           <div className="btn_submit">
-            <Button.Normal type="submit" variant={ButtonVariantProps.PRIMARY} text={type === 'login' ? 'Entrar' : 'Criar conta'} loading={loadingLoginUser} disabled={loadingLoginUser} />
+            {!sendForgotPassword ? (
+              <Button.Normal type="submit" variant={ButtonVariantProps.PRIMARY} text={isTextButton} loading={loadingLoginUser || loadingSendForgotPassword} disabled={loadingLoginUser || loadingSendForgotPassword} />
+            ) : (
+              <Button.Normal type="button" text="Voltar para página de autenticação" variant={ButtonVariantProps.PRIMARY} onClick={() => onForgotPassword(!forgotPassword)} />
+            )}
+            {!forgotPassword && (
             <p className="small color_grey_950">
               Ao continuar você aceita os
-              {' '}
+                {' '}
               <a href="#" target="_black">termos de uso</a>
             </p>
+            )}
           </div>
         </React.Fragment>
-        )}
       </FormProvider>
     </ContainerForm>
   );

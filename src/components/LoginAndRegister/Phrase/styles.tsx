@@ -4,7 +4,8 @@ export const ContainerPhrase = styled.div<{
     bgImage: string;
 }>`
     width: 50%;
-    height: 100%;
+    height: 100vh;
+    min-height: 936px;
     background: url(${({ bgImage }) => bgImage}) no-repeat center;
     background-size: cover;
     position: relative;
@@ -12,28 +13,45 @@ export const ContainerPhrase = styled.div<{
     align-items: center;
     justify-content: center;
 
+    @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        display: none;
+    }
+
     div.effect_one {
         position: absolute;
-        right: 104px;
+        right: 12%;
         top: 137px;
+        @media(max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+            top: 192px
+        }
     }
     div.effect_two {
         position: absolute;
-        top: 220px;
-        left: 250px;
+        top: 200px;
+        left: 25%;
+        @media(max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+            left: 15%;
+            top: 240px;
+        }
     }
     div.effect_three {
         position: absolute;
-        left: 190px;
-        bottom: 152px
+        left: 20%;
+        bottom: 152px;
+        @media(max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+            left: 12%;
+            bottom: 172px;
+        }
     }
     div.effect_four {
         position: absolute;
-        right: 84px;
+        right: 9%;
         bottom: 230px;
     }
     div.content {
-        padding: 0px 220px;
+        width: 100%;
+        max-width: 472px;
+        padding: 0px ${({ theme }) => theme.spacing(3)};
         display: flex;
         flex-direction: column;
         gap: ${({ theme }) => theme.spacing(3)};
@@ -43,6 +61,10 @@ export const ContainerPhrase = styled.div<{
             font-weight: 400;
             color: ${({ theme }) => theme.colors.WHITE};
             line-height: 52px;
+            @media(max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+                font-size: ${({ theme }) => theme.fonts.sizes[24]};
+                line-height: 44px;
+            }
         }
         div {
             display: flex;

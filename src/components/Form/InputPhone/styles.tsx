@@ -18,6 +18,9 @@ export const ContainerInputPhone = styled.div`
         align-items: center;
         > div:nth-child(1) {
             max-width: 140px;
+            @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                max-width: 130px;
+            }
             > div {
                 border-right: 0px;
                 border-radius: 8px 0px 0px 8px;

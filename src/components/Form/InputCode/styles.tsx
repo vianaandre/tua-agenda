@@ -33,6 +33,10 @@ export const ContainerInputCode = styled.div`
         font-family: ${({ theme }) => theme.fonts.family.PRIMARY} !important;
         color: ${({ theme }) => theme.colors.PRIMARY[800]} !important;
         padding-left: 0px !important;
+        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+            width: ${({ theme }) => theme.spacing(6)} !important;
+            height: ${({ theme }) => theme.spacing(6.4)} !important;
+        }
         &:focus, &:focus-visible {
             border-color: ${({ theme }) => theme.colors.PRIMARY[500]} !important;
             outline: none !important;

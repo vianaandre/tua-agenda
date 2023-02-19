@@ -38,7 +38,7 @@ export const InputPhone: React.FC<InputPhoneProps> = ({ options, countrys }) => 
         <Input
           name="phone"
           id="phone"
-          type="phone"
+          type="tel"
           placeholder={options.length > 0 ? countrys.find((i) => i.countryCode === country)?.phoneMask : '(00) 00000-0000'}
           rules={{
             required: {

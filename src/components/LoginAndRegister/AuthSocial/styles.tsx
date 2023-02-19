@@ -6,6 +6,9 @@ export const ContainerAuthSocial = styled.div`
     gap: ${({ theme }) => theme.spacing(1.5)};
     width: 100%;
     margin-top: ${({ theme }) => theme.spacing(10.25)};
+    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        margin-top: ${({ theme }) => theme.spacing(7)};
+    }
     button {
         width: 100%;
         padding: ${({ theme }) => theme.spacing(2.25)};

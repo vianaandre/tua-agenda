@@ -23,9 +23,11 @@ export const Checkbox: React.FC<CheckboxProps> = ({
             className={`root ${value ? 'active' : ''}`}
             {...rest}
           >
-            <CheckboxRadix.Indicator
-              className="indicator"
-            />
+            <CheckboxRadix.Indicator className="indicator">
+              <div>
+                <div className="active_indicator" />
+              </div>
+            </CheckboxRadix.Indicator>
           </CheckboxRadix.Root>
           <label htmlFor={id}>{label}</label>
         </ContainerCheckbox>

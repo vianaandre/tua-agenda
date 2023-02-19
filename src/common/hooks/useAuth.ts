@@ -11,6 +11,8 @@ export const useAuth = () => {
   const loadingAuthPerPhone = useContextSelector(AuthContext, (auth) => auth.loadingAuthPerPhone);
   const loadingLoginUser = useContextSelector(AuthContext, (auth) => auth.loadingLoginUser);
   const forgotPassword = useContextSelector(AuthContext, (auth) => auth.forgotPassword);
+  const loadingSendForgotPassword = useContextSelector(AuthContext, (auth) => auth.loadingSendForgotPassword);
+  const sendForgotPassword = useContextSelector(AuthContext, (auth) => auth.sendForgotPassword);
   const onLoginUser = useContextSelector(AuthContext, (auth) => auth.onLoginUser);
   const onNextAuthPerPhone = useContextSelector(AuthContext, (auth) => auth.onNextAuthPerPhone);
   const onFlowAuthPerPhone = useContextSelector(AuthContext, (auth) => auth.onFlowAuthPerPhone);
@@ -18,6 +20,8 @@ export const useAuth = () => {
   const onBackStepperFlowAuthPerPhone = useContextSelector(AuthContext, (auth) => auth.onBackStepperFlowAuthPerPhone);
   const onLoginGoogle = useContextSelector(AuthContext, (auth) => auth.onLoginGoogle);
   const onRegisterUser = useContextSelector(AuthContext, (auth) => auth.onRegisterUser);
+  const onForgotPassword = useContextSelector(AuthContext, (auth) => auth.onForgotPassword);
+  const onSendEmailForForgotPassword = useContextSelector(AuthContext, (auth) => auth.onSendEmailForForgotPassword);
 
   return {
     user,
@@ -29,6 +33,8 @@ export const useAuth = () => {
     expirationMessageSMS,
     loadingLoginUser,
     forgotPassword,
+    loadingSendForgotPassword,
+    sendForgotPassword,
     onLoginUser,
     onNextAuthPerPhone,
     onLoadCountry,
@@ -36,5 +42,7 @@ export const useAuth = () => {
     onBackStepperFlowAuthPerPhone,
     onLoginGoogle,
     onRegisterUser,
+    onForgotPassword,
+    onSendEmailForForgotPassword,
   };
 };
