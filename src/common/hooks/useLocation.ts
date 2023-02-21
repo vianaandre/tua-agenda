@@ -3,13 +3,14 @@ import { useContextSelector } from 'use-context-selector';
 import { LocationContext } from 'common/context/LocationContext';
 
 export function useLocation() {
-  const location = useContextSelector(LocationContext, (home) => home.location);
-  const region = useContextSelector(LocationContext, (home) => home.region);
-  const loadingGetLocation = useContextSelector(LocationContext, (home) => home.loadingGetLocation);
-  const locationPerCityAndState = useContextSelector(LocationContext, (home) => home.locationPerCityAndState);
-  const onChangeLocation = useContextSelector(LocationContext, (home) => home.onChangeLocation);
-  const onChangeRegion = useContextSelector(LocationContext, (home) => home.onChangeRegion);
-  const onGetLocationBrowser = useContextSelector(LocationContext, (home) => home.onGetLocationBrowser);
+  const location = useContextSelector(LocationContext, (location) => location.location);
+  const region = useContextSelector(LocationContext, (location) => location.region);
+  const loadingGetLocation = useContextSelector(LocationContext, (location) => location.loadingGetLocation);
+  const locationPerCityAndState = useContextSelector(LocationContext, (location) => location.locationPerCityAndState);
+  const onChangeLocation = useContextSelector(LocationContext, (location) => location.onChangeLocation);
+  const onChangeRegion = useContextSelector(LocationContext, (location) => location.onChangeRegion);
+  const onGetLocationBrowser = useContextSelector(LocationContext, (location) => location.onGetLocationBrowser);
+  const onUpdatedLocation = useContextSelector(LocationContext, (location) => location.onUpdatedLocation);
 
   return {
     location,
@@ -19,5 +20,6 @@ export function useLocation() {
     onChangeLocation,
     onChangeRegion,
     onGetLocationBrowser,
+    onUpdatedLocation,
   };
 }

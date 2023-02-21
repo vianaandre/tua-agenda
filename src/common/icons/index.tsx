@@ -18,3 +18,7 @@ export { Facebook } from './Facebook';
 export { Phone } from './Phone';
 export { PasswordNotView } from './PasswordNotView';
 export { PasswordView } from './PasswordView';
+export { Notification } from './Notification';
+export { ArrowAlternativeBottom } from './ArrowAlternativeBottom';
+export { User } from './User';
+export { Logout } from './Logout';

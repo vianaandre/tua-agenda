@@ -14,7 +14,7 @@ export async function registerUser(user: UserProps) {
         const isUser = await saveUser({
           ...isUserCredential.user,
           displayName: user.nome,
-        }, authId, user.email) as ResponseProps<UserProps>;
+        }, authId, user.email, undefined, user.keepConnected) as ResponseProps<UserProps>;
 
         if (isUser.ok && isUser.obj) {
           return isUser.obj;

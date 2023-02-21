@@ -13,6 +13,7 @@ export const useAuth = () => {
   const forgotPassword = useContextSelector(AuthContext, (auth) => auth.forgotPassword);
   const loadingSendForgotPassword = useContextSelector(AuthContext, (auth) => auth.loadingSendForgotPassword);
   const sendForgotPassword = useContextSelector(AuthContext, (auth) => auth.sendForgotPassword);
+  const loadingUser = useContextSelector(AuthContext, (auth) => auth.loadingUser);
   const onLoginUser = useContextSelector(AuthContext, (auth) => auth.onLoginUser);
   const onNextAuthPerPhone = useContextSelector(AuthContext, (auth) => auth.onNextAuthPerPhone);
   const onFlowAuthPerPhone = useContextSelector(AuthContext, (auth) => auth.onFlowAuthPerPhone);
@@ -35,6 +36,7 @@ export const useAuth = () => {
     forgotPassword,
     loadingSendForgotPassword,
     sendForgotPassword,
+    loadingUser,
     onLoginUser,
     onNextAuthPerPhone,
     onLoadCountry,

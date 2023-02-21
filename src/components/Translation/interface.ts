@@ -1,4 +1,4 @@
-export type VariantTranslationProps = 'primary' | 'secondary';
+export type VariantTranslationProps = 'primary' | 'secondary' | 'white';
 
 export interface TranslationProps {
     variant: VariantTranslationProps;

@@ -4,6 +4,7 @@ import { loginUser } from './loginUser';
 import { validatorCode } from './validatorCode';
 import { registerUser } from './registerUser';
 import { forgotPassword } from './forgotPassword';
+import { findUser } from './findUser';
 
 export {
   saveUser,
@@ -12,4 +13,5 @@ export {
   loginUser,
   registerUser,
   forgotPassword,
+  findUser,
 };

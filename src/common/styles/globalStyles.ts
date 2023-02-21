@@ -172,6 +172,9 @@ export const GlobalStyles = createGlobalStyle`
             font-size: ${({ theme }) => theme.fonts.sizes[16]};
         }
     }
+    p.color_white {
+        color: ${({ theme }) => theme.colors.WHITE};
+    }
     p.color_light {
         color: ${({ theme }) => theme.colors.GREY[850]};
         font-weight: 400;
@@ -192,6 +195,9 @@ export const GlobalStyles = createGlobalStyle`
     }
     .color_grey_700 {
         color: ${({ theme }) => theme.colors.GREY[700]} !important;
+    }
+    .color_grey_800 {
+        color: ${({ theme }) => theme.colors.GREY[800]} !important;
     }
     .color_grey_950 {
         color: ${({ theme }) => theme.colors.GREY[950]} !important;
@@ -249,6 +255,72 @@ export const GlobalStyles = createGlobalStyle`
         position: fixed !important;
         top: 0;
         z-index: ${({ theme }) => theme.zIndex.MODAL};
+    }
+    div.dropdown_notification_content {
+        background-color: ${({ theme }) => theme.colors.WHITE};
+        border-radius: 4px;
+        width: 300px;
+        overflow: hidden;
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: ${({ theme }) => theme.spacing(1.5)} ${({ theme }) => theme.spacing(2)};
+            h4 {
+                color: ${({ theme }) => theme.colors.BLACK[500]};
+            }
+        }
+        div.dropdown_notification_content_item {
+            button {
+                display: flex;
+                padding: ${({ theme }) => theme.spacing(2)};
+                font-size: ${({ theme }) => theme.fonts.sizes[16]};
+                font-family: ${({ theme }) => theme.fonts.family.ALTERNATIVE};
+                font-weight: 500;
+                font-style: normal;
+                color: ${({ theme }) => theme.colors.GREY[1000]};
+                width: 100%;
+                border-top: 1px solid ${({ theme }) => theme.colors.GREY[500]};
+
+                &:hover {
+                    background-color: ${({ theme }) => theme.colors.GREY[500]};
+                }
+                flex-direction: column;
+                p.color_dark {
+                    font-weight: 600;
+                    color: ${({ theme }) => theme.colors.BLACK[500]}
+                }
+            }
+        }
+    }
+    div.dropdown_profile_content {
+        width: 200px;
+        background-color: ${({ theme }) => theme.colors.WHITE};
+        border-radius: 4px;
+        overflow: hidden;
+        div.dropdown_profile_content_item {
+            width: 100%;
+            button, a {
+                width: 100%;
+                font-size: ${({ theme }) => theme.fonts.sizes[16]};
+                font-family: ${({ theme }) => theme.fonts.family.ALTERNATIVE};
+                color: ${({ theme }) => theme.colors.BLACK[500]};
+                font-weight: 500;
+                text-align: left;
+                padding: ${({ theme }) => theme.spacing(2)};
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                &:hover {
+                    background-color: ${({ theme }) => theme.colors.GREY[500]};
+                }
+                &.logout {
+                    border-top: 1px solid ${({ theme }) => theme.colors.GREY[500]};
+                    color: ${({ theme }) => theme.colors.DANGER}
+                }
+            }
+        }
     }
 
     @keyframes animationInModalDialog {

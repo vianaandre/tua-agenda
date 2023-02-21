@@ -22,6 +22,7 @@ export interface LocationContextProps {
   onChangeLocation: (location:LanguageProps) => void;
   onChangeRegion: (region: RegionProps) => void;
   onGetLocationBrowser: () => void;
+  onUpdatedLocation: ({ city, state }: LocationCityStateProps) => void;
 }
 
 export const LocationContext = createContext({} as LocationContextProps);
@@ -35,6 +36,13 @@ export const LocationProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const handleChangeLocation = useCallback((location: LanguageProps) => {
     setIsLocation(location);
+  }, []);
+
+  const handleUpdatedLocation = useCallback(({ city, state }: LocationCityStateProps) => {
+    setIsLocationPerCityAndState({
+      city,
+      state,
+    });
   }, []);
 
   const handleChangeRegion = useCallback((region: RegionProps) => {
@@ -119,6 +127,7 @@ export const LocationProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         onChangeLocation: handleChangeLocation,
         onChangeRegion: handleChangeRegion,
         onGetLocationBrowser: handleGetLocationBrowser,
+        onUpdatedLocation: handleUpdatedLocation,
       }}
       >
         {children}

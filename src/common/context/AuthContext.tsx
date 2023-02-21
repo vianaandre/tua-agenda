@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   GoogleAuthProvider, signInWithPopup,
 } from 'firebase/auth';
+import { getCookie } from 'cookies-next';
 
 import { StepperProps } from 'common/interface/StepperProps';
 import { UserProps } from 'common/interface/UserProps';
@@ -15,7 +16,7 @@ import { CountryProps } from 'common/interface/CountryProps';
 import { useToast } from 'common/hooks/useToast';
 import { AuthPerPhoneProps } from 'common/interface/AuthPerPhoneProps';
 import {
-  saveUser, verifyPhone, validatorCode, loginUser, registerUser, forgotPassword,
+  saveUser, verifyPhone, validatorCode, loginUser, registerUser, forgotPassword, findUser,
 } from 'services/modules/user';
 import { MethodLoginProps } from 'common/interface/MethodLoginProps';
 import { formatPhone } from 'utils/format';
@@ -34,6 +35,7 @@ interface AuthContextProps {
     forgotPassword: boolean;
     loadingSendForgotPassword: boolean;
     sendForgotPassword?: string;
+    loadingUser: boolean;
     onLoginUser: (user: UserProps) => void;
     onNextAuthPerPhone: (data: AuthPerPhoneProps) => void;
     onFlowAuthPerPhone: () => void;
@@ -61,12 +63,41 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isForgotPassword, setIsForgotPassword] = useState<boolean>(false);
   const [isSendForgotPassword, setIsSendForgotPassword] = useState<string>();
   const [isLoadingSendForgotPassword, setIsLoadingSendForgotPassword] = useState<boolean>(false);
+  const [isLoadingUser, setIsLoadingUser] = useState<boolean>(true);
+
+  const handleLoadUser = useCallback(async () => {
+    try {
+      setIsLoadingUser(true);
+      const isToken = getCookie('@Auth:token') as string;
+      const isIdUser = getCookie('@Auth:id') as string;
+
+      if (isToken && isIdUser) {
+        const isUser = await findUser(isIdUser, isToken) as ResponseProps<UserProps>;
+
+        if (isUser.obj) {
+          setIsUser(isUser.obj);
+        } else {
+          onToast({
+            message: 'Usuário não encontrado.',
+            type: 'error',
+          });
+        }
+      }
+      setIsLoadingUser(false);
+    } catch (err: any) {
+      setIsLoadingUser(false);
+      onToast({
+        message: err.message || 'Ocorreu um erro de comunicação.',
+        type: 'error',
+      });
+    }
+  }, [onToast]);
 
   const handleLoginUser = useCallback(async (user: UserProps) => {
     try {
       setIsLoadingLoginUser(true);
       if (user && user.email && user.senha) {
-        const result = await loginUser(user.senha, user.email);
+        const result = await loginUser(user.senha, user.email, user.keepConnected);
 
         setIsUser(result);
         onToast({
@@ -237,7 +268,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const { user } = await signInWithPopup(auth, googleProvider);
       const tokenId = await user.getIdToken();
 
-      const result = await saveUser(user, tokenId, MethodLoginProps.GOOGLE) as ResponseProps<UserProps>;
+      const result = await saveUser(user, tokenId, MethodLoginProps.GOOGLE, undefined, true) as ResponseProps<UserProps>;
 
       if (result && !result.ok) {
         throw new Error(result.mensagem);
@@ -253,12 +284,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setIsLoadingAuthGoogle(false);
     } catch (err: any) {
       onToast({
-        message: err && err.mensagem ? err.mensagem : 'Ocorreu um erro de comunicação.',
+        message: err && err.mensagem ? err.mensagem : 'Falha ao iniciar a sessão.',
         type: 'error',
       });
       setIsLoadingAuthGoogle(false);
     }
   }, [onToast]);
+
+  useEffect(() => {
+    if (!isUser) handleLoadUser();
+  }, [handleLoadUser, isUser]);
 
   return (
     <AuthContext.Provider value={{
@@ -276,6 +311,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       forgotPassword: isForgotPassword,
       loadingSendForgotPassword: isLoadingSendForgotPassword,
       sendForgotPassword: isSendForgotPassword,
+      loadingUser: isLoadingUser,
       onFlowAuthPerPhone: handleFlowAuthPerPhone,
       onBackStepperFlowAuthPerPhone: handleBackStepperFlowAuthPerPhone,
       onLoginGoogle: handleLoginGoogle,

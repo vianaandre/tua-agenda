@@ -8,11 +8,15 @@ import { useLocation } from 'common/hooks/useLocation';
 import { Translation } from 'components/Translation';
 import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
+import { useAuth } from 'common/hooks/useAuth';
+import { ContainerProfileAvatar } from 'components/Header/Desktop/MenuUser/Profile/styles';
+import { Avatar } from 'components/Avatar';
 import { ContainerMobile, ContainerMobileMenu } from './styles';
 
 export const Mobile: React.FC = () => {
   const { onShowMenu, showMenu, onCloseMenu } = useAnimation();
   const { locationPerCityAndState, onGetLocationBrowser } = useLocation();
+  const { user } = useAuth();
 
   useEffect(() => {
     if (showMenu) {
@@ -25,13 +29,14 @@ export const Mobile: React.FC = () => {
   }, [showMenu, onCloseMenu]);
 
   return (
-    <ContainerMobile>
+    <ContainerMobile className={user ? 'auth_user' : ''}>
       <Link href="/" legacyBehavior passHref>
         <a>
-          <Logo width={159} height={19} color={theme.colors.PRIMARY[500]} />
+          {user && <Logo width={159} height={19} color={theme.colors.WHITE} />}
+          {!user && <Logo width={159} height={19} color={theme.colors.PRIMARY[500]} />}
         </a>
       </Link>
-      <button type="button" onClick={onShowMenu}>
+      <button type="button" onClick={onShowMenu} className={`${user ? 'auth_user' : ''}`}>
         <p className="normal color_normal">Menu</p>
         <div>
           <div />
@@ -45,18 +50,45 @@ export const Mobile: React.FC = () => {
             <Close width={24} height={24} color={theme.colors.PRIMARY[500]} stroke={3} />
             <p className="normal color_normal">Fechar</p>
           </button>
-          {!locationPerCityAndState && (
-          <button type="button" onClick={onGetLocationBrowser} className="button_location">
-            <Location width={22} height={22} color={theme.colors.GREY[950]} />
-            <p className="small">Permitir localização</p>
-          </button>
+          {!locationPerCityAndState ? (
+            <button type="button" onClick={onGetLocationBrowser} className="button_location">
+              <Location width={22} height={22} color={theme.colors.GREY[950]} />
+              <p className="small">Permitir localização</p>
+            </button>
+          ) : (
+            <div className="button_location">
+              <Location width={22} height={22} color={theme.colors.GREY[950]} />
+              <p className="small">
+                {locationPerCityAndState.city}
+                ,
+                {' '}
+                {locationPerCityAndState.state}
+              </p>
+            </div>
           )}
         </div>
         <div className="content">
-          <ul>
-            <li>
+          <ul className={`${user ? 'auth_user' : ''}`}>
+            {user && (
+            <li className="photo_user">
+              <div className="photo">
+                {user.imageUrl && (
+                  <ContainerProfileAvatar imageUrl={user.imageUrl} />
+                )}
+                {!user.imageUrl && user.nome && (
+                  <Avatar username={user.nome} />
+                )}
+              </div>
+              <div className="infos">
+                <p className="normal color_dark">{user.nome}</p>
+                <p className="small color_grey_800">Cliente</p>
+              </div>
+            </li>
+            )}
+            <li className="translation">
               <Translation variant="primary" />
             </li>
+            {!user && (
             <li>
               <Button.Link
                 variant={ButtonVariantProps.SECONDARY}
@@ -64,6 +96,8 @@ export const Mobile: React.FC = () => {
                 href="/"
               />
             </li>
+            )}
+            {!user && (
             <li className="separator">
               <Button.Link
                 variant={ButtonVariantProps.OUTLINE}
@@ -71,6 +105,8 @@ export const Mobile: React.FC = () => {
                 href="/login"
               />
             </li>
+            )}
+            {!user && (
             <li>
               <Button.Link
                 variant={ButtonVariantProps.PRIMARY}
@@ -78,6 +114,60 @@ export const Mobile: React.FC = () => {
                 href="/register"
               />
             </li>
+            )}
+            {user && (
+            <li className="link_auth">
+              <Link href="/schedules" prefetch>
+                <a>
+                  <p>
+                    Agendamentos
+                  </p>
+                </a>
+              </Link>
+            </li>
+            )}
+            {user && (
+            <li className="link_auth">
+              <Link href="/anamneses" prefetch>
+                <a>
+                  <p>
+                    Anamneses
+                  </p>
+                </a>
+              </Link>
+            </li>
+            )}
+            {user && (
+            <li className="link_auth">
+              <Link href="/notifications" prefetch>
+                <a>
+                  <p>
+                    Notificações
+                  </p>
+                </a>
+              </Link>
+            </li>
+            )}
+            {user && (
+            <li className="link_auth">
+              <Link href="/profile" prefetch>
+                <a>
+                  <p>
+                    Meu Perfil
+                  </p>
+                </a>
+              </Link>
+            </li>
+            )}
+            {user && (
+            <li className="link_auth">
+              <button type="button" className="logout">
+                <p>
+                  Sair
+                </p>
+              </button>
+            </li>
+            )}
           </ul>
         </div>
       </ContainerMobileMenu>

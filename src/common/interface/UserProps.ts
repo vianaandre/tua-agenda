@@ -14,4 +14,10 @@ export interface UserProps {
     provider?: string;
     raw?: RefreshTokenProps;
     token_whypwd?: string;
+    cidade?: string;
+    rua?: string;
+    cep?: string;
+    pais?: string;
+    estado?: string;
+    dtInclusaoFmt?: string;
 }

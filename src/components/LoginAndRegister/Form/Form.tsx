@@ -120,8 +120,8 @@ export const Form: React.FC<FormProps> = ({ type }) => {
           {!forgotPassword && (
             <div className="checkbox">
               <Checkbox
-                id="keep-connected"
-                name="keep-connected"
+                id="keepConnected"
+                name="keepConnected"
                 label="Manter conectado"
               />
               {type === 'login' && (

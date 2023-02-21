@@ -2,7 +2,7 @@ import { HeadersProps } from 'common/interface/HeadersProps';
 import { api } from 'services/api';
 import { GET_USER } from 'services/routes';
 
-export async function findUser(id: string, tokenId?: string, tokenWhypwd?: string) {
+export async function findUser(id: string, tokenId: string, tokenWhypwd?: string) {
   try {
     const headers = {
       'token-id': tokenId,

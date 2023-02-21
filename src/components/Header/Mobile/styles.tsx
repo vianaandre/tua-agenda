@@ -8,6 +8,11 @@ export const ContainerMobile = styled.div`
     }
     justify-content: space-between;
     align-items: center;
+    &.auth_user {
+        @media(max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+            display: flex;
+        }
+    }
 
     button {
         display: flex;
@@ -26,6 +31,16 @@ export const ContainerMobile = styled.div`
                 height: 3px;
                 border-radius: 4px;
                 background-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+            }
+        }
+        &.auth_user {
+            div {
+                div {
+                    background-color: ${({ theme }) => theme.colors.WHITE};
+                }
+            }
+            p {
+                color: ${({ theme }) => theme.colors.WHITE};
             }
         }
     }
@@ -63,7 +78,7 @@ export const ContainerMobileMenu = styled.nav<{
                 font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
             }
         }
-        button.button_location {
+        button.button_location, div.button_location {
             display: flex;
             gap: ${({ theme }) => theme.spacing(1)};
             p.small {
@@ -92,6 +107,70 @@ export const ContainerMobileMenu = styled.nav<{
                 a {
                     width: 100%;
                     max-width: 220px;
+                }
+            }
+            li.photo_user {
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                div.photo {
+                    border: 2px solid ${({ theme }) => theme.colors.PRIMARY[500]};
+                    border-radius: 50%;
+                    padding: 2px;
+                    div {
+                        width: 82px;
+                        height: 82px;
+                    }
+                }
+                p.color_dark {
+                    margin-top: ${({ theme }) => theme.spacing(1)};
+                    color: ${({ theme }) => theme.colors.BLACK[500]};
+                    font-weight: 500;
+                }
+                p {
+                    text-align: center;
+                }
+            }
+        }
+        ul.auth_user {
+            width: 100%;
+            gap: 0px;
+            li.translation {
+                margin-bottom: ${({ theme }) => theme.spacing(3.5)};
+            }
+            li.link_auth {
+                justify-content: flex-start;
+                width: 80%;
+                text-align: left;
+                border-top: 1px solid ${({ theme }) => theme.colors.GREY[500]};
+
+                a, button {
+                    width: 100%;
+                    padding: ${({ theme }) => theme.spacing(3)} 0px;
+                    p {
+                        font-size: ${({ theme }) => theme.fonts.sizes[16]};
+                        font-family: ${({ theme }) => theme.fonts.family.ALTERNATIVE};
+                        font-weight: 500;
+                        font-style: normal;
+                        color: ${({ theme }) => theme.colors.GREY[900]};
+                        transition: 400ms;
+                    }
+                    &:hover {
+                        p {
+                            transition: 400ms;
+                            filter: brightness(0.4);
+                        }
+                    }
+                    &.logout {
+                        p {
+                            color: ${({ theme }) => theme.colors.DANGER};
+                        }
+                        &:hover {
+                            p {
+                                filter: none !important;
+                            }
+                        }
+                    }
                 }
             }
         }

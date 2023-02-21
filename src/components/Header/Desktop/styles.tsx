@@ -8,6 +8,11 @@ export const ContainerDesktop = styled.div`
     @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         display: none;
     }
+    &.auth_user {
+        @media(max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+            display: none;
+        }
+    }
 `;
 
 export const ContainerHeaderLeft = styled.div`
@@ -28,29 +33,23 @@ export const ContainerHeaderLeft = styled.div`
             font-weight: 500;
         }
     }
-`;
-
-export const ContainerHeaderRight = styled.nav`
-    ul {
+    div.location {
         display: flex;
         align-items: center;
-        gap: ${({ theme }) => theme.spacing(2)};
-
-        li {
-            display: flex;
-            align-items: center;
-            gap: ${({ theme }) => theme.spacing(1)};
-
+        gap: ${({ theme }) => theme.spacing(1)};
+        p.small {
+            color: ${({ theme }) => theme.colors.GREY[950]};
+            font-weight: 500;
+        }
+    }
+    &.user_active {
+        button.location, div.location {
             p.small {
-                color: ${({ theme }) => theme.colors.GREY[950]};
+                color: ${({ theme }) => theme.colors.WHITE};
                 font-weight: 500;
-                text-transform: uppercase;
-            }
-            &.separator {
-                padding-right: ${({ theme }) => theme.spacing(2)};
-                height: 100%;
-                border-right: 1px solid ${({ theme }) => theme.colors.PRIMARY[250]};
             }
         }
     }
 `;
+
+export const ContainerHeaderRight = styled.nav``;
