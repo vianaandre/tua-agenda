@@ -28,7 +28,7 @@ export const MenuNotUser: React.FC = () => {
       <li>
         <Button.Link
           variant={ButtonVariantProps.PRIMARY}
-          text="Entrar"
+          text="Cadastrar"
           href="/register"
         />
       </li>
