@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 
@@ -16,7 +18,7 @@ import { ContainerMobile, ContainerMobileMenu } from './styles';
 export const Mobile: React.FC = () => {
   const { onShowMenu, showMenu, onCloseMenu } = useAnimation();
   const { locationPerCityAndState, onGetLocationBrowser } = useLocation();
-  const { user } = useAuth();
+  const { user, onLogoutUser } = useAuth();
 
   useEffect(() => {
     if (showMenu) {
@@ -117,7 +119,7 @@ export const Mobile: React.FC = () => {
             )}
             {user && (
             <li className="link_auth">
-              <Link href="/schedules" prefetch>
+              <Link href="/schedules">
                 <a>
                   <p>
                     Agendamentos
@@ -128,7 +130,7 @@ export const Mobile: React.FC = () => {
             )}
             {user && (
             <li className="link_auth">
-              <Link href="/anamneses" prefetch>
+              <Link href="/anamneses">
                 <a>
                   <p>
                     Anamneses
@@ -139,7 +141,7 @@ export const Mobile: React.FC = () => {
             )}
             {user && (
             <li className="link_auth">
-              <Link href="/notifications" prefetch>
+              <Link href="/notifications">
                 <a>
                   <p>
                     Notificações
@@ -150,8 +152,8 @@ export const Mobile: React.FC = () => {
             )}
             {user && (
             <li className="link_auth">
-              <Link href="/profile" prefetch>
-                <a>
+              <Link href="/profile">
+                <a onClick={onCloseMenu}>
                   <p>
                     Meu Perfil
                   </p>
@@ -161,7 +163,7 @@ export const Mobile: React.FC = () => {
             )}
             {user && (
             <li className="link_auth">
-              <button type="button" className="logout">
+              <button type="button" className="logout" onClick={onLogoutUser}>
                 <p>
                   Sair
                 </p>

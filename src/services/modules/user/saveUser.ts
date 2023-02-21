@@ -19,17 +19,17 @@ export async function saveUser(user: User, tokenId: string, methodLogin?: string
       deleteCookie('@Auth:token');
       if (keepConnect) {
         setCookie('@Auth:id', isUser.obj.id);
-        setCookie('@Auth:token', tokenId);
       }
+      setCookie('@Auth:token', tokenId);
 
       return isUser;
     }
     if (!isUser.obj) {
       const isCreatedUser = await createUser({
-        email: user.email,
-        nome: user.displayName,
+        email: user.email ? user.email : undefined,
+        nome: user.displayName ? user.displayName : undefined,
         imageUrl: user.photoURL,
-        telefone: user.phoneNumber,
+        telefone: user.phoneNumber ? user.phoneNumber : undefined,
         metodoLogin: methodLogin,
         id: user.uid,
       }, user, tokenId) as ResponseProps<UserProps>;
@@ -39,8 +39,8 @@ export async function saveUser(user: User, tokenId: string, methodLogin?: string
 
       if (isCreatedUser.obj && isCreatedUser.obj.id && keepConnect) {
         setCookie('@Auth:id', isCreatedUser.obj.id);
-        setCookie('@Auth:token', tokenId);
       }
+      setCookie('@Auth:token', tokenId);
 
       return isCreatedUser;
     }

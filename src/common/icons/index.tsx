@@ -22,3 +22,5 @@ export { Notification } from './Notification';
 export { ArrowAlternativeBottom } from './ArrowAlternativeBottom';
 export { User } from './User';
 export { Logout } from './Logout';
+export { Photo } from './Photo';
+export { Loading } from './Loading';

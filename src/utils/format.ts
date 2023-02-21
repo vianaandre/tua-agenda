@@ -3,3 +3,9 @@ export function formatPhone(phone: string) {
 
   return isPhoneFormatted;
 }
+
+export function formatDate(date: string) {
+  const isDateFormatted = date.split('-').reverse().join('/');
+
+  return isDateFormatted;
+}

@@ -53,7 +53,7 @@ export const ContainerMobileMenu = styled.nav<{
     width: 100vw;
     max-width: 524px;
     height: 100vh;
-    min-height: 500px;
+    overflow: auto;
     top: 0px;
     right: 0px;
     background-color: ${({ theme }) => theme.colors.WHITE};

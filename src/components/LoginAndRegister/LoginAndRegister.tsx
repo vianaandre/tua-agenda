@@ -34,7 +34,7 @@ export const LoginAndRegister: React.FC<LoginAndRegisterProps> = ({ type }) => {
       <ContainerLoginAndRegisterContent>
         <div className="content_auth">
           <header>
-            <Link href="/" prefetch passHref>
+            <Link href="/" passHref>
               <a>
                 <Logo width={159} height={19} color={theme.colors.PRIMARY[500]} />
               </a>

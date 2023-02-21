@@ -6,9 +6,12 @@ import { Avatar } from 'components/Avatar';
 import { ArrowAlternativeBottom, User, Logout } from 'common/icons';
 import { theme } from 'common/styles/theme';
 import Link from 'next/link';
+import { useAuth } from 'common/hooks/useAuth';
 import { ContainerProfile, ContainerProfileAvatar } from './styles';
 
 export const Profile: React.FC<UserProps> = ({ imageUrl, nome }) => {
+  const { onLogoutUser } = useAuth();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
@@ -23,7 +26,15 @@ export const Profile: React.FC<UserProps> = ({ imageUrl, nome }) => {
               <Avatar username={nome} />
             )}
             <div className="infos">
-              <p className="normal color_white">{nome}</p>
+              <p className="normal color_white">
+                {nome ? (
+                  <React.Fragment>
+                    {nome.split(' ')[0]}
+                    {' '}
+                    {nome.split(' ').length > 1 ? nome?.split(' ')[nome.split(' ').length - 1] : ''}
+                  </React.Fragment>
+                ) : 'Sem nome'}
+              </p>
               <p className="small color_grey_800">Cliente</p>
             </div>
             <div className={`icon_btn ${isOpen ? 'open' : ''}`}>
@@ -34,7 +45,7 @@ export const Profile: React.FC<UserProps> = ({ imageUrl, nome }) => {
         <DropdownMenu.Portal>
           <DropdownMenu.Content sideOffset={5} className="dropdown_profile_content">
             <DropdownMenu.Item className="dropdown_profile_content_item" onClick={() => setIsOpen(false)}>
-              <Link href="/profile" prefetch>
+              <Link href="/profile">
                 <a>
                   Meu Perfil
                   <User width={25} height={25} color={theme.colors.BLACK[500]} />
@@ -42,7 +53,14 @@ export const Profile: React.FC<UserProps> = ({ imageUrl, nome }) => {
               </Link>
             </DropdownMenu.Item>
             <DropdownMenu.Item className="dropdown_profile_content_item">
-              <button type="button" className="logout" onClick={() => setIsOpen(false)}>
+              <button
+                type="button"
+                className="logout"
+                onClick={() => {
+                  setIsOpen(false);
+                  onLogoutUser();
+                }}
+              >
                 Sair
                 <Logout width={24} height={24} color={theme.colors.DANGER} />
               </button>

@@ -9,7 +9,7 @@ import {
 import { IInput } from './interface';
 
 export const Input: React.FC<IInput> = ({
-  id, name, type, label, variant = InputVariantProps.PRIMARY, rules, icon, error, mask, ...rest
+  id, name, type, label, variant = InputVariantProps.PRIMARY, rules, icon, error, mask, defaultValue, ...rest
 }) => {
   const [isFocus, setIsFocus] = useState<boolean>(false);
   const { control, watch } = useFormContext();
@@ -20,6 +20,7 @@ export const Input: React.FC<IInput> = ({
       rules={rules}
       name={name}
       control={control}
+      defaultValue={defaultValue}
       render={({ field: { name, value, onChange } }) => (
         <ContainerInput variant={variant}>
           {label && variant === InputVariantProps.PRIMARY && (
@@ -39,7 +40,7 @@ export const Input: React.FC<IInput> = ({
             )}
             <ContainerInputInputInput variant={variant}>
               {mask ? (
-                <ReactInputMask mask={mask} maskChar={null} alwaysShowMask={false} value={value} onChange={onChange} onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)} disabled={rest.disabled} type={type} name={name} id={id}>
+                <ReactInputMask mask={mask} alwaysShowMask={false} value={value} onChange={onChange} onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)} disabled={rest.disabled} type={type} name={name} id={id}>
                   <input {...rest} />
                 </ReactInputMask>
               ) : (

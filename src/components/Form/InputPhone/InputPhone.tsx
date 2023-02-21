@@ -45,14 +45,18 @@ export const InputPhone: React.FC<InputPhoneProps> = ({ options, countrys }) => 
               value: true,
               message: 'Telefone é obrigatório! Verifique.',
             },
-            validate: (value) => {
-              if (value) {
-                const isNumberPhone = value.replaceAll('_', '') as string;
-                if (options.length > 0 && countrys.find((i) => i.countryCode === country) && isNumberPhone.length === countrys.find((i) => i.countryCode === country)?.phoneMask.length) {
-                  return true;
-                }
-                return 'Número de telefone é inválido! Verifique.';
-              }
+            validate: () => {
+            //   if (value) {
+            //     console.log('value', value);
+            //     const isNumberPhone = value.replaceAll('_', '') as string;
+
+              //     console.log(isNumberPhone.length);
+              //     console.log('value', countrys.find((i) => i.countryCode === country)?.phoneMask.length);
+              //     if (options.length > 0 && countrys.find((i) => i.countryCode === country) && isNumberPhone.length === countrys.find((i) => i.countryCode === country)?.phoneMask.length) {
+              //       return true;
+              //     }
+              //     return 'Número de telefone é inválido! Verifique.';
+              //   }
 
               return true;
             },

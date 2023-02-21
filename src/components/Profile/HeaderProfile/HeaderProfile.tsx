@@ -1,23 +1,29 @@
 import React from 'react';
 
 import { Button } from 'components/Button';
-import { ArrowLeft } from 'common/icons';
+import { ArrowLeft, Photo } from 'common/icons';
 import { theme } from 'common/styles/theme';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
 import { Container } from 'common/styles/container';
 import { useAuth } from 'common/hooks/useAuth';
-import { ContainerHeaderProfile, ContainerHeaderProfileLeft } from './styles';
+import { Avatar } from 'components/Avatar';
+import {
+  ContainerHeaderProfile, ContainerHeaderProfileLeft, ContainerHeaderProfileRight, ContainerHeaderProfileRightAvatar,
+} from './styles';
 
 export const HeaderProfile: React.FC = () => {
-  const { user } = useAuth();
+  const { user, onUploadPhoto, uploadPhoto } = useAuth();
+
+  const handleBack = () => window.history.back();
 
   return (
     <ContainerHeaderProfile>
       <Container>
         <div className="content_page">
           <ContainerHeaderProfileLeft>
-            <Button.Link
-              href="/"
+            <Button.Normal
+              onClick={handleBack}
+              type="button"
               text="Voltar"
               icon={{
                 direction: 'left',
@@ -36,6 +42,20 @@ export const HeaderProfile: React.FC = () => {
             </p>
             )}
           </ContainerHeaderProfileLeft>
+          <ContainerHeaderProfileRight>
+            <div className="user_photo">
+              {user && user.imageUrl && (
+                <ContainerHeaderProfileRightAvatar imageUrl={uploadPhoto ? (uploadPhoto as string) : user.imageUrl} />
+              )}
+              {user && !user.imageUrl && user.nome && (
+                <Avatar username={user.nome} variant="medium" />
+              )}
+              <label htmlFor="uploadPhoto">
+                <Photo width={20} height={20} color={theme.colors.PRIMARY[500]} />
+              </label>
+              <input type="file" hidden id="uploadPhoto" name="uploadPhoto" onChange={onUploadPhoto} accept="image/png, image/jpeg, image/jpg" />
+            </div>
+          </ContainerHeaderProfileRight>
         </div>
       </Container>
     </ContainerHeaderProfile>

@@ -5,6 +5,8 @@ import { validatorCode } from './validatorCode';
 import { registerUser } from './registerUser';
 import { forgotPassword } from './forgotPassword';
 import { findUser } from './findUser';
+import { updateUser } from './updateUser';
+import { uploadPhoto } from './uploadPhoto';
 
 export {
   saveUser,
@@ -14,4 +16,6 @@ export {
   registerUser,
   forgotPassword,
   findUser,
+  updateUser,
+  uploadPhoto,
 };

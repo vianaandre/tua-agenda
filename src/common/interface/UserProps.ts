@@ -1,11 +1,12 @@
 import { RefreshTokenProps } from './RefreshTokenProps';
 
 export interface UserProps {
-    nome?: string | null;
-    email?: string | null;
+    nome?: string;
+    email?: string;
     senha?: string;
     keepConnected?: boolean;
-    telefone?: string | null;
+    telefone?: string;
+    telefone1?: string;
     codPais?: string;
     id?: string;
     imageUrl?: string | null;
@@ -20,4 +21,11 @@ export interface UserProps {
     pais?: string;
     estado?: string;
     dtInclusaoFmt?: string;
+    dtNascimento?: string;
+    dtNascimentoFmt?: string;
+    cpf?: string;
+    country?: string;
+    numero?: string;
+    complemento?: string;
+    phone?: string;
 }

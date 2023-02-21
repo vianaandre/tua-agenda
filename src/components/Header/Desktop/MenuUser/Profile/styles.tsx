@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const ContainerProfile = styled.div`
+    width: 207px;
     button {
         cursor: pointer;
         display: flex;
@@ -10,6 +11,13 @@ export const ContainerProfile = styled.div`
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            p.color_white {
+                width: 98px;
+                white-space: nowrap;
+                text-align: left;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         }
         &:focus {
             outline: none;

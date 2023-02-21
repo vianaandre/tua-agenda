@@ -2,26 +2,30 @@ import React, { useCallback, useEffect, useState } from 'react';
 import {
   GoogleAuthProvider, signInWithPopup,
 } from 'firebase/auth';
-import { getCookie } from 'cookies-next';
+import { getCookie, deleteCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
 import { StepperProps } from 'common/interface/StepperProps';
 import { UserProps } from 'common/interface/UserProps';
 import { api } from 'services/api';
 import { createContext } from 'use-context-selector';
 import { stepperAuthPerPhone } from 'utils/stepper';
-import { GET_COUNTRY } from 'services/routes';
+import { GET_COUNTRY, VIACEP } from 'services/routes';
 import { useLocation } from 'common/hooks/useLocation';
 import { OptionSelectProps } from 'common/interface/OptionSelectProps';
 import { CountryProps } from 'common/interface/CountryProps';
 import { useToast } from 'common/hooks/useToast';
 import { AuthPerPhoneProps } from 'common/interface/AuthPerPhoneProps';
 import {
-  saveUser, verifyPhone, validatorCode, loginUser, registerUser, forgotPassword, findUser,
+  saveUser, verifyPhone, validatorCode, loginUser, registerUser, forgotPassword, findUser, updateUser, uploadPhoto,
 } from 'services/modules/user';
 import { MethodLoginProps } from 'common/interface/MethodLoginProps';
 import { formatPhone } from 'utils/format';
 import { ResponseProps } from 'common/interface/ResponseProps';
 import { auth } from 'services/firebase';
+import { UseFormSetValue } from 'react-hook-form';
+import { AddressVIACEPProps } from 'common/interface/AddressVIACEPProps';
 
 interface AuthContextProps {
     user?: UserProps;
@@ -36,6 +40,12 @@ interface AuthContextProps {
     loadingSendForgotPassword: boolean;
     sendForgotPassword?: string;
     loadingUser: boolean;
+    VIACEP: {
+        sucess: boolean;
+        loading: boolean
+    };
+    loadingUpdatedUser: boolean;
+    uploadPhoto?: string | ArrayBuffer | null | undefined;
     onLoginUser: (user: UserProps) => void;
     onNextAuthPerPhone: (data: AuthPerPhoneProps) => void;
     onFlowAuthPerPhone: () => void;
@@ -45,6 +55,10 @@ interface AuthContextProps {
     onRegisterUser: (user: UserProps) => Promise<void>;
     onForgotPassword: (forgotPassword: boolean) => void;
     onSendEmailForForgotPassword: (user: UserProps) => Promise<void>;
+    onLoadAddress: (cep: string, setValue: UseFormSetValue<UserProps>) => Promise<void>;
+    onUpdateUser: (user: UserProps) => Promise<void>;
+    onUploadPhoto: (inputFile: React.ChangeEvent<HTMLInputElement>) => void;
+    onLogoutUser: () => void;
 }
 
 export const AuthContext = createContext({} as AuthContextProps);
@@ -52,6 +66,8 @@ export const AuthContext = createContext({} as AuthContextProps);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { location } = useLocation();
   const { onToast } = useToast();
+  const { push } = useRouter();
+
   const [isUser, setIsUser] = useState<UserProps>();
   const [isStepperTypeAuthPerPhone, setIsStepperTypeAuthPerPhone] = useState<StepperProps>();
   const [isOptionsCountry, setIsOptionCountry] = useState<OptionSelectProps<string, string>[]>([]);
@@ -64,6 +80,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isSendForgotPassword, setIsSendForgotPassword] = useState<string>();
   const [isLoadingSendForgotPassword, setIsLoadingSendForgotPassword] = useState<boolean>(false);
   const [isLoadingUser, setIsLoadingUser] = useState<boolean>(true);
+  const [isVIACEP, setIsVIACEP] = useState<{
+    sucess: boolean;
+    loading: boolean
+  }>({
+    loading: false,
+    sucess: false,
+  });
+  const [isLoadingUpdatedUser, setIsUpdatedUser] = useState<boolean>(false);
+  const [isUploadPhoto, setIsUploadPhoto] = useState<string | ArrayBuffer | null | undefined>();
 
   const handleLoadUser = useCallback(async () => {
     try {
@@ -100,6 +125,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const result = await loginUser(user.senha, user.email, user.keepConnected);
 
         setIsUser(result);
+        push('/');
         onToast({
           message: 'Sessão iniciada com sucesso.',
           type: 'success',
@@ -118,7 +144,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         type: 'error',
       });
     }
-  }, [onToast]);
+  }, [onToast, push]);
 
   const handleRegisterUser = useCallback(async (user: UserProps) => {
     try {
@@ -127,6 +153,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const result = await registerUser(user);
 
         setIsUser(result);
+        push('/');
         onToast({
           message: 'Sessão iniciada com sucesso.',
           type: 'success',
@@ -145,7 +172,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         type: 'error',
       });
     }
-  }, [onToast]);
+  }, [onToast, push]);
 
   const handleSendEmailForForgotPassword = useCallback(async (user: UserProps) => {
     try {
@@ -275,7 +302,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
       if (result && result.obj) {
         setIsUser(result.obj);
-
+        push('/');
         onToast({
           message: 'Sessão iniciada com sucesso.',
           type: 'success',
@@ -289,11 +316,125 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
       setIsLoadingAuthGoogle(false);
     }
+  }, [onToast, push]);
+
+  const handleLoadAddress = useCallback(async (cep: string, setValue: UseFormSetValue<UserProps>) => {
+    try {
+      setIsVIACEP((current) => ({
+        ...current,
+        loading: true,
+      }));
+      const { data } = await axios.get(`${VIACEP}/${cep}/json`) as { data: AddressVIACEPProps };
+
+      if (data.erro) {
+        onToast({
+          message: 'CEP não encontrado.',
+          type: 'info',
+        });
+      } else {
+        setValue('rua', data.bairro);
+        setValue('complemento', data.complemento);
+        setValue('estado', data.uf);
+        setValue('cidade', data.localidade);
+      }
+
+      setIsVIACEP(() => ({
+        sucess: true,
+        loading: false,
+      }));
+    } catch (err: any) {
+      onToast({
+        message: 'CEP não encontrado.',
+        type: 'info',
+      });
+      setIsVIACEP(() => ({
+        sucess: true,
+        loading: false,
+      }));
+    }
   }, [onToast]);
+
+  const handleFormatDataUser = useCallback((userNew: UserProps, userOld?: UserProps) => {
+    return {
+      ...userOld,
+      ...userNew,
+      dtNascimento: userNew.dtNascimento ? userNew.dtNascimento.split('/').reverse().join('-') : null,
+      telefone: userNew.phone ? formatPhone(userNew.phone) : undefined,
+      telefone1: userNew.phone ? formatPhone(userNew.phone) : undefined,
+    } as UserProps;
+  }, []);
+
+  const handleUpdateUser = useCallback(async (user: UserProps) => {
+    try {
+      setIsUpdatedUser(true);
+      const isUserFormatted = handleFormatDataUser(user, isUser);
+
+      if (isUploadPhoto && isUserFormatted.id) {
+        await uploadPhoto({
+          base64: (isUploadPhoto as string).split('base64,')[1],
+          extension: 'png',
+          name: isUserFormatted.id,
+        }, isUserFormatted.id) as ResponseProps<UserProps>;
+      }
+
+      const isUserUpdated = await updateUser({
+        ...isUserFormatted,
+      }) as ResponseProps<UserProps>;
+
+      if (!isUserUpdated.ok || !isUserUpdated.obj) {
+        onToast({
+          message: 'Não foi possível atualizar seu Usuário.',
+          type: 'error',
+        });
+      } else {
+        setIsUser({
+          ...isUserUpdated.obj,
+        });
+        onToast({
+          message: 'Usuário atualizado com sucesso.',
+          type: 'success',
+        });
+      }
+
+      setIsUpdatedUser(false);
+    } catch (err: any) {
+      onToast({
+        message: err.message || 'Não foi possível atualizar seu Usuário.',
+        type: 'error',
+      });
+      setIsUpdatedUser(false);
+    }
+  }, [onToast, handleFormatDataUser, isUser, isUploadPhoto]);
+
+  const handleUploadPhoto = useCallback((inputFile: React.ChangeEvent<HTMLInputElement>) => {
+    if (inputFile.target && inputFile.target.files && inputFile.target.files.length > 0) {
+      const isFile = inputFile.target.files[0];
+      const isReader = new FileReader();
+      isReader.onload = (e) => {
+        setIsUploadPhoto(e.target?.result);
+      };
+      isReader.onerror = () => {
+        onToast({
+          message: 'Não foi possível abrir a imagem.',
+          type: 'info',
+        });
+      };
+      isReader.readAsDataURL(isFile);
+    }
+  }, [onToast]);
+
+  const handleLogoutUser = useCallback(() => {
+    deleteCookie('@Auth:id');
+    window.location.reload();
+  }, []);
 
   useEffect(() => {
     if (!isUser) handleLoadUser();
   }, [handleLoadUser, isUser]);
+
+  useEffect(() => {
+    handleLoadCountry();
+  }, [handleLoadCountry]);
 
   return (
     <AuthContext.Provider value={{
@@ -312,12 +453,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       loadingSendForgotPassword: isLoadingSendForgotPassword,
       sendForgotPassword: isSendForgotPassword,
       loadingUser: isLoadingUser,
+      VIACEP: isVIACEP,
+      loadingUpdatedUser: isLoadingUpdatedUser,
+      uploadPhoto: isUploadPhoto,
       onFlowAuthPerPhone: handleFlowAuthPerPhone,
       onBackStepperFlowAuthPerPhone: handleBackStepperFlowAuthPerPhone,
       onLoginGoogle: handleLoginGoogle,
       onRegisterUser: handleRegisterUser,
       onForgotPassword: handleForgotPassword,
       onSendEmailForForgotPassword: handleSendEmailForForgotPassword,
+      onLoadAddress: handleLoadAddress,
+      onUpdateUser: handleUpdateUser,
+      onUploadPhoto: handleUploadPhoto,
+      onLogoutUser: handleLogoutUser,
     }}
     >
       {children}

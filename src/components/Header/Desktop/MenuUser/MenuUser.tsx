@@ -16,7 +16,7 @@ export const MenuUser: React.FC = () => {
         <Translation variant="white" />
       </li>
       <li>
-        <Link href="/schedules" prefetch>
+        <Link href="/schedules">
           <a>
             <p className="normal color_grey_800">
               Agendamentos
@@ -25,7 +25,7 @@ export const MenuUser: React.FC = () => {
         </Link>
       </li>
       <li>
-        <Link href="/Anamneses" prefetch>
+        <Link href="/Anamneses">
           <a>
             <p className="normal color_grey_800">
               Anamneses
@@ -34,7 +34,7 @@ export const MenuUser: React.FC = () => {
         </Link>
       </li>
       <li>
-        <Link href="/notifications" prefetch>
+        <Link href="/notifications">
           <a>
             <p className="normal color_grey_800">
               Notificações

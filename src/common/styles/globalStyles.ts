@@ -331,7 +331,7 @@ export const GlobalStyles = createGlobalStyle`
             transform: scale((1));
         }
     }
-    @keyframes spin {
+    @keyframes animationSpin {
         0% { 
             transform: rotate(0deg); 
         }

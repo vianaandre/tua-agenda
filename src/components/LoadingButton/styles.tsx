@@ -23,7 +23,7 @@ export const ContainerLoadingButton = styled.div<{
         border-radius: 50%;
         width: 28px;
         height: 28px;
-        animation: spin 1s linear infinite;
+        animation: animationSpin 1s linear infinite;
         position: absolute;
         left: calc(50% - 28px / 2);
         top: calc(50% - 28px / 2);
