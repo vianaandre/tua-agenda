@@ -5,11 +5,11 @@ import {
 import { getCookie, deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import { createContext } from 'use-context-selector';
 
 import { StepperProps } from 'common/interface/StepperProps';
 import { UserProps } from 'common/interface/UserProps';
 import { api } from 'services/api';
-import { createContext } from 'use-context-selector';
 import { stepperAuthPerPhone } from 'utils/stepper';
 import { GET_COUNTRY, VIACEP } from 'services/routes';
 import { useLocation } from 'common/hooks/useLocation';

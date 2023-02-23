@@ -11,3 +11,4 @@ export const SEND_SMS_CODE = '/auth/code';
 export const VALIDATOR_CODE = '/auth/code/validate';
 export const TOKEN_REFRESH = '/auth/token/refresh';
 export const VIACEP = 'https://viacep.com.br/ws';
+export const GET_COMPANY = '/api/empresa/infoByUser';

@@ -1,0 +1,1 @@
+export { HeaderCompany } from './HeaderCompany';
