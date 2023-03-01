@@ -1,0 +1,1 @@
+export { Professionals } from './Professionals';

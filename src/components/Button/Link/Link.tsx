@@ -4,14 +4,13 @@ import LinkNext from 'next/link';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
 import { ContainerLink } from '../styles';
 import { ILink } from './interface';
-// import {} from 'common/'
 
 export const Link: React.FC<ILink> = ({
-  text, variant = ButtonVariantProps.PRIMARY, icon, href, ...rest
+  text, variant = ButtonVariantProps.PRIMARY, icon, href, target, ...rest
 }) => {
   return (
     <LinkNext href={href} legacyBehavior passHref {...rest}>
-      <ContainerLink variant={variant}>
+      <ContainerLink variant={variant} target={target}>
         {icon && icon.direction === 'left' && (
           icon.icon
         )}

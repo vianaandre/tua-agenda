@@ -11,4 +11,5 @@ export interface ILink extends LinkProps {
         icon: React.ReactNode;
     };
     href: string;
+    target?: '_black'
 }

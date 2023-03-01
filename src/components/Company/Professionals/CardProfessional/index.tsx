@@ -1,0 +1,1 @@
+export { CardProfessional } from './CardProfessional';

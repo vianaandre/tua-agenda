@@ -24,3 +24,4 @@ export { User } from './User';
 export { Logout } from './Logout';
 export { Photo } from './Photo';
 export { Loading } from './Loading';
+export { Clock } from './Clock';

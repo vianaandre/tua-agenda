@@ -199,8 +199,14 @@ export const GlobalStyles = createGlobalStyle`
     .color_grey_800 {
         color: ${({ theme }) => theme.colors.GREY[800]} !important;
     }
+    .color_grey_800 {
+        color: ${({ theme }) => theme.colors.GREY[850]} !important;
+    }
     .color_grey_950 {
         color: ${({ theme }) => theme.colors.GREY[950]} !important;
+    }
+    .color_blue_200 {
+        color: ${({ theme }) => theme.colors.BLUE[200]} !important;
     }
     .font_weight_500 {
         font-weight: 500;
@@ -322,7 +328,61 @@ export const GlobalStyles = createGlobalStyle`
             }
         }
     }
-
+    div.dropdown_hours_content {
+        width: 275px;
+        background-color: ${({ theme }) => theme.colors.WHITE};
+        border-radius: 8px;
+        z-index: ${({ theme }) => theme.zIndex.DROPDOWN};
+        div.item {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: ${({ theme }) => theme.spacing(1.5)} ${({ theme }) => theme.spacing(1.75)};
+            cursor: pointer;
+            border-bottom: 1px solid ${({ theme }) => theme.colors.GREY[500]};
+            &:last-child {
+                border-bottom: none;
+            }
+            p {
+                color: ${({ theme }) => theme.colors.BLACK[500]};
+                font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
+                font-weight:400;
+            }
+            &.active {
+                p {
+                    font-weight: 700;
+                }
+            }
+            &:focus {
+                outline: none;
+                box-shadow: none;
+            }
+        }
+    }
+    div.tooltip_social_content {
+        padding: ${({ theme }) => theme.spacing(0.75)} ${({ theme }) => theme.spacing(1.5)};
+        padding-bottom: ${({ theme }) => theme.spacing(0.35)};
+        background-color: ${({ theme }) => theme.colors.BLACK[500]};
+        border-radius: 8px;
+        animation: animationFade 200ms linear forwards;
+        p.small {
+            font-size: ${({ theme }) => theme.fonts.sizes[12]};
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        .tooltip_social_content_arrow {
+            fill: ${({ theme }) => theme.colors.BLACK[500]};
+        }
+    }
+    
+    @keyframes animationFade {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
     @keyframes animationInModalDialog {
         from {
             transform: scale(0.8);

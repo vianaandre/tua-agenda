@@ -16,7 +16,8 @@ const nextConfig = {
     FIREBASE_MESSAGE_ID: process.env.FIREBASE_MESSAGE_ID, 
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID, 
     FIREBASE_MEASURUMENT_ID: process.env.FIREBASE_MEASURUMENT_ID,
-    APP_TOKEN: process.env.APP_TOKEN
+    APP_TOKEN: process.env.APP_TOKEN,
+    GOOGLE_MAPS_KEY_API: process.env.GOOGLE_MAPS_KEY_API
   },
   compiler: {
     styledComponents: true,

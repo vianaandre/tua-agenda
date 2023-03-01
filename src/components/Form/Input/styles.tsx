@@ -79,7 +79,7 @@ export const ContainerInputInput = styled.div<{
                 stroke: ${({ theme, variant }) => {
     switch (variant) {
       case InputVariantProps.PRIMARY:
-        return 'transparent';
+        return theme.colors.PRIMARY[800];
       case InputVariantProps.OUTLINE:
         return theme.colors.PRIMARY[500];
       default:

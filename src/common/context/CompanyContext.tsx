@@ -1,12 +1,14 @@
-import { ConfigProps } from 'common/interface/ConfigProps';
-import { IntlProps } from 'common/interface/IntlProps';
 import React, { useCallback, useState } from 'react';
 import { createContext } from 'use-context-selector';
+
+import { ConfigProps } from 'common/interface/ConfigProps';
+import { IntlProps } from 'common/interface/IntlProps';
+import { ProfessionalProps } from 'common/interface/ProfesssionalProps';
 
 interface CompanyContextProps {
     config?: ConfigProps;
     intl?: IntlProps;
-    employees?: any[];
+    employees?: ProfessionalProps[];
     onUpdateStateIntl: (intl: IntlProps) => void;
     onUpdateStateConfig: (config: ConfigProps) => void;
     onUpdateStateEmployees: (employees: any[]) => void;

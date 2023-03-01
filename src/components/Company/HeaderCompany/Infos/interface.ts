@@ -1,4 +1,6 @@
+import { ConfigProps } from 'common/interface/ConfigProps';
+
 export interface InfosProps {
-    linkImage?: string;
     countProfissional: number;
+    config?: ConfigProps;
 }

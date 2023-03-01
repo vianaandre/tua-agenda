@@ -43,8 +43,8 @@ export const HeaderCompany: React.FC = () => {
           )}
         </ContainerHeaderCompanyBreadCrumb>
         <Infos
-          linkImage={config?.linkImagem}
           countProfissional={employees ? employees?.length : 1}
+          config={config}
         />
       </Container>
     </ContainerHeaderCompany>
