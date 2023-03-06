@@ -96,7 +96,7 @@ const sharedStyles = css<{
       case ButtonVariantProps.PRIMARY:
         return 'brightness(1.2)';
       case ButtonVariantProps.FULL:
-        return 'brightness(0.9)';
+        return 'brightness(1.2)';
       case ButtonVariantProps.OUTLINE_TEXT:
         return 'brightness(1.3)';
       default:

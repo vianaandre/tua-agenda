@@ -1,40 +1,42 @@
 import React from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
 
 import { Container } from 'common/styles/container';
-import { Input } from 'components/Form';
-import { Search } from 'common/icons';
-import { theme } from 'common/styles/theme';
+import { useCompany } from 'common/hooks/useCompany';
+import { Button } from 'components/Button';
+import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
+import { Empty } from 'components/Empty';
 import { ContainerServices } from './styles';
+import { HeaderServices } from './HeaderServices';
+import { CardService } from './CardService';
 
 export const Services: React.FC = () => {
-  const methods = useForm<{
-    search: string
-  }>();
+  const {
+    services, onSelectService, servicesSelect, servicesSearch,
+  } = useCompany();
 
   return (
     <ContainerServices>
       <Container>
-        <div className="title">
-          <div className="part_one">
-            <h4 className="title">Serviços</h4>
-            <p className="normal color_blue_200">Muitas opções disponíveis para você</p>
-          </div>
-          <form>
-            <FormProvider {...methods}>
-              <Input
-                id="search"
-                name="search"
-                type="text"
-                placeholder="Pesquisar"
-                icon={{
-                  direction: 'left',
-                  icon: <Search width={24} height={24} color={theme.colors.GREY[700]} />,
-                }}
-              />
-            </FormProvider>
-          </form>
-        </div>
+        <HeaderServices />
+        {!servicesSearch && services && services.length > 0 ? (
+          <ul>
+            {services.map((item) => (
+              <CardService key={item.id} service={item} onSelect={() => onSelectService(item.id)} active={!!servicesSelect?.includes(item.id)} />
+            ))}
+          </ul>
+        ) : (
+          <Empty text="Sem serviços disponíveis" />
+        )}
+        {servicesSearch && servicesSearch.length > 0 ? (
+          <ul>
+            {servicesSearch.map((item) => (
+              <CardService key={item.id} service={item} onSelect={() => onSelectService(item.id)} active={!!servicesSelect?.includes(item.id)} />
+            ))}
+          </ul>
+        ) : (
+          <Empty text="Nada encontrado" />
+        )}
+        <Button.Normal text="Realizar Agendamento" variant={ButtonVariantProps.FULL} type="button" className="btn" />
       </Container>
     </ContainerServices>
   );

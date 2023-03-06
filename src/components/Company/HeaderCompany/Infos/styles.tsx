@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const ContainerInfos = styled.div`
     display: flex;
     margin-top: ${({ theme }) => theme.spacing(5.25)};
+    gap: ${({ theme }) => theme.spacing(3)};
     div.infos {
         height: 240px;
         display: flex;

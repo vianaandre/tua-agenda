@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 export const ContainerProfessionals = styled.section`
     margin-top: ${({ theme }) => theme.spacing(9)};
-    padding-bottom: ${({ theme }) => theme.spacing(9)};
-    border-bottom: 1px solid ${({ theme }) => theme.colors.GREY[500]};
 
     div.container {
+        padding-bottom: ${({ theme }) => theme.spacing(9)};
+        border-bottom: 1px solid ${({ theme }) => theme.colors.GREY[500]};
         h4.title {
             font-family: ${({ theme }) => theme.fonts.family.TITLE};
             color: ${({ theme }) => theme.colors.BLUE[200]}

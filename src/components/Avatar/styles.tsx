@@ -34,6 +34,9 @@ export const ContainerAvatar = styled.div<{
     align-items: center;
     justify-content: center;
     background-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+    &.image {
+        background-color: transparent;
+    }
     p {
         color: ${({ theme }) => theme.colors.WHITE};
         font-family: ${({ theme }) => theme.fonts.family.ALTERNATIVE};
@@ -52,8 +55,41 @@ export const ContainerAvatar = styled.div<{
     }
   }};
     }
-    img {
+    /* img {
         width: 100%;
+        height: 100%;
         object-fit: cover;
+    } */
+`;
+
+export const ContainerAvatarImage = styled.div<{
+    imageUrl: string;
+    variant: variant;
+}>`
+    background: url(${({ imageUrl }) => imageUrl}) no-repeat center;
+    background-size: cover;
+    width: ${({ theme, variant }) => {
+    switch (variant) {
+      case 'small':
+        return theme.spacing(6);
+      case 'medium':
+        return theme.spacing(12);
+      case 'large':
+        return theme.spacing(14);
+      default:
+        return theme.spacing(6);
     }
+  }};
+    height: ${({ theme, variant }) => {
+    switch (variant) {
+      case 'small':
+        return theme.spacing(6);
+      case 'medium':
+        return theme.spacing(12);
+      case 'large':
+        return theme.spacing(14);
+      default:
+        return theme.spacing(6);
+    }
+  }};
 `;

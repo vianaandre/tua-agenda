@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { LocationProvider } from 'common/context/LocationContext';
 import { AnimationProvider } from 'common/context/AnimationContext';
 import { AuthProvider } from 'common/context/AuthContext';
+import { Footer } from 'components/Home/Footer';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter();
@@ -25,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <AuthProvider>
               {pathname !== '/login' && pathname !== '/register' ? <Header /> : null}
               <Component {...pageProps} />
+              {pathname !== '/login' && pathname !== '/register' ? <Footer /> : null}
             </AuthProvider>
           </ThemeProvider>
         </LocationProvider>

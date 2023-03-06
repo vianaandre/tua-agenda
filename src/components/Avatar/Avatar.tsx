@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { ContainerAvatar } from './styles';
+import { ContainerAvatar, ContainerAvatarImage } from './styles';
 import { IAvatar } from './interface';
 
 export const Avatar: React.FC<IAvatar> = ({ image, username, variant = 'small' }) => {
   return (
-    <ContainerAvatar variant={variant}>
+    <ContainerAvatar variant={variant} className={`${image ? 'image' : ''}`}>
       {image ? (
-        <img src={image} alt={username} />
+        <ContainerAvatarImage imageUrl={image} variant={variant} />
+        // <img src={image} alt={username} />
       ) : (
         <p className="normal">
           {username.split(' ')[0][0]}

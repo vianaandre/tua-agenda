@@ -8,20 +8,12 @@ import { AboutCompany } from './AbourCompany';
 import { Professionals } from './Professionals';
 import { Services } from './Services';
 
-export const Company: React.FC<CompanyProps> = ({ config, intl, funcionarios }) => {
-  const { onUpdateStateConfig, onUpdateStateIntl, onUpdateStateEmployees } = useCompany();
+export const Company: React.FC<CompanyProps> = (company) => {
+  const { onUpdatedStates } = useCompany();
 
   useEffect(() => {
-    onUpdateStateConfig(config);
-  }, [config, onUpdateStateConfig]);
-
-  useEffect(() => {
-    onUpdateStateIntl(intl);
-  }, [intl, onUpdateStateIntl]);
-
-  useEffect(() => {
-    onUpdateStateEmployees(funcionarios);
-  }, [funcionarios, onUpdateStateEmployees]);
+    onUpdatedStates(company);
+  }, [company, onUpdatedStates]);
 
   return (
     <ContainerCompany>
