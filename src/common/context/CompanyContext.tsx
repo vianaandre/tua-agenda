@@ -55,7 +55,7 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
 
   const handleSearchServices = useCallback((search: string) => {
     if (isServices && search && search !== '') {
-      setIsServicesSearch(isServices.filter((item) => item.nome.includes(search)));
+      setIsServicesSearch(isServices.filter((item) => item.nome.toLowerCase().includes(search.toLowerCase())));
     } else {
       setIsServicesSearch(undefined);
     }

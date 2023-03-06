@@ -18,12 +18,18 @@ export const ContainerDescription = styled.div`
         height: 606px;
         width: 100%;
         gap: ${({ theme }) => theme.spacing(1.5)};
+        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+            height: 400px;
+        }
         div.photos_internal {
             width: 40%;
             height: 606px;
             display: flex;
             flex-direction: column;
             gap: ${({ theme }) => theme.spacing(1.5)};
+            @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                display: none;
+            }
         }
     }
 `;
@@ -35,8 +41,15 @@ export const ContainerDescriptionPhotos = styled.div<{
     width: 60%;
     height: 100%;
 
+    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        width: 100%;
+    }
+
     &.photos_internals {
         height: calc(100% / 3);
         width: 100%;
+        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+            display: none
+        }
     }
 `;

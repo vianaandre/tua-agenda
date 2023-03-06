@@ -328,12 +328,16 @@ export const GlobalStyles = createGlobalStyle`
             }
         }
     }
-    div.dropdown_hours_content {
+    div.popover_hours_content {
         width: 275px;
         background-color: ${({ theme }) => theme.colors.WHITE};
         border-radius: 8px;
         z-index: ${({ theme }) => theme.zIndex.DROPDOWN};
-        div.item {
+        filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.15));
+        .tooltip_days_content_arrow {
+            fill: ${({ theme }) => theme.colors.WHITE};
+        }
+        li.item {
             width: 100%;
             display: flex;
             justify-content: space-between;

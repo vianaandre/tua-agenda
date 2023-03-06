@@ -16,3 +16,22 @@ export const carouselCategories = {
     items: 1,
   },
 };
+
+export const carouselProfessionals = {
+  superLargeDesktop: {
+    breakpoint: { max: 6000, min: 1193 },
+    items: 4,
+  },
+  desktop: {
+    breakpoint: { max: 1192, min: 1024 },
+    items: 4,
+  },
+  tablet: {
+    breakpoint: { max: 1023, min: 767 },
+    items: 3,
+  },
+  mobile: {
+    breakpoint: { max: 766, min: 0 },
+    items: 1,
+  },
+};

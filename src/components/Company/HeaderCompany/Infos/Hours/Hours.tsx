@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { format, isAfter } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as Popover from '@radix-ui/react-popover';
 
 import { Clock, ArrowAlternative } from 'common/icons';
 import { theme } from 'common/styles/theme';
@@ -40,8 +40,8 @@ export const Hours: React.FC<HoursProps> = ({ days }) => {
 
   return (
     <ContainerHours>
-      <DropdownMenu.Root onOpenChange={() => setIsActiveOpen(!isActiveOpen)}>
-        <DropdownMenu.Trigger asChild>
+      <Popover.Root onOpenChange={() => setIsActiveOpen(!isActiveOpen)}>
+        <Popover.Trigger asChild>
           <button type="button" className="trigger">
             <Clock width={24} height={24} color={theme.colors.PRIMARY[500]} />
             <p className="small color_normal">
@@ -51,18 +51,21 @@ export const Hours: React.FC<HoursProps> = ({ days }) => {
               <ArrowAlternative width={24} height={24} color={theme.colors.PRIMARY[500]} />
             </div>
           </button>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Portal>
-          <DropdownMenu.Content className="dropdown_hours_content">
-            {days.map((item, index) => (
-              <DropdownMenu.Item key={item.day} className={`item ${index === isIndex ? 'active' : ''}`}>
-                <p className="small">{item.day}</p>
-                <p className="small">{item.hour}</p>
-              </DropdownMenu.Item>
-            ))}
-          </DropdownMenu.Content>
-        </DropdownMenu.Portal>
-      </DropdownMenu.Root>
+        </Popover.Trigger>
+        <Popover.Portal>
+          <Popover.Content className="popover_hours_content">
+            <ul>
+              {days.map((item, index) => (
+                <li key={item.day} className={`item ${index === isIndex ? 'active' : ''}`}>
+                  <p className="small">{item.day}</p>
+                  <p className="small">{item.hour}</p>
+                </li>
+              ))}
+            </ul>
+            <Popover.Arrow className="tooltip_days_content_arrow" />
+          </Popover.Content>
+        </Popover.Portal>
+      </Popover.Root>
     </ContainerHours>
   );
 };

@@ -18,25 +18,37 @@ export const Services: React.FC = () => {
     <ContainerServices>
       <Container>
         <HeaderServices />
-        {!servicesSearch && services && services.length > 0 ? (
-          <ul>
-            {services.map((item) => (
-              <CardService key={item.id} service={item} onSelect={() => onSelectService(item.id)} active={!!servicesSelect?.includes(item.id)} />
-            ))}
-          </ul>
-        ) : (
-          <Empty text="Sem serviços disponíveis" />
+        {!servicesSearch && (
+          services && services.length > 0 ? (
+            <React.Fragment>
+              <ul>
+                {services.map((item) => (
+                  <CardService key={item.id} service={item} onSelect={() => onSelectService(item.id)} active={!!servicesSelect?.includes(item.id)} />
+                ))}
+              </ul>
+              <Button.Normal text="Realizar Agendamento" variant={ButtonVariantProps.FULL} type="button" className="btn" />
+            </React.Fragment>
+          ) : (
+            <div className="empty">
+              <Empty text="Sem serviços disponiveis" />
+            </div>
+          ))}
+        {servicesSearch && (
+          servicesSearch.length > 0 ? (
+            <React.Fragment>
+              <ul>
+                {servicesSearch.map((item) => (
+                  <CardService key={item.id} service={item} onSelect={() => onSelectService(item.id)} active={!!servicesSelect?.includes(item.id)} />
+                ))}
+              </ul>
+              <Button.Normal text="Realizar Agendamento" variant={ButtonVariantProps.FULL} type="button" className="btn" />
+            </React.Fragment>
+          ) : (
+            <div className="empty">
+              <Empty text="Nada encontrado" />
+            </div>
+          )
         )}
-        {servicesSearch && servicesSearch.length > 0 ? (
-          <ul>
-            {servicesSearch.map((item) => (
-              <CardService key={item.id} service={item} onSelect={() => onSelectService(item.id)} active={!!servicesSelect?.includes(item.id)} />
-            ))}
-          </ul>
-        ) : (
-          <Empty text="Nada encontrado" />
-        )}
-        <Button.Normal text="Realizar Agendamento" variant={ButtonVariantProps.FULL} type="button" className="btn" />
       </Container>
     </ContainerServices>
   );

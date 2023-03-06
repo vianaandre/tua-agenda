@@ -15,5 +15,10 @@ export const ContainerServices = styled.section`
             margin-top: ${({ theme }) => theme.spacing(3)};
             justify-content: center;
         }
+        div.empty {
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+        }
     }
 `;

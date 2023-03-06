@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Container } from 'common/styles/container';
 import { useCompany } from 'common/hooks/useCompany';
-import { ContainerAbourCompany } from './styles';
+import { ContainerAboutCompany } from './styles';
 import { Description } from './Description';
 import { InfosCompany } from './InfosCompany';
 
@@ -10,13 +10,15 @@ export const AboutCompany: React.FC = () => {
   const { config } = useCompany();
 
   return (
-    <ContainerAbourCompany>
+    <ContainerAboutCompany>
       <Container>
-        {config && config.metaDescricao && (
-        <Description description={config?.metaDescricao} images={[{ imageLink: 'asas' }]} />
-        )}
-        <InfosCompany />
+        <div className="content">
+          {config && config.metaDescricao && (
+          <Description description={config?.metaDescricao} images={[{ imageLink: 'asas' }]} />
+          )}
+          <InfosCompany />
+        </div>
       </Container>
-    </ContainerAbourCompany>
+    </ContainerAboutCompany>
   );
 };

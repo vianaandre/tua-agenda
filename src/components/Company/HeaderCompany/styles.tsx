@@ -5,6 +5,9 @@ export const ContainerHeaderCompany = styled.div`
     overflow: hidden;
     background-color: ${({ theme }) => theme.colors.PRIMARY[0]};
     min-height: 492px;
+    @media(max-width: 524px) {
+        height: 720px;
+    }
     div.effect_one, div.effect_two {
         position: absolute;
     };

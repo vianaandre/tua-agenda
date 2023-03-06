@@ -75,12 +75,18 @@ export const Infos: React.FC<InfosProps> = ({ countProfissional, config }) => {
           <Hours
             days={isDays}
           />
-          <div className="address">
-            <Location width={22} height={22} color={theme.colors.PRIMARY[500]} />
-            <p className="small color_normal">
-              {config?.endereco}
-            </p>
-          </div>
+          {config && config.endereco && (
+            <div className="address">
+              <Location width={24} height={24} color={theme.colors.PRIMARY[500]} />
+              <div className="text">
+                <a href={`https://www.google.com/maps/dir/?api=1&origin=&destination=${config?.endereco}`} target="_black">
+                  <p className="small color_normal">
+                    {config?.endereco}
+                  </p>
+                </a>
+              </div>
+            </div>
+          )}
         </div>
         <div className="btn">
           <Button.Link href="#to_schedule" variant={ButtonVariantProps.PRIMARY} text="Agendar Agora" />

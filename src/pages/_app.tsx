@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 import 'animate.css';
 import { useRouter } from 'next/router';
+import 'react-multi-carousel/lib/styles.css';
 
 import { theme } from 'common/styles/theme';
 import { GlobalStyles } from 'common/styles/globalStyles';

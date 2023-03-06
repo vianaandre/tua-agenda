@@ -4,7 +4,7 @@ import { CompanyProps } from 'common/interface/CompanyProps';
 import { useCompany } from 'common/hooks/useCompany';
 import { ContainerCompany } from './styles';
 import { HeaderCompany } from './HeaderCompany';
-import { AboutCompany } from './AbourCompany';
+import { AboutCompany } from './AboutCompany';
 import { Professionals } from './Professionals';
 import { Services } from './Services';
 
