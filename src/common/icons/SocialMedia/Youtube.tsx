@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IIcon } from './interface';
+import { IIcon } from '../interface';
 
 export const Youtube: React.FC<IIcon> = ({
   width, height, color,
