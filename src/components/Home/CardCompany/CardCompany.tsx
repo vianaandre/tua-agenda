@@ -1,6 +1,5 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
 import React from 'react';
-// import Link from 'next/link';
+import Link from 'next/link';
 
 import { Avatar } from 'components/Avatar';
 import { Evaluation } from 'common/icons';
@@ -17,7 +16,9 @@ export const CardCompany: React.FC<CardCompanyProps> = ({
       <ContainerCardCompanyInfos>
         <div className="header">
           <Avatar image={logo} username={name} />
-          <a href="/company/julianatrindade">Agendar agora</a>
+          <Link href="/company/julianatrindade" shallow>
+            <a>Agendar agora</a>
+          </Link>
         </div>
         <div className="name_address">
           <h6 className="title">{name}</h6>

@@ -9,6 +9,7 @@ import { Mobile } from './Mobile';
 
 export const Header: React.FC = () => {
   const { loadingUser, user } = useAuth();
+
   return (
     <ContainerHeader className={user ? 'user_active' : ''}>
       <Loading open={loadingUser} />

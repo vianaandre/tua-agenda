@@ -50,10 +50,8 @@ export const Professionals: React.FC = () => {
             </Carousel>
             <div className="desktop">
               <ul>
-                {[...employees, ...employees, ...employees, ...employees, ...employees].map((item) => (
-                  <li key={item.id}>
-                    <CardProfessional name={item.nome} assessment={2} photoUrl={item.linkImagem} service={item.apelido} />
-                  </li>
+                {[...employees, ...employees, ...employees, ...employees, ...employees].map((item, index) => (
+                  <CardProfessional key={`${item.id}-${index + 1}`} name={item.nome} assessment={2} photoUrl={item.linkImagem} service={item.apelido} />
                 ))}
               </ul>
             </div>

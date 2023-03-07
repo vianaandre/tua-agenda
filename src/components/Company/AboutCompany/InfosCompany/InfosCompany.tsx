@@ -7,6 +7,7 @@ import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
 import { ArrowRight } from 'common/icons';
 import { theme } from 'common/styles/theme';
+import Link from 'next/link';
 import { ContainerInfosCompany } from './styles';
 
 export const InfosCompany: React.FC = () => {
@@ -57,13 +58,17 @@ export const InfosCompany: React.FC = () => {
         {config && config.telefone && (
         <div className="phone info">
           <h6 className="title">Telefone</h6>
-          <a href={`tel:${config.telefone}`}>{config.telefone}</a>
+          <Link href={`tel:${config.telefone}`}>
+            <a target="_black">{config.telefone}</a>
+          </Link>
         </div>
         )}
         {config && config.email && (
         <div className="email info">
           <h6 className="title">E-mail</h6>
-          <a className="color_normal" href={`mailto:${config.email}`} target="_black">{config.email}</a>
+          <Link href={`mailto:${config.email}`}>
+            <a className="color_normal" target="_black">{config.email}</a>
+          </Link>
         </div>
         )}
       </div>
@@ -85,7 +90,7 @@ export const InfosCompany: React.FC = () => {
           />
           <div className="link">
             <Button.Link
-              href={`https://www.google.com/maps/dir//${config.latitude},${config.longitude}`}
+              href={`https://www.google.com/maps/dir/${config.latitude},${config.longitude}`}
               variant={ButtonVariantProps.OUTLINE}
               target="_black"
               text="Abrir Google Maps"
