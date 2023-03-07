@@ -16,7 +16,7 @@ export const CardCompany: React.FC<CardCompanyProps> = ({
       <ContainerCardCompanyInfos>
         <div className="header">
           <Avatar image={logo} username={name} />
-          <Link href="#" passHref legacyBehavior>
+          <Link href="/company/julianatrindade" passHref legacyBehavior>
             <a>Agendar agora</a>
           </Link>
         </div>
