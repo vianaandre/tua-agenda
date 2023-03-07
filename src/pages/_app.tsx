@@ -19,20 +19,21 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter();
 
   return (
-    <AnimationProvider>
-      <ToastProvider>
-        <LocationProvider>
-          <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <AnimationProvider>
+        <ToastProvider>
+          <LocationProvider>
             <GlobalStyles />
             <AuthProvider>
               {pathname !== '/login' && pathname !== '/register' ? <Header /> : null}
               <Component {...pageProps} />
               {pathname !== '/login' && pathname !== '/register' ? <Footer /> : null}
             </AuthProvider>
-          </ThemeProvider>
-        </LocationProvider>
-      </ToastProvider>
-    </AnimationProvider>
+          </LocationProvider>
+        </ToastProvider>
+      </AnimationProvider>
+    </ThemeProvider>
+
   );
 }
 

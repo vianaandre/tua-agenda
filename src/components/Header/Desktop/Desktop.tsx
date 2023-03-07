@@ -52,9 +52,6 @@ export const Desktop: React.FC = () => {
             )}
             <p className="small">
               {locationPerCityAndState.city}
-              ,
-              {' '}
-              {locationPerCityAndState.state}
             </p>
           </div>
         )}

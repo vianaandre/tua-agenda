@@ -267,6 +267,10 @@ export const GlobalStyles = createGlobalStyle`
         border-radius: 4px;
         width: 300px;
         overflow: hidden;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+        .popover_notification_content_arrow {
+            fill: ${({ theme }) => theme.colors.WHITE};
+        }
         header {
             display: flex;
             align-items: center;
@@ -378,7 +382,21 @@ export const GlobalStyles = createGlobalStyle`
             fill: ${({ theme }) => theme.colors.BLACK[500]};
         }
     }
-    
+    div.toast {
+        div.Toastify__toast-body {
+            div {
+                font-size: ${({ theme }) => theme.fonts.sizes[14]};
+                font-weight: 500;
+                color: ${({ theme }) => theme.colors.GREY[950]};
+                font-family: ${({ theme }) => theme.fonts.family.SECONDARY};
+            }
+        }
+        button {
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+    }
     @keyframes animationFade {
         from {
             opacity: 0;

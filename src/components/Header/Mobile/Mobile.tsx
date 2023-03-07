@@ -62,9 +62,6 @@ export const Mobile: React.FC = () => {
               <Location width={22} height={22} color={theme.colors.GREY[950]} />
               <p className="small">
                 {locationPerCityAndState.city}
-                ,
-                {' '}
-                {locationPerCityAndState.state}
               </p>
             </div>
           )}

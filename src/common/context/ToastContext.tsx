@@ -3,6 +3,8 @@ import { createContext } from 'use-context-selector';
 import { ToastContainer, toast, TypeOptions } from 'react-toastify';
 
 import { theme } from 'common/styles/theme';
+import { Close } from 'common/icons';
+import { IconButton } from 'components/IconButton';
 
 interface ToastProps {
     message: string;
@@ -26,10 +28,16 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       <ToastContainer
         autoClose={4000}
         position="top-right"
+        className="toast"
+        closeButton={() => (
+          <IconButton>
+            <Close width={16} height={16} color={theme.colors.GREY[950]} />
+          </IconButton>
+        ) as React.ReactNode}
         style={{
           fontSize: theme.fonts.sizes[14],
           fontWeight: 600,
-          fontFamily: theme.fonts.family.SECONDARY,
+          fontFamily: theme.fonts.family.ALTERNATIVE,
         }}
       />
       {children}
