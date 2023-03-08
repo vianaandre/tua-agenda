@@ -7,6 +7,7 @@ export async function verifyPhone(phone: string, code: string, language: string)
       timeout: 30000,
       headers: {
         language,
+        sendSms: true,
       },
     });
 
