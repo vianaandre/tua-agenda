@@ -268,6 +268,7 @@ export const GlobalStyles = createGlobalStyle`
         width: 300px;
         overflow: hidden;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+        animation: animationFade 200ms linear forwards;
         .popover_notification_content_arrow {
             fill: ${({ theme }) => theme.colors.WHITE};
         }
@@ -303,12 +304,20 @@ export const GlobalStyles = createGlobalStyle`
                 }
             }
         }
+        div.empty {
+            border-top: 1px solid ${({ theme }) => theme.colors.GREY[500]};
+            h3 {
+                font-size: ${({ theme }) => theme.fonts.sizes[18]} !important;
+            }
+        }
     }
     div.dropdown_profile_content {
         width: 200px;
         background-color: ${({ theme }) => theme.colors.WHITE};
         border-radius: 4px;
         overflow: hidden;
+        animation: animationSlideBottomForTop 200ms  linear forwards;
+        margin-top: 30px;
         div.dropdown_profile_content_item {
             width: 100%;
             button, a {
@@ -384,6 +393,7 @@ export const GlobalStyles = createGlobalStyle`
     }
     div.toast {
         div.Toastify__toast-body {
+            padding-right: ${({ theme }) => theme.spacing(3.5)};
             div {
                 font-size: ${({ theme }) => theme.fonts.sizes[14]};
                 font-weight: 500;
@@ -393,8 +403,8 @@ export const GlobalStyles = createGlobalStyle`
         }
         button {
             position: absolute;
-            right: 4px;
-            top: 4px;
+            right: 2px;
+            top: 2px;
         }
     }
     @keyframes animationFade {
@@ -419,6 +429,16 @@ export const GlobalStyles = createGlobalStyle`
         }
         100% { 
             transform: rotate(360deg); 
+        }
+    }
+    @keyframes animationSlideBottomForTop {
+        from {
+            margin-top: 5px;
+            opacity: 0;
+        }
+        to {
+            margin-top: 0px;
+            opacity: 1;
         }
     }
 `;

@@ -38,7 +38,7 @@ export const Form: React.FC = () => {
 
   return (
     <Container onSubmit={methods.handleSubmit(onUpdateUser)}>
-      {user ? (
+      {user && (
         <ContainerForm>
           <FormProvider {...methods}>
             <div className="personal">
@@ -220,8 +220,6 @@ export const Form: React.FC = () => {
             </div>
           </FormProvider>
         </ContainerForm>
-      ) : (
-        <h1>Olá</h1>
       )}
     </Container>
   );

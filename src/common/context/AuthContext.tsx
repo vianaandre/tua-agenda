@@ -26,6 +26,7 @@ import { ResponseProps } from 'common/interface/ResponseProps';
 import { auth } from 'services/firebase';
 import { UseFormSetValue } from 'react-hook-form';
 import { AddressVIACEPProps } from 'common/interface/AddressVIACEPProps';
+import { listNotification } from 'services/modules/notification';
 
 interface AuthContextProps {
     user?: UserProps;
@@ -59,6 +60,7 @@ interface AuthContextProps {
     onUpdateUser: (user: UserProps) => Promise<void>;
     onUploadPhoto: (inputFile: React.ChangeEvent<HTMLInputElement>) => void;
     onLogoutUser: () => void;
+    notifications?: any[];
 }
 
 export const AuthContext = createContext({} as AuthContextProps);
@@ -89,6 +91,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   });
   const [isLoadingUpdatedUser, setIsUpdatedUser] = useState<boolean>(false);
   const [isUploadPhoto, setIsUploadPhoto] = useState<string | ArrayBuffer | null | undefined>();
+  const [isNotifications, setIsNotifications] = useState();
 
   const handleLoadUser = useCallback(async () => {
     try {
@@ -101,6 +104,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         if (isUser.obj) {
           setIsUser(isUser.obj);
+          const isNotifications = await listNotification(isToken, isIdUser, 0, 5);
+          setIsNotifications(isNotifications);
         } else {
           onToast({
             message: 'Usuário não encontrado.',
@@ -456,6 +461,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       VIACEP: isVIACEP,
       loadingUpdatedUser: isLoadingUpdatedUser,
       uploadPhoto: isUploadPhoto,
+      notifications: isNotifications,
       onFlowAuthPerPhone: handleFlowAuthPerPhone,
       onBackStepperFlowAuthPerPhone: handleBackStepperFlowAuthPerPhone,
       onLoginGoogle: handleLoginGoogle,

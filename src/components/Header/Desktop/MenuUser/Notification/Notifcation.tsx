@@ -4,14 +4,18 @@ import * as Popover from '@radix-ui/react-popover';
 import { theme } from 'common/styles/theme';
 import { Notification as NotificationIcon } from 'common/icons';
 import { IconButton } from 'components/IconButton';
+import { useAuth } from 'common/hooks/useAuth';
+import { Empty } from 'components/Empty';
 import { ContainerNotification } from './styles';
 
 export const Notification: React.FC = () => {
+  const { notifications } = useAuth();
+
   return (
     <ContainerNotification>
       <Popover.Root>
         <Popover.Trigger asChild>
-          <div className="btn active_notifications">
+          <div className={`btn ${notifications && notifications.length > 0 ? 'active_notifications' : ''}`}>
             <IconButton>
               <NotificationIcon width={24} height={24} color={theme.colors.WHITE} />
             </IconButton>
@@ -22,24 +26,32 @@ export const Notification: React.FC = () => {
             <header>
               <h6 className="title">Notificações</h6>
             </header>
-            <div className="dropdown_notification_content_item">
-              <button type="button">
-                <p className="small">08/10/22 ás 9:00</p>
-                <p className="small color_dark">Agendamento Cancelado!</p>
-              </button>
-            </div>
-            <div className="dropdown_notification_content_item">
-              <button type="button">
-                <p className="small">08/10/22 ás 9:00</p>
-                <p className="small color_dark">Agendamento Cancelado!</p>
-              </button>
-            </div>
-            <div className="dropdown_notification_content_item">
-              <button type="button">
-                <p className="small">08/10/22 ás 9:00</p>
-                <p className="small color_dark">Agendamento Cancelado!</p>
-              </button>
-            </div>
+            {notifications && notifications.length > 0 ? (
+              <React.Fragment>
+                <div className="dropdown_notification_content_item">
+                  <button type="button">
+                    <p className="small">08/10/22 ás 9:00</p>
+                    <p className="small color_dark">Agendamento Cancelado!</p>
+                  </button>
+                </div>
+                <div className="dropdown_notification_content_item">
+                  <button type="button">
+                    <p className="small">08/10/22 ás 9:00</p>
+                    <p className="small color_dark">Agendamento Cancelado!</p>
+                  </button>
+                </div>
+                <div className="dropdown_notification_content_item">
+                  <button type="button">
+                    <p className="small">08/10/22 ás 9:00</p>
+                    <p className="small color_dark">Agendamento Cancelado!</p>
+                  </button>
+                </div>
+              </React.Fragment>
+            ) : (
+              <div className="empty">
+                <Empty text="Sem notificação" />
+              </div>
+            )}
             <Popover.Arrow className="popover_notification_content_arrow" />
           </Popover.Content>
         </Popover.Portal>

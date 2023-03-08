@@ -8,7 +8,6 @@ import { Banner } from './Banner';
 import { Categories } from './Categories';
 import { Cities } from './Cities';
 import { CompanyHighlights } from './CompanyHighlights';
-import { Footer } from './Footer';
 import { HomeProps } from './interface';
 import { SearchResult } from './SearchResult';
 
@@ -34,7 +33,6 @@ export const Home: React.FC<HomeProps> = ({ categories, cities, services }) => {
           <Cities cities={cities} />
         </React.Fragment>
       )}
-      <Footer />
     </React.Fragment>
   );
 };

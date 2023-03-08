@@ -17,6 +17,7 @@ export const useAuth = () => {
   const loadingUpdatedUser = useContextSelector(AuthContext, (auth) => auth.loadingUpdatedUser);
   const VIACEP = useContextSelector(AuthContext, (auth) => auth.VIACEP);
   const uploadPhoto = useContextSelector(AuthContext, (auth) => auth.uploadPhoto);
+  const notifications = useContextSelector(AuthContext, (auth) => auth.notifications);
   const onLoginUser = useContextSelector(AuthContext, (auth) => auth.onLoginUser);
   const onNextAuthPerPhone = useContextSelector(AuthContext, (auth) => auth.onNextAuthPerPhone);
   const onFlowAuthPerPhone = useContextSelector(AuthContext, (auth) => auth.onFlowAuthPerPhone);
@@ -47,6 +48,7 @@ export const useAuth = () => {
     VIACEP,
     loadingUpdatedUser,
     uploadPhoto,
+    notifications,
     onLoginUser,
     onNextAuthPerPhone,
     onLoadCountry,
