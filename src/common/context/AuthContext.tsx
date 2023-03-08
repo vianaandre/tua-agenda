@@ -258,6 +258,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             message: 'Sessão iniciada com sucesso.',
             type: 'success',
           });
+          push('/');
         }
       }
       setIsLoadingAuthPerPhone(false);
@@ -268,7 +269,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         type: 'error',
       });
     }
-  }, [location, onToast, isStepperTypeAuthPerPhone]);
+  }, [location, onToast, isStepperTypeAuthPerPhone, push]);
 
   const handleLoadCountry = useCallback(async () => {
     try {

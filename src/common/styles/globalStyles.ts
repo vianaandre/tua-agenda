@@ -393,7 +393,7 @@ export const GlobalStyles = createGlobalStyle`
     }
     div.toast {
         div.Toastify__toast-body {
-            padding-right: ${({ theme }) => theme.spacing(3.5)};
+            padding-right: ${({ theme }) => theme.spacing(2.75)};
             div {
                 font-size: ${({ theme }) => theme.fonts.sizes[14]};
                 font-weight: 500;
