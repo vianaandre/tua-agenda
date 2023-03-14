@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { createContext } from 'use-context-selector';
 
 import { ConfigProps } from 'common/interface/ConfigProps';
@@ -17,9 +17,12 @@ interface CompanyContextProps {
     services?: ServicesCompanyProps[];
     servicesSelect?: string[];
     servicesSearch?: ServicesCompanyProps[];
+    openFlowSchedule: boolean;
     onUpdatedStates: (company: CompanyProps) => void;
     onSelectService: (id: string) => void;
     onSearchServices: (search: string) => void;
+    onOpenFlowSchedule: () => void;
+    onCloseFlowSchedule: () => void;
 }
 
 export const CompanyContext = createContext({} as CompanyContextProps);
@@ -32,6 +35,10 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
   const [isServices, setIsServices] = useState<ServicesCompanyProps[]>();
   const [isServicesSelect, setIsServicesSelect] = useState<string[]>();
   const [isServicesSearch, setIsServicesSearch] = useState<ServicesCompanyProps[]>();
+  const [isOpenFlowSchedule, setIsOpenFlowShcedule] = useState<boolean>(false);
+
+  const handleOpenFlowSchedule = () => setIsOpenFlowShcedule(true);
+  const handleCloseFlowSchedule = () => setIsOpenFlowShcedule(false);
 
   const handleUpdatedStates = useCallback((company: CompanyProps) => {
     setIsIntl(company.intl);
@@ -61,6 +68,16 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
     }
   }, [isServices]);
 
+  useEffect(() => {
+    if (isOpenFlowSchedule) {
+      window.document.body.style.overflowY = 'hidden';
+    }
+
+    return () => {
+      window.document.body.style.overflowY = 'auto';
+    };
+  }, [isOpenFlowSchedule]);
+
   return (
     <CompanyContext.Provider value={{
       config: isConfig,
@@ -70,9 +87,12 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
       services: isServices,
       servicesSelect: isServicesSelect,
       servicesSearch: isServicesSearch,
+      openFlowSchedule: isOpenFlowSchedule,
       onUpdatedStates: handleUpdatedStates,
       onSelectService: handleSelectService,
       onSearchServices: handleSearchServices,
+      onCloseFlowSchedule: handleCloseFlowSchedule,
+      onOpenFlowSchedule: handleOpenFlowSchedule,
     }}
     >
       {children}

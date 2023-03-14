@@ -27,6 +27,7 @@ import { auth } from 'services/firebase';
 import { UseFormSetValue } from 'react-hook-form';
 import { AddressVIACEPProps } from 'common/interface/AddressVIACEPProps';
 import { listNotification } from 'services/modules/notification';
+import { NotificationProps } from 'common/interface/NotificationProps';
 
 interface AuthContextProps {
     user?: UserProps;
@@ -47,6 +48,7 @@ interface AuthContextProps {
     };
     loadingUpdatedUser: boolean;
     uploadPhoto?: string | ArrayBuffer | null | undefined;
+    notifications?: NotificationProps[];
     onLoginUser: (user: UserProps) => void;
     onNextAuthPerPhone: (data: AuthPerPhoneProps) => void;
     onFlowAuthPerPhone: () => void;
@@ -60,7 +62,6 @@ interface AuthContextProps {
     onUpdateUser: (user: UserProps) => Promise<void>;
     onUploadPhoto: (inputFile: React.ChangeEvent<HTMLInputElement>) => void;
     onLogoutUser: () => void;
-    notifications?: any[];
 }
 
 export const AuthContext = createContext({} as AuthContextProps);
@@ -91,7 +92,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   });
   const [isLoadingUpdatedUser, setIsUpdatedUser] = useState<boolean>(false);
   const [isUploadPhoto, setIsUploadPhoto] = useState<string | ArrayBuffer | null | undefined>();
-  const [isNotifications, setIsNotifications] = useState();
+  const [isNotifications, setIsNotifications] = useState<NotificationProps[]>();
 
   const handleLoadUser = useCallback(async () => {
     try {

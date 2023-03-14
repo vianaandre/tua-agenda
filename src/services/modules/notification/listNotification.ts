@@ -1,3 +1,4 @@
+import { NotificationProps } from 'common/interface/NotificationProps';
 import { ResponseProps } from 'common/interface/ResponseProps';
 import { api } from 'services/api';
 import { GET_NOTIFICATIONS } from 'services/routes';
@@ -10,7 +11,7 @@ export async function listNotification(tokenWhypwd: string, clientId: string, of
         'auth-uid': clientId,
       },
       timeout: 4000,
-    }) as { data: ResponseProps<any> };
+    }) as { data: ResponseProps<NotificationProps[]> };
 
     if (!data.ok) throw new Error(data.mensagem);
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import * as Popover from '@radix-ui/react-popover';
+import { format } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 
 import { theme } from 'common/styles/theme';
 import { Notification as NotificationIcon } from 'common/icons';
@@ -28,24 +30,18 @@ export const Notification: React.FC = () => {
             </header>
             {notifications && notifications.length > 0 ? (
               <React.Fragment>
-                <div className="dropdown_notification_content_item">
-                  <button type="button">
-                    <p className="small">08/10/22 ás 9:00</p>
-                    <p className="small color_dark">Agendamento Cancelado!</p>
-                  </button>
-                </div>
-                <div className="dropdown_notification_content_item">
-                  <button type="button">
-                    <p className="small">08/10/22 ás 9:00</p>
-                    <p className="small color_dark">Agendamento Cancelado!</p>
-                  </button>
-                </div>
-                <div className="dropdown_notification_content_item">
-                  <button type="button">
-                    <p className="small">08/10/22 ás 9:00</p>
-                    <p className="small color_dark">Agendamento Cancelado!</p>
-                  </button>
-                </div>
+                {notifications.map((item) => (
+                  <div className="dropdown_notification_content_item">
+                    <button type="button">
+                      <p className="small">
+                        {format(new Date(item.dtInclusao), "dd/MM/yy 'ás' h:mm", {
+                          locale: ptBR,
+                        })}
+                      </p>
+                      <p className="small color_dark">{item.titulo}</p>
+                    </button>
+                  </div>
+                ))}
               </React.Fragment>
             ) : (
               <div className="empty">

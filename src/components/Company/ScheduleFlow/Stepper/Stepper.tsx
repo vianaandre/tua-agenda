@@ -1,0 +1,28 @@
+import React from 'react';
+
+import { Container } from 'common/styles/container';
+import { stepperScheduleFlow } from 'utils/stepper';
+import { ContainerStepper } from './styles';
+
+export const Stepper: React.FC = () => {
+  return (
+    <ContainerStepper>
+      <Container>
+        <ul>
+          {stepperScheduleFlow.map((item) => (
+            <li key={item.stage}>
+              <button type="button">
+                <div>{item.stepper + 1}</div>
+                <div>
+                  <p className="normal color_white font_weight_500">{item.stage}</p>
+                  <span className="small color_white">{item.description}</span>
+                </div>
+                <div />
+              </button>
+            </li>
+          ))}
+        </ul>
+      </Container>
+    </ContainerStepper>
+  );
+};
