@@ -32,6 +32,7 @@ export const ContainerStepper = styled.div`
                 }
                 div:nth-child(2) {
                     max-width: 111px;
+                    width: fit-content;
                     margin-left: ${({ theme }) => theme.spacing(1.75)};
                     display: flex;
                     flex-direction: column;
@@ -46,6 +47,16 @@ export const ContainerStepper = styled.div`
                     margin-top: ${({ theme }) => theme.spacing(2.5)};
                     margin-left: ${({ theme }) => theme.spacing(1.5)};
                     margin-right: ${({ theme }) => theme.spacing(2)};
+                }
+                &.active {
+                    div:last-child {
+                        border-style: solid;
+                        border-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+                    }
+                    div:first-child {
+                        background-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+                        color: ${({ theme }) => theme.colors.WHITE}
+                    }
                 }
             }
             &:last-child {
