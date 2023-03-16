@@ -1,31 +1,31 @@
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import { Container } from 'common/styles/container';
 import { Input } from 'components/Form';
 import { InputVariantProps } from 'common/interface/InputVariantProps';
-import { Search, ArrowAlternative } from 'common/icons';
+import { ArrowAlternative, Search } from 'common/icons';
 import { theme } from 'common/styles/theme';
-import { Container } from 'common/styles/container';
+import { CardService } from 'components/Company/CardService';
+import { useScheduleFlow } from 'common/hooks/useScheduleFlow';
 import { useCompany } from 'common/hooks/useCompany';
-import { Avatar } from 'components/Avatar';
 import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
-import { useScheduleFlow } from 'common/hooks/useScheduleFlow';
 import { stepperScheduleFlow } from 'utils/stepper';
-import { ContainerStepEmployees } from './styles';
+import { ContainerStepServices } from './styles';
 
-export const StepEmployees: React.FC = () => {
+export const StepServices: React.FC = () => {
   const methods = useForm();
-  const { employees } = useCompany();
-  const {
-    onSelectEmployees, selectEmployees, onSelectStepper, stepper,
-  } = useScheduleFlow();
+  const { servicesPerEmployees, onSelectStepper, stepper } = useScheduleFlow();
+  const { onSelectService, servicesSelect } = useCompany();
+
+  console.log('servicesSelect', servicesSelect);
 
   return (
-    <ContainerStepEmployees>
+    <ContainerStepServices>
       <Container>
         <div className="header">
-          <form action="">
+          <form>
             <FormProvider {...methods}>
               <Input
                 id="search"
@@ -42,29 +42,18 @@ export const StepEmployees: React.FC = () => {
           </form>
         </div>
         <div className="list">
-          {employees && employees.length && (
-            <ul>
-              {employees.map((employee) => (
-                <li key={employee.id}>
-                  <button type="button" onClick={() => onSelectEmployees(employee)} className={`${selectEmployees.find((i) => i.id === employee.id) ? 'active' : ''}`}>
-                    <Avatar
-                      username={employee.nome}
-                      image={employee.linkImagem}
-                    />
-                    <p className="normal color_normal">{employee.nome}</p>
-                    <span className="small color_black_500">{employee.telefone}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
+          <ul>
+            {servicesPerEmployees.map((servicePerEmployee) => (
+              <CardService key={servicePerEmployee.id} service={servicePerEmployee} active={!!servicesSelect?.find((serviceSelect) => serviceSelect === servicePerEmployee.id)} onSelect={() => onSelectService(servicePerEmployee.id)} />
+            ))}
+          </ul>
         </div>
         <Button.Normal
           text="Próxima etapa"
           variant={ButtonVariantProps.FULL}
           type="button"
           className="next"
-          disabled={!selectEmployees.length}
+          disabled={!servicesSelect?.length}
           onClick={() => onSelectStepper(stepperScheduleFlow[stepper.length + 1])}
           icon={{
             icon: <ArrowAlternative width={24} height={24} color={theme.colors.WHITE} />,
@@ -72,6 +61,6 @@ export const StepEmployees: React.FC = () => {
           }}
         />
       </Container>
-    </ContainerStepEmployees>
+    </ContainerStepServices>
   );
 };

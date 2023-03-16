@@ -8,6 +8,7 @@ import { ProductProps } from 'common/interface/ProductProps';
 import { EmployeeProps } from 'common/interface/EmployeeProps';
 import { CompanyProps } from 'common/interface/CompanyProps';
 import { ServicesCompanyProps } from 'common/interface/ServiceCompanyProps';
+import { EmployeeProductProps } from 'common/interface/EmployeeProductProps';
 
 interface CompanyContextProps {
     config?: ConfigProps;
@@ -18,6 +19,7 @@ interface CompanyContextProps {
     servicesSelect?: string[];
     servicesSearch?: ServicesCompanyProps[];
     openFlowSchedule: boolean;
+    employeesProducts?: EmployeeProductProps[];
     onUpdatedStates: (company: CompanyProps) => void;
     onSelectService: (id: string) => void;
     onSearchServices: (search: string) => void;
@@ -31,6 +33,7 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
   const [isIntl, setIsIntl] = useState<IntlProps>();
   const [isConfig, setIsConfig] = useState<ConfigProps>();
   const [isEmployees, setIsisEmployees] = useState<EmployeeProps[]>();
+  const [isEmployeesProducts, setIsisEmployeesProducts] = useState<EmployeeProductProps[]>();
   const [isProducts, setIsProducts] = useState<ProductProps[]>();
   const [isServices, setIsServices] = useState<ServicesCompanyProps[]>();
   const [isServicesSelect, setIsServicesSelect] = useState<string[]>();
@@ -46,6 +49,7 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
     setIsisEmployees(company.funcionarios);
     setIsProducts(company.produtos);
     setIsServices(company.servicos);
+    setIsisEmployeesProducts(company.funcionarioProduto);
   }, []);
 
   const handleSelectService = useCallback((id: string) => {
@@ -88,6 +92,7 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
       servicesSelect: isServicesSelect,
       servicesSearch: isServicesSearch,
       openFlowSchedule: isOpenFlowSchedule,
+      employeesProducts: isEmployeesProducts,
       onUpdatedStates: handleUpdatedStates,
       onSelectService: handleSelectService,
       onSearchServices: handleSearchServices,

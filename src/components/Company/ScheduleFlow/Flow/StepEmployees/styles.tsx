@@ -13,6 +13,7 @@ export const ContainerStepEmployees = styled.div`
         }
         div.list {
             margin-top: ${({ theme }) => theme.spacing(2.25)};
+            margin-bottom: ${({ theme }) => theme.spacing(2.25)};
             ul {
                 display: flex;
                 flex-wrap: wrap;
@@ -38,7 +39,7 @@ export const ContainerStepEmployees = styled.div`
                             font-weight: 400;
                             font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
                         }
-                        &:hover {
+                        &:hover, &.active {
                             transition: 400ms;
                             border-color: ${({ theme }) => theme.colors.PRIMARY[500]}
                         }
@@ -48,6 +49,8 @@ export const ContainerStepEmployees = styled.div`
         }
         button.next {
             margin-top: auto;
+            justify-content: space-between;
+            min-height: 50px;
         }
     }
 `;

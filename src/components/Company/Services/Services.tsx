@@ -5,9 +5,9 @@ import { useCompany } from 'common/hooks/useCompany';
 import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
 import { Empty } from 'components/Empty';
+import { CardService } from 'components/Company/CardService';
 import { ContainerServices } from './styles';
 import { HeaderServices } from './HeaderServices';
-import { CardService } from './CardService';
 
 export const Services: React.FC = () => {
   const {

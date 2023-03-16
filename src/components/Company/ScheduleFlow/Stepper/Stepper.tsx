@@ -14,7 +14,7 @@ export const Stepper: React.FC = () => {
         <ul>
           {stepperScheduleFlow.map((item) => (
             <li key={item.stage}>
-              <button type="button" className={`${stepper.find((i) => i.stepper === item.stepper) ? 'active' : ''}`} onClick={() => onSelectStepper(item)}>
+              <button type="button" className={`${stepper.find((i) => i.stepper === item.stepper) ? 'active' : ''}`} onClick={() => onSelectStepper(item)} disabled={item.stepper > stepper.length}>
                 <div>{item.stepper + 1}</div>
                 <div>
                   <p className="normal color_white font_weight_500">{item.stage}</p>

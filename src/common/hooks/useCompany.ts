@@ -10,6 +10,7 @@ export const useCompany = () => {
   const services = useContextSelector(CompanyContext, (company) => company.services);
   const servicesSelect = useContextSelector(CompanyContext, (company) => company.servicesSelect);
   const servicesSearch = useContextSelector(CompanyContext, (company) => company.servicesSearch);
+  const employeesProducts = useContextSelector(CompanyContext, (company) => company.employeesProducts);
   const openFlowSchedule = useContextSelector(CompanyContext, (company) => company.openFlowSchedule);
   const onCloseFlowSchedule = useContextSelector(CompanyContext, (company) => company.onCloseFlowSchedule);
   const onOpenFlowSchedule = useContextSelector(CompanyContext, (company) => company.onOpenFlowSchedule);
@@ -25,6 +26,7 @@ export const useCompany = () => {
     services,
     servicesSelect,
     servicesSearch,
+    employeesProducts,
     openFlowSchedule,
     onCloseFlowSchedule,
     onSelectService,
