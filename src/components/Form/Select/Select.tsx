@@ -36,7 +36,7 @@ export const Select: React.FC<SelectProps> = ({
                 </SelectRadix.Icon>
               </SelectRadix.Trigger>
               <SelectRadix.Portal>
-                <SelectRadix.Content className="content-select">
+                <SelectRadix.Content className="content_select">
                   <SelectRadix.Viewport>
                     <SelectRadix.Group>
                       {options.map((item) => (

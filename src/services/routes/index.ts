@@ -14,3 +14,5 @@ export const VIACEP = 'https://viacep.com.br/ws';
 export const GET_COMPANY = '/api/empresa/infoByUser';
 export const GET_NOTIFICATIONS = '/api/notificacao';
 export const GET_HOURS_SCHEDULE = '/api/agenda/horarios';
+export const SAVE_WAITING_LIST = '/api/lista-espera/save/';
+export const SAVE_SERVER_CLIENT = '/api/cliente/save-in-server/';

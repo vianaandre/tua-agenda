@@ -7,7 +7,7 @@ import { AuthPerPhoneProps } from 'common/interface/AuthPerPhoneProps';
 import { ContainerInputPhone } from './styles';
 import { InputPhoneProps } from './interface';
 
-export const InputPhone: React.FC<InputPhoneProps> = ({ options, countrys }) => {
+export const InputPhone: React.FC<InputPhoneProps> = ({ options, countrys, prefix }) => {
   const { watch, formState } = useFormContext<AuthPerPhoneProps>();
   const country = watch('country');
 
@@ -20,8 +20,8 @@ export const InputPhone: React.FC<InputPhoneProps> = ({ options, countrys }) => 
       </label>
       <div className="content">
         <Select
-          id="country"
-          name="country"
+          id={prefix ? `${prefix}.country` : 'country'}
+          name={prefix ? `${prefix}.country` : 'country'}
           left={0}
           options={options}
           widthOption={0}
@@ -36,10 +36,10 @@ export const InputPhone: React.FC<InputPhoneProps> = ({ options, countrys }) => 
           }}
         />
         <Input
-          name="phone"
-          id="phone"
+          id={prefix ? `${prefix}.phone` : 'phone'}
+          name={prefix ? `${prefix}.phone` : 'phone'}
           type="tel"
-          placeholder={options.length > 0 ? countrys.find((i) => i.countryCode === country)?.phoneMask : '(00) 00000-0000'}
+          placeholder={options.length > 0 ? countrys.find((i) => i.countryCode === country)?.phoneMask ?? '(00) 00000-0000' : '(00) 00000-0000'}
           rules={{
             required: {
               value: true,

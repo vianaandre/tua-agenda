@@ -16,7 +16,7 @@ export const theme = {
     SUCCESS: '#0FAB60',
     INFO: '#00B8D9',
     SECONDARY: '#201042',
-    ICON_BUTTON: '#DFE1E2',
+    ICON_BUTTON: 'rgba(0, 0, 0, 0.04)',
     GREY: {
       500: '#EAEAEA',
       600: '#D9D9D9',

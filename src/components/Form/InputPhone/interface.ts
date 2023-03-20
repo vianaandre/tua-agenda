@@ -4,4 +4,5 @@ import { OptionSelectProps } from 'common/interface/OptionSelectProps';
 export interface InputPhoneProps {
     options: OptionSelectProps<string, string>[];
     countrys: CountryProps[];
+    prefix?: string;
 }

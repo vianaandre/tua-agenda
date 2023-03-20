@@ -9,11 +9,12 @@ import { EmployeeProps } from 'common/interface/EmployeeProps';
 import { useCompany } from 'common/hooks/useCompany';
 import { ServicesCompanyProps } from 'common/interface/ServiceCompanyProps';
 import { useToast } from 'common/hooks/useToast';
-import { listHoursSchedule } from 'services/modules/company ';
+import { listHoursSchedule, saveWaitingList } from 'services/modules/company ';
 import { useAuth } from 'common/hooks/useAuth';
 import { ScheduleHoursProps } from 'common/interface/ScheduleHoursProps';
 import { format } from 'date-fns';
 import { HourProps } from 'common/interface/HourProps';
+import { FormWaitingListProps } from 'common/interface/FormWaitingListProps';
 
 interface ScheduleFlowContextProps {
     stepper: StepperProps[];
@@ -24,10 +25,14 @@ interface ScheduleFlowContextProps {
     hoursAvailablePerDate: HourProps[];
     hourSelect?: HourProps;
     loadingHours: boolean;
+    fieldsDate: string[];
     onSelectDate: (date: Date) => void;
     onSelectStepper: (stepper: StepperProps) => void;
     onSelectEmployees: (employee: EmployeeProps) => void;
     onSelectHour: (hourSelect: HourProps, date: string) => void;
+    onAddFieldDateInWaitingList: () => void;
+    onRemovedFieldDateInWaitingList: (index: number) => void;
+    onSubmitSaveWaitingList: (waitingListData: FormWaitingListProps) => void;
 }
 
 export const ScheduleFlowContext = createContext({} as ScheduleFlowContextProps);
@@ -45,6 +50,30 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
   const [isDateSelect, setIsDateSelect] = useState<Date>();
   const [isHourSelect, setIsHourSelect] = useState<HourProps>();
   const [isLoadingHours, setIsLoadingHours] = useState<boolean>(true);
+  const [isFieldsDate, setIsFieldsDate] = useState([
+    'date',
+  ]);
+
+  const handleAddFieldDateInWaitingList = useCallback(() => {
+    setIsFieldsDate((current) => [...current, 'date']);
+  }, []);
+
+  const handleRemovedFieldDateInWaitingList = useCallback((index: number) => {
+    setIsFieldsDate((current) => current.filter((curr, i) => i !== index));
+  }, []);
+
+  const handleSubmitSaveWaitingList = useCallback(async (waitingListData: FormWaitingListProps) => {
+    try {
+      if (config && config.id) {
+        await saveWaitingList(waitingListData, config.id, 'asasa');
+      }
+    } catch (err: any) {
+      onToast({
+        message: err ?? 'Ocorreu um erro de comunicação.',
+        type: 'error',
+      });
+    }
+  }, [onToast, config]);
 
   const handleSelectDate = useCallback((date: Date) => {
     setIsDateSelect(date);
@@ -156,10 +185,14 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
       hoursAvailablePerDate: isHoursAvailablePerDate,
       hourSelect: isHourSelect,
       loadingHours: isLoadingHours,
+      fieldsDate: isFieldsDate,
       onSelectDate: handleSelectDate,
       onSelectStepper: handleSelectStepper,
       onSelectEmployees: handleSelectEmployees,
       onSelectHour: handleSelectHour,
+      onAddFieldDateInWaitingList: handleAddFieldDateInWaitingList,
+      onRemovedFieldDateInWaitingList: handleRemovedFieldDateInWaitingList,
+      onSubmitSaveWaitingList: handleSubmitSaveWaitingList,
     }}
     >
       {children}

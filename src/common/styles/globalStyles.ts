@@ -217,11 +217,12 @@ export const GlobalStyles = createGlobalStyle`
     .font_weight_500 {
         font-weight: 500;
     }
-    div.content-select {
+    div.content_select {
         width: 100%;
         background-color: ${({ theme }) => theme.colors.WHITE} !important;
         overflow: hidden;
         border-radius: 4px;
+        z-index: ${({ theme }) => theme.zIndex.MODAL};
         .item {
             padding: ${({ theme }) => theme.spacing(1.5)};
             display: flex;
@@ -424,9 +425,15 @@ export const GlobalStyles = createGlobalStyle`
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    div.dialog_content_waiting_list {
         div.content_modal {
             width: 100%;
             max-width: 700px;
+            height: 100%;
+            max-height: 920px;
+            min-height: 600px;
+            overflow: auto;
             background-color: ${({ theme }) => theme.colors.WHITE};
             animation: animationContentShow 200ms linear forwards;
             div.header {
@@ -443,39 +450,39 @@ export const GlobalStyles = createGlobalStyle`
                 form {
                     width: 100%;
                 }
+                div.header_form {
+                    width: 100%;
+                    padding: ${({ theme }) => theme.spacing(2)} ${({ theme }) => theme.spacing(4)};
+                    background-color: ${({ theme }) => theme.colors.PRIMARY[0]};
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    label, h6 {
+                        font-size: ${({ theme }) => theme.fonts.sizes[16]};
+                        font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
+                        font-weight: 500;
+                        color: ${({ theme }) => theme.colors.BLACK[500]};
+                    }
+                    button {
+                        font-size: ${({ theme }) => theme.fonts.sizes[16]};
+                        font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
+                        font-weight: 700;
+                        color: ${({ theme }) => theme.colors.PRIMARY[500]};
+                        padding: ${({ theme }) => theme.spacing(1)} ${({ theme }) => theme.spacing(1.75)};
+                        border: 1px solid ${({ theme }) => theme.colors.PRIMARY[500]};
+                        border-radius: 4px;
+                        transition: 400ms;
+                        &:hover {
+                            transition: 400ms;
+                            background-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+                            color: ${({ theme }) => theme.colors.WHITE};
+                        }
+                    }
+                }
                 div.hours {
                     width: 100%;
                     display: flex;
                     flex-direction: column;
-                    div.header_hours {
-                        width: 100%;
-                        padding: ${({ theme }) => theme.spacing(2)} ${({ theme }) => theme.spacing(4)};
-                        background-color: ${({ theme }) => theme.colors.PRIMARY[0]};
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        label {
-                            font-size: ${({ theme }) => theme.fonts.sizes[16]};
-                            font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
-                            font-weight: 500;
-                            color: ${({ theme }) => theme.colors.BLACK[500]};
-                        }
-                        button {
-                            font-size: ${({ theme }) => theme.fonts.sizes[16]};
-                            font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
-                            font-weight: 700;
-                            color: ${({ theme }) => theme.colors.PRIMARY[500]};
-                            padding: ${({ theme }) => theme.spacing(1)} ${({ theme }) => theme.spacing(1.75)};
-                            border: 1px solid ${({ theme }) => theme.colors.PRIMARY[500]};
-                            border-radius: 4px;
-                            transition: 400ms;
-                            &:hover {
-                                transition: 400ms;
-                                background-color: ${({ theme }) => theme.colors.PRIMARY[500]};
-                                color: ${({ theme }) => theme.colors.WHITE};
-                            }
-                        }
-                    }
                     div.inputs {
                         display: flex;
                         gap: ${({ theme }) => theme.spacing(3)};
@@ -484,8 +491,44 @@ export const GlobalStyles = createGlobalStyle`
                         div.hour {
                             width: 100%;
                         }
+                        position: relative;
+                        div.btn {
+                            display: none;
+                        }
+                        &.list {
+                            padding-right: ${({ theme }) => theme.spacing(10)};
+                            div.btn {
+                                display: flex;
+                                position: absolute;
+                                right: ${({ theme }) => theme.spacing(4)};
+                                top: 68px
+                            }
+                        }
                 }
-            }
+                div.my_data {
+                    margin-top: ${({ theme }) => theme.spacing(4)};
+                }
+                }
+                div.my_data {
+                    margin-top: ${({ theme }) => theme.spacing(3)};
+                    div.form_my_data {
+                        display: flex;
+                        flex-direction: column;
+                        gap: ${({ theme }) => theme.spacing(2)};
+                        padding: ${({ theme }) => theme.spacing(1.5)} ${({ theme }) => theme.spacing(4)};
+                    }
+                    div.cpf_date {
+                        display: flex;
+                        gap: ${({ theme }) => theme.spacing(2)};
+                    }
+                }
+                div.btns {
+                    display: flex;
+                    justify-content: flex-end;
+                    gap: ${({ theme }) => theme.spacing(2)};
+                    padding: ${({ theme }) => theme.spacing(2)} ${({ theme }) => theme.spacing(4)};
+                    padding-bottom: ${({ theme }) => theme.spacing(3)};
+                }
             }
         }
     }
@@ -534,7 +577,7 @@ export const GlobalStyles = createGlobalStyle`
     @keyframes animationContentShow {
         from {
             opacity: 0;
-            transform: translate(0%, 10%) scale(0.96);
+            transform: translate(0%, 0%) scale(0.96);
         }
         to {
             opacity: 1;

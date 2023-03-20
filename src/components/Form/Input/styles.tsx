@@ -113,7 +113,7 @@ export const ContainerInputInput = styled.div<{
         return theme.colors.DANGER;
     }
   }};
-        svg {
+        /* svg {
             path {
                 fill: ${({ theme, variant }) => {
     switch (variant) {
@@ -148,7 +148,7 @@ export const ContainerInputInput = styled.div<{
     }
   }}
             }
-        }
+        } */
         input {
             border-bottom: ${({ theme, variant }) => {
     switch (variant) {
