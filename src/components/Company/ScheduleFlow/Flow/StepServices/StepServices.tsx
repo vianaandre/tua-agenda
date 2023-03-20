@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { Container } from 'common/styles/container';
@@ -12,20 +12,28 @@ import { useCompany } from 'common/hooks/useCompany';
 import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
 import { stepperScheduleFlow } from 'utils/stepper';
+import { Empty } from 'components/Empty';
 import { ContainerStepServices } from './styles';
 
 export const StepServices: React.FC = () => {
-  const methods = useForm();
+  const methods = useForm<{
+    search: string;
+  }>();
   const { servicesPerEmployees, onSelectStepper, stepper } = useScheduleFlow();
-  const { onSelectService, servicesSelect } = useCompany();
+  const {
+    onSelectService, servicesSelect, onSearchServices, servicesSearch,
+  } = useCompany();
+  const isSearch = methods.watch('search');
 
-  console.log('servicesSelect', servicesSelect);
+  useEffect(() => {
+    onSearchServices(isSearch);
+  }, [isSearch, onSearchServices]);
 
   return (
     <ContainerStepServices>
       <Container>
         <div className="header">
-          <form>
+          <form onSubmit={methods.handleSubmit(({ search }) => onSearchServices(search))}>
             <FormProvider {...methods}>
               <Input
                 id="search"
@@ -42,11 +50,28 @@ export const StepServices: React.FC = () => {
           </form>
         </div>
         <div className="list">
-          <ul>
-            {servicesPerEmployees.map((servicePerEmployee) => (
-              <CardService key={servicePerEmployee.id} service={servicePerEmployee} active={!!servicesSelect?.find((serviceSelect) => serviceSelect === servicePerEmployee.id)} onSelect={() => onSelectService(servicePerEmployee.id)} />
-            ))}
-          </ul>
+          {!servicesSearch && (
+            servicesPerEmployees.length > 0 ? (
+              <ul>
+                {servicesPerEmployees.map((servicePerEmployee) => (
+                  <CardService key={servicePerEmployee.id} service={servicePerEmployee} active={!!servicesSelect?.find((serviceSelect) => serviceSelect === servicePerEmployee.id)} onSelect={() => onSelectService(servicePerEmployee.id)} />
+                ))}
+              </ul>
+            ) : (
+              <Empty text="Nada encontrado" />
+            )
+          )}
+          {servicesSearch && (
+            servicesSearch.length > 0 ? (
+              <ul>
+                { servicesSearch.map((serviceSearch) => (
+                  <CardService key={serviceSearch.id} service={serviceSearch} active={!!servicesSelect?.find((serviceSelect) => serviceSelect === serviceSearch.id)} onSelect={() => onSelectService(serviceSearch.id)} />
+                ))}
+              </ul>
+            ) : (
+              <Empty text="Nada encontrado" />
+            )
+          )}
         </div>
         <Button.Normal
           text="Próxima etapa"

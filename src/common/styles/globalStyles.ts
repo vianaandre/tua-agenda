@@ -202,6 +202,9 @@ export const GlobalStyles = createGlobalStyle`
     .color_grey_800 {
         color: ${({ theme }) => theme.colors.GREY[850]} !important;
     }
+    .color_grey_900 {
+        color: ${({ theme }) => theme.colors.GREY[900]} !important;
+    }
     .color_grey_950 {
         color: ${({ theme }) => theme.colors.GREY[950]} !important;
     }
@@ -410,6 +413,82 @@ export const GlobalStyles = createGlobalStyle`
             top: 2px;
         }
     }
+    .dialog_overlay {
+        animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    div.dialog_content {
+        width: 100vw;
+        height: 100vh;
+        min-height: 600px;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        div.content_modal {
+            width: 100%;
+            max-width: 700px;
+            background-color: ${({ theme }) => theme.colors.WHITE};
+            animation: animationContentShow 200ms linear forwards;
+            div.header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: ${({ theme }) => theme.spacing(3)} ${({ theme }) => theme.spacing(4)};
+                h5 {
+                    color: ${({ theme }) => theme.colors.BLACK[500]};
+                }
+            }
+            div.content {
+                width: 100%;
+                form {
+                    width: 100%;
+                }
+                div.hours {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    div.header_hours {
+                        width: 100%;
+                        padding: ${({ theme }) => theme.spacing(2)} ${({ theme }) => theme.spacing(4)};
+                        background-color: ${({ theme }) => theme.colors.PRIMARY[0]};
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        label {
+                            font-size: ${({ theme }) => theme.fonts.sizes[16]};
+                            font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
+                            font-weight: 500;
+                            color: ${({ theme }) => theme.colors.BLACK[500]};
+                        }
+                        button {
+                            font-size: ${({ theme }) => theme.fonts.sizes[16]};
+                            font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
+                            font-weight: 700;
+                            color: ${({ theme }) => theme.colors.PRIMARY[500]};
+                            padding: ${({ theme }) => theme.spacing(1)} ${({ theme }) => theme.spacing(1.75)};
+                            border: 1px solid ${({ theme }) => theme.colors.PRIMARY[500]};
+                            border-radius: 4px;
+                            transition: 400ms;
+                            &:hover {
+                                transition: 400ms;
+                                background-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+                                color: ${({ theme }) => theme.colors.WHITE};
+                            }
+                        }
+                    }
+                    div.inputs {
+                        display: flex;
+                        gap: ${({ theme }) => theme.spacing(3)};
+                        width: 100%;
+                        padding: ${({ theme }) => theme.spacing(2)} ${({ theme }) => theme.spacing(4)};
+                        div.hour {
+                            width: 100%;
+                        }
+                }
+            }
+            }
+        }
+    }
     @keyframes animationFade {
         from {
             opacity: 0;
@@ -442,6 +521,24 @@ export const GlobalStyles = createGlobalStyle`
         to {
             margin-top: 0px;
             opacity: 1;
+        }
+    }
+    @keyframes animationOverlayShow {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @keyframes animationContentShow {
+        from {
+            opacity: 0;
+            transform: translate(0%, 10%) scale(0.96);
+        }
+        to {
+            opacity: 1;
+            transform: translate(0%, 0%) scale(1);
         }
     }
 `;

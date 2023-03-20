@@ -48,7 +48,6 @@ export const Translation: React.FC<TranslationProps> = ({ variant }) => {
             {formatMessage({
               id: 'LOCALE',
             })}
-
           </p>
         </Dialog.Trigger>
         <Dialog.Portal>

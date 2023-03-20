@@ -8,24 +8,48 @@ import { stepperScheduleFlow } from 'utils/stepper';
 import { EmployeeProps } from 'common/interface/EmployeeProps';
 import { useCompany } from 'common/hooks/useCompany';
 import { ServicesCompanyProps } from 'common/interface/ServiceCompanyProps';
+import { useToast } from 'common/hooks/useToast';
+import { listHoursSchedule } from 'services/modules/company ';
+import { useAuth } from 'common/hooks/useAuth';
+import { ScheduleHoursProps } from 'common/interface/ScheduleHoursProps';
+import { format } from 'date-fns';
+import { HourProps } from 'common/interface/HourProps';
 
 interface ScheduleFlowContextProps {
     stepper: StepperProps[];
     selectEmployees: EmployeeProps[];
     servicesPerEmployees: ServicesCompanyProps[];
+    dateAvailable: string[];
+    dateSelect?: Date;
+    hoursAvailablePerDate: HourProps[];
+    hourSelect?: HourProps;
+    loadingHours: boolean;
+    onSelectDate: (date: Date) => void;
     onSelectStepper: (stepper: StepperProps) => void;
     onSelectEmployees: (employee: EmployeeProps) => void;
+    onSelectHour: (hourSelect: HourProps, date: string) => void;
 }
 
 export const ScheduleFlowContext = createContext({} as ScheduleFlowContextProps);
 
 export function ScheduleFlowProvider({ children }: { children: React.ReactNode }) {
   const {
-    employees, services, employeesProducts,
+    employees, services, employeesProducts, config,
   } = useCompany();
+  const { onToast } = useToast();
+  const { user } = useAuth();
 
   const [isStepper, setIsStepper] = useState<StepperProps[]>([]);
   const [isSelectEmployees, setIsSelectEmployees] = useState<EmployeeProps[]>([]);
+  const [isScheduleHours, setIsScheduleHours] = useState<ScheduleHoursProps[]>();
+  const [isDateSelect, setIsDateSelect] = useState<Date>();
+  const [isHourSelect, setIsHourSelect] = useState<HourProps>();
+  const [isLoadingHours, setIsLoadingHours] = useState<boolean>(true);
+
+  const handleSelectDate = useCallback((date: Date) => {
+    setIsDateSelect(date);
+    setIsHourSelect(undefined);
+  }, []);
 
   const handleSelectStepper = useCallback((stepper: StepperProps) => {
     const steppers = stepperScheduleFlow.filter((i) => i.stepper < stepper.stepper);
@@ -39,6 +63,40 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
       }
 
       return [...current, employee];
+    });
+  }, []);
+
+  const handleLoadHoursPerEmployee = useCallback(async () => {
+    try {
+      if (user && config && services && services.length > 0 && isSelectEmployees.length > 0) {
+        setIsLoadingHours(true);
+        const isMinutes = services?.reduce((curr, prev) => {
+          return curr + prev.minutos;
+        }, 0);
+        const result = await listHoursSchedule(user, config.id, isSelectEmployees[0].id, isMinutes);
+
+        setIsScheduleHours(result);
+        setIsLoadingHours(false);
+      }
+    } catch (err: any) {
+      setIsLoadingHours(false);
+      onToast({
+        message: err ?? 'Ocorreu um erro de comunicação.',
+        type: 'error',
+      });
+    }
+  }, [onToast, config, user, isSelectEmployees, services]);
+
+  const handleSelectHour = useCallback((hourSelect: HourProps, date: string) => {
+    setIsHourSelect((current) => {
+      if (current?.date === date && current.hora === hourSelect.hora) {
+        return undefined;
+      }
+
+      return {
+        ...hourSelect,
+        date,
+      };
     });
   }, []);
 
@@ -57,6 +115,24 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
     return services ?? [];
   }, [employeesProducts, isSelectEmployees, services]);
 
+  const isDateAvailable = useMemo(() => {
+    if (isScheduleHours) {
+      return isScheduleHours.map((scheduleHour) => scheduleHour.data);
+    }
+
+    return [];
+  }, [isScheduleHours]);
+
+  const isHoursAvailablePerDate = useMemo((): HourProps[] => {
+    if (isDateSelect && isScheduleHours) {
+      const isHours = isScheduleHours.find((scheduleHour) => scheduleHour.data === format(isDateSelect, 'yyyy/MM/dd'))?.horarios;
+
+      return isHours ?? [];
+    }
+
+    return [];
+  }, [isDateSelect, isScheduleHours]);
+
   useEffect(() => {
     if (employees && employees.length === 1) {
       handleSelectStepper(stepperScheduleFlow[1]);
@@ -64,13 +140,26 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
     }
   }, [employees, handleSelectStepper, handleSelectEmployees]);
 
+  useEffect(() => {
+    if (isStepper.length >= 2) {
+      handleLoadHoursPerEmployee();
+    }
+  }, [handleLoadHoursPerEmployee, isStepper]);
+
   return (
     <ScheduleFlowContext.Provider value={{
       stepper: isStepper,
       selectEmployees: isSelectEmployees,
       servicesPerEmployees: isServicesPerEmployees,
+      dateAvailable: isDateAvailable,
+      dateSelect: isDateSelect,
+      hoursAvailablePerDate: isHoursAvailablePerDate,
+      hourSelect: isHourSelect,
+      loadingHours: isLoadingHours,
+      onSelectDate: handleSelectDate,
       onSelectStepper: handleSelectStepper,
       onSelectEmployees: handleSelectEmployees,
+      onSelectHour: handleSelectHour,
     }}
     >
       {children}

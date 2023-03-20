@@ -13,3 +13,4 @@ export const TOKEN_REFRESH = '/auth/token/refresh';
 export const VIACEP = 'https://viacep.com.br/ws';
 export const GET_COMPANY = '/api/empresa/infoByUser';
 export const GET_NOTIFICATIONS = '/api/notificacao';
+export const GET_HOURS_SCHEDULE = '/api/agenda/horarios';

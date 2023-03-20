@@ -1,7 +1,7 @@
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-
 import * as CheckboxRadix from '@radix-ui/react-checkbox';
+
 import { ContainerCheckbox } from './styles';
 import { CheckboxProps } from './interface';
 
