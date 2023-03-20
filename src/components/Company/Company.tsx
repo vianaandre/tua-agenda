@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { CompanyProps } from 'common/interface/CompanyProps';
 import { useCompany } from 'common/hooks/useCompany';
+import { ScheduleFlow } from './ScheduleFlow';
 import { ContainerCompany } from './styles';
 import { HeaderCompany } from './HeaderCompany';
 import { AboutCompany } from './AboutCompany';
@@ -21,6 +22,7 @@ export const Company: React.FC<CompanyProps> = (company) => {
       <AboutCompany />
       <Professionals />
       <Services />
+      <ScheduleFlow />
     </ContainerCompany>
   );
 };

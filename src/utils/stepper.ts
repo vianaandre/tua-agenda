@@ -14,3 +14,26 @@ export const stepperAuthPerPhone: StepperProps[] = [
     stage: 'Sucesso',
   },
 ];
+
+export const stepperScheduleFlow: StepperProps[] = [
+  {
+    stage: 'Profissionais',
+    stepper: 0,
+    description: 'Escolha um profissional',
+  },
+  {
+    stage: 'Serviço',
+    stepper: 1,
+    description: 'Escolha o que você deseja',
+  },
+  {
+    stage: 'Agendamento',
+    stepper: 2,
+    description: 'Escolha a data e o horário',
+  },
+  {
+    stage: 'Resumo',
+    stepper: 3,
+    description: 'Revise todos os dados do seu agendamento',
+  },
+];

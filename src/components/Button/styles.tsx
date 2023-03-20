@@ -109,6 +109,9 @@ const sharedStyles = css<{
     }
     position: relative;
     height: fit-content;
+    &:disabled {
+        cursor: not-allowed
+    }
 `;
 
 export const ContainerButton = styled.button<{

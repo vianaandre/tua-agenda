@@ -25,3 +25,5 @@ export { Logout } from './Logout';
 export { Photo } from './Photo';
 export { Loading } from './Loading';
 export { Clock } from './Clock';
+export { ArrowAlternativePrev } from './ArrowAlternativePrev';
+export { Hour } from './Hour';

@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable react/display-name */
+import React, { memo } from 'react';
 
 import { Avatar } from 'components/Avatar';
 import { Clock } from 'common/icons';
@@ -6,7 +7,7 @@ import { theme } from 'common/styles/theme';
 import { ContainerCardService } from './styles';
 import { CardServiceProps } from './interface';
 
-export const CardService: React.FC<CardServiceProps> = ({
+export const CardService: React.FC<CardServiceProps> = memo(({
   service: {
     nome, linkImagem, minutos, preco,
   },
@@ -47,4 +48,4 @@ export const CardService: React.FC<CardServiceProps> = ({
       </button>
     </ContainerCardService>
   );
-};
+});

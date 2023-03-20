@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { createContext } from 'use-context-selector';
 
 import { ConfigProps } from 'common/interface/ConfigProps';
@@ -8,6 +8,7 @@ import { ProductProps } from 'common/interface/ProductProps';
 import { EmployeeProps } from 'common/interface/EmployeeProps';
 import { CompanyProps } from 'common/interface/CompanyProps';
 import { ServicesCompanyProps } from 'common/interface/ServiceCompanyProps';
+import { EmployeeProductProps } from 'common/interface/EmployeeProductProps';
 
 interface CompanyContextProps {
     config?: ConfigProps;
@@ -17,9 +18,13 @@ interface CompanyContextProps {
     services?: ServicesCompanyProps[];
     servicesSelect?: string[];
     servicesSearch?: ServicesCompanyProps[];
+    openFlowSchedule: boolean;
+    employeesProducts?: EmployeeProductProps[];
     onUpdatedStates: (company: CompanyProps) => void;
     onSelectService: (id: string) => void;
     onSearchServices: (search: string) => void;
+    onOpenFlowSchedule: () => void;
+    onCloseFlowSchedule: () => void;
 }
 
 export const CompanyContext = createContext({} as CompanyContextProps);
@@ -28,10 +33,15 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
   const [isIntl, setIsIntl] = useState<IntlProps>();
   const [isConfig, setIsConfig] = useState<ConfigProps>();
   const [isEmployees, setIsisEmployees] = useState<EmployeeProps[]>();
+  const [isEmployeesProducts, setIsisEmployeesProducts] = useState<EmployeeProductProps[]>();
   const [isProducts, setIsProducts] = useState<ProductProps[]>();
   const [isServices, setIsServices] = useState<ServicesCompanyProps[]>();
   const [isServicesSelect, setIsServicesSelect] = useState<string[]>();
   const [isServicesSearch, setIsServicesSearch] = useState<ServicesCompanyProps[]>();
+  const [isOpenFlowSchedule, setIsOpenFlowShcedule] = useState<boolean>(false);
+
+  const handleOpenFlowSchedule = () => setIsOpenFlowShcedule(true);
+  const handleCloseFlowSchedule = () => setIsOpenFlowShcedule(false);
 
   const handleUpdatedStates = useCallback((company: CompanyProps) => {
     setIsIntl(company.intl);
@@ -39,6 +49,7 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
     setIsisEmployees(company.funcionarios);
     setIsProducts(company.produtos);
     setIsServices(company.servicos);
+    setIsisEmployeesProducts(company.funcionarioProduto);
   }, []);
 
   const handleSelectService = useCallback((id: string) => {
@@ -61,6 +72,16 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
     }
   }, [isServices]);
 
+  useEffect(() => {
+    if (isOpenFlowSchedule) {
+      window.document.body.style.overflowY = 'hidden';
+    }
+
+    return () => {
+      window.document.body.style.overflowY = 'auto';
+    };
+  }, [isOpenFlowSchedule]);
+
   return (
     <CompanyContext.Provider value={{
       config: isConfig,
@@ -70,9 +91,13 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
       services: isServices,
       servicesSelect: isServicesSelect,
       servicesSearch: isServicesSearch,
+      openFlowSchedule: isOpenFlowSchedule,
+      employeesProducts: isEmployeesProducts,
       onUpdatedStates: handleUpdatedStates,
       onSelectService: handleSelectService,
       onSearchServices: handleSearchServices,
+      onCloseFlowSchedule: handleCloseFlowSchedule,
+      onOpenFlowSchedule: handleOpenFlowSchedule,
     }}
     >
       {children}

@@ -7,4 +7,5 @@ export const ContainerEmpty = styled.div`
     align-items: center;
     gap: ${({ theme }) => theme.spacing(2)};
     padding: ${({ theme }) => theme.spacing(3)} 0px;
+    margin: auto 0px;
 `;
