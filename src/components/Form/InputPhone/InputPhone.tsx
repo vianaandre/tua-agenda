@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { Select, Input } from 'components/Form';
 import { InputVariantProps } from 'common/interface/InputVariantProps';
-import { AuthPerPhoneProps } from 'common/interface/AuthPerPhoneProps';
 import { ContainerInputPhone } from './styles';
 import { InputPhoneProps } from './interface';
 
 export const InputPhone: React.FC<InputPhoneProps> = ({ options, countrys, prefix }) => {
-  const { watch, formState } = useFormContext<AuthPerPhoneProps>();
-  const country = watch('country');
+  const { watch, formState } = useFormContext<any>();
+  const country = watch(prefix ? `${prefix}.country` : 'country');
+
+  const isErrorsPhone = useMemo(() => {
+    if (prefix && formState.errors && formState.errors[prefix]) {
+      return (formState.errors[prefix] as any).phone?.message;
+    }
+    if (formState.errors && formState.errors.phone) {
+      return formState.errors && formState.errors.phone.message;
+    }
+    return undefined;
+  }, [formState, prefix]);
 
   return (
     <ContainerInputPhone>
@@ -62,7 +71,7 @@ export const InputPhone: React.FC<InputPhoneProps> = ({ options, countrys, prefi
             },
           }}
           disabled={!country}
-          error={formState.errors.phone?.message}
+          error={isErrorsPhone}
           mask={options.length > 0 ? countrys.find((i) => i.countryCode === country)?.phoneMask.replaceAll('0', '9') : '(99) 99999-9999'}
         />
       </div>

@@ -73,6 +73,7 @@
       "jsx-a11y/anchor-is-valid": "off",
       "jsx-a11y/alt-text": "off",
       "no-useless-escape": "off",
-      "jsx-a11y/label-has-associated-control": "off"
+      "jsx-a11y/label-has-associated-control": "off",
+      "class-methods-use-this": "off"
   }
 }

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm, useFieldArray } from 'react-hook-form';
 
 import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
@@ -11,21 +11,36 @@ import { Input, InputPhone } from 'components/Form';
 import { useAuth } from 'common/hooks/useAuth';
 import { cpf, email } from 'utils/regex';
 import { useScheduleFlow } from 'common/hooks/useScheduleFlow';
-import { FormWaitingListProps } from 'common/interface/FormWaitingListProps';
+import { FormWaitingListProps } from 'common/interface/WaitingListProps';
+import { format } from 'date-fns';
 import { ContainerModal } from './styles';
-import { Hours } from './Hours';
+import { HoursField } from './HoursField';
 
 export const Modal: React.FC = () => {
   const methods = useForm<FormWaitingListProps>();
   const { countrys, optionsCountry, user } = useAuth();
   const {
-    fieldsDate, dateSelect, onAddFieldDateInWaitingList, onRemovedFieldDateInWaitingList, onSubmitSaveWaitingList,
+    dateSelect, onSubmitSaveWaitingList, loadingSubmitWaitingList,
   } = useScheduleFlow();
+  const { fields, append, remove } = useFieldArray({
+    control: methods.control,
+    name: 'date',
+  });
 
   useEffect(() => {
     methods.setValue('user.country', user?.codPais || optionsCountry[4].value);
-    methods.setValue('user.phone', user?.telefone || optionsCountry[4].value);
+    methods.setValue('user.phone', user?.telefone || '');
   }, [methods, user, optionsCountry]);
+
+  useEffect(() => {
+    if (dateSelect) {
+      append({
+        date: dateSelect ? format(dateSelect, 'dd/MM/yyyy') : '',
+        hour: '',
+        anyTime: true,
+      });
+    }
+  }, [dateSelect, append]);
 
   return (
     <ContainerModal>
@@ -51,13 +66,18 @@ export const Modal: React.FC = () => {
                     <div className="hours">
                       <div className="header_form">
                         <label htmlFor="date_one" className="normal color_black_500">Informe as datas</label>
-                        <button type="button" onClick={onAddFieldDateInWaitingList}>
+                        <button
+                          type="button"
+                          onClick={() => append({
+                            date: dateSelect ? format(dateSelect, 'dd/MM/yyyy') : '',
+                            hour: '',
+                            anyTime: true,
+                          })}
+                        >
                           Adicionar data
                         </button>
                       </div>
-                      {fieldsDate.map((fieldDate, index) => (
-                        <Hours index={index} nameInputDate={`${fieldDate}_${index}`} nameInputHour={`hour_${fieldDate}_${index}`} nameRadioHour={`any_time_${fieldDate}_${index}`} dateSelect={dateSelect} onRemove={() => onRemovedFieldDateInWaitingList(index)} />
-                      ))}
+                      <HoursField fields={fields} onRemove={remove} />
                     </div>
                     <div className="my_data">
                       <div className="header_form">
@@ -145,12 +165,15 @@ export const Modal: React.FC = () => {
                           text="Cancelar"
                           variant={ButtonVariantProps.SECONDARY}
                           type="button"
+                          disabled={loadingSubmitWaitingList}
                         />
                       </Dialog.Close>
                       <Button.Normal
                         text="Entrar na lista"
                         variant={ButtonVariantProps.PRIMARY}
                         type="submit"
+                        disabled={loadingSubmitWaitingList}
+                        loading={loadingSubmitWaitingList}
                       />
                     </div>
                   </FormProvider>

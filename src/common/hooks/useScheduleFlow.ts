@@ -11,6 +11,7 @@ export function useScheduleFlow() {
   const hourSelect = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.hourSelect);
   const loadingHours = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.loadingHours);
   const fieldsDate = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.fieldsDate);
+  const loadingSubmitWaitingList = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.loadingSubmitWaitingList);
   const onSelectStepper = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.onSelectStepper);
   const onSelectEmployees = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.onSelectEmployees);
   const onSelectDate = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.onSelectDate);
@@ -29,6 +30,7 @@ export function useScheduleFlow() {
     hourSelect,
     loadingHours,
     fieldsDate,
+    loadingSubmitWaitingList,
     onSelectHour,
     onSelectStepper,
     onSelectEmployees,
