@@ -11,11 +11,16 @@ export const ContainerStepHours = styled.div`
         div.content {
             display: flex;
             gap: ${({ theme }) => theme.spacing(3)};
+            height: calc(100vh - 32px - 32px - 206px - 94px);
+            min-height: 395px;
+            overflow: hidden;
+            padding-bottom: 24px;
         }
         div.react-calendar {
             padding: ${({ theme }) => theme.spacing(3)};
             border: 1px solid ${({ theme }) => theme.colors.GREY[500]};
             border-radius: ${({ theme }) => theme.spacing(1)};
+            height: fit-content;
             div.react-calendar__month-view__weekdays__weekday {
                 abbr {
                     font-size: ${({ theme }) => theme.fonts.sizes[12]};
@@ -113,10 +118,16 @@ export const ContainerStepHours = styled.div`
             }
         }
         div.select_hours {
+            height: 100%;
+            overflow: auto;
             display: flex;
             flex-direction: column;
             gap: ${({ theme }) => theme.spacing(2)};
             flex: 1;
+            &::-webkit-scrollbar {
+                display: none;
+            };
+            overscroll-behavior-x: contain;
             ul {
                 display: flex;
                 flex-wrap: wrap;

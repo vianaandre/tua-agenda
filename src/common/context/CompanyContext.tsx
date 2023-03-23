@@ -25,6 +25,7 @@ interface CompanyContextProps {
     onSearchServices: (search: string) => void;
     onOpenFlowSchedule: () => void;
     onCloseFlowSchedule: () => void;
+    onClearSelectServices: () => void;
 }
 
 export const CompanyContext = createContext({} as CompanyContextProps);
@@ -64,6 +65,10 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
+  const handleClearSelectServices = useCallback(() => {
+    setIsServicesSelect(undefined);
+  }, []);
+
   const handleSearchServices = useCallback((search: string) => {
     if (isServices && search && search !== '') {
       setIsServicesSearch(isServices.filter((item) => item.nome.toLowerCase().includes(search.toLowerCase())));
@@ -98,6 +103,7 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
       onSearchServices: handleSearchServices,
       onCloseFlowSchedule: handleCloseFlowSchedule,
       onOpenFlowSchedule: handleOpenFlowSchedule,
+      onClearSelectServices: handleClearSelectServices,
     }}
     >
       {children}

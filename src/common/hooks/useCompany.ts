@@ -17,6 +17,7 @@ export const useCompany = () => {
   const onUpdatedStates = useContextSelector(CompanyContext, (company) => company.onUpdatedStates);
   const onSelectService = useContextSelector(CompanyContext, (company) => company.onSelectService);
   const onSearchServices = useContextSelector(CompanyContext, (company) => company.onSearchServices);
+  const onClearSelectServices = useContextSelector(CompanyContext, (company) => company.onClearSelectServices);
 
   return {
     intl,
@@ -33,5 +34,6 @@ export const useCompany = () => {
     onOpenFlowSchedule,
     onUpdatedStates,
     onSearchServices,
+    onClearSelectServices,
   };
 };

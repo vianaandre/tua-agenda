@@ -428,6 +428,7 @@ export const GlobalStyles = createGlobalStyle`
     }
     div.dialog_content_waiting_list {
         div.content_modal {
+            border-radius: ${({ theme }) => theme.spacing(1)};
             width: 100%;
             max-width: 700px;
             height: 100%;

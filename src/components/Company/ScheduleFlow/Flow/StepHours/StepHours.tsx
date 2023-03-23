@@ -10,6 +10,7 @@ import { theme } from 'common/styles/theme';
 import { useScheduleFlow } from 'common/hooks/useScheduleFlow';
 import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
+import { stepperScheduleFlow } from 'utils/stepper';
 import { ContainerStepHours } from './styles';
 import { SelectHour } from './SelectHour';
 import { WaitingList } from './WaitingList';
@@ -17,7 +18,7 @@ import { Loading } from './Loading';
 
 export const StepHours: React.FC = () => {
   const {
-    dateAvailable, dateSelect, onSelectDate, hoursAvailablePerDate, onSelectHour, hourSelect, loadingHours,
+    dateAvailable, dateSelect, onSelectDate, hoursAvailablePerDate, onSelectHour, hourSelect, loadingHours, onSelectStepper,
   } = useScheduleFlow();
 
   const IconArrow = useMemo((): JSX.Element => {
@@ -25,10 +26,10 @@ export const StepHours: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (dateAvailable && dateAvailable.length > 0) {
+    if (dateAvailable && dateAvailable.length > 0 && !dateSelect) {
       onSelectDate(new Date(dateAvailable[0]));
     }
-  }, [dateAvailable, onSelectDate]);
+  }, [dateAvailable, onSelectDate, dateSelect]);
 
   return (
     <ContainerStepHours>
@@ -82,6 +83,7 @@ export const StepHours: React.FC = () => {
             icon: <ArrowAlternative width={24} height={24} color={theme.colors.WHITE} />,
           }}
           className="next"
+          onClick={() => onSelectStepper(stepperScheduleFlow[3])}
         />
       </Container>
     </ContainerStepHours>

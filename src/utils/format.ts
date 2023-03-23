@@ -9,3 +9,7 @@ export function formatDate(date: string) {
 
   return isDateFormatted;
 }
+
+export function formatMoney(money: number, locale: string, currency: string) {
+  return money.toLocaleString(locale, { style: 'currency', currency, minimumFractionDigits: 2 });
+}

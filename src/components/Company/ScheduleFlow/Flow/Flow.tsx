@@ -5,6 +5,7 @@ import { ContainerFlow } from './styles';
 import { StepEmployees } from './StepEmployees';
 import { StepServices } from './StepServices';
 import { StepHours } from './StepHours';
+import { StepSummary } from './StepSummary';
 
 export const Flow: React.FC = () => {
   const { stepper } = useScheduleFlow();
@@ -19,6 +20,9 @@ export const Flow: React.FC = () => {
       )}
       {stepper.length >= 2 && stepper.length < 3 && (
         <StepHours />
+      )}
+      {stepper.length >= 3 && stepper.length < 4 && (
+        <StepSummary />
       )}
     </ContainerFlow>
   );

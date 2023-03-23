@@ -13,6 +13,8 @@ import { cpf, email } from 'utils/regex';
 import { useScheduleFlow } from 'common/hooks/useScheduleFlow';
 import { FormWaitingListProps } from 'common/interface/WaitingListProps';
 import { format } from 'date-fns';
+import { validateDate } from 'utils/validateDate';
+import { formatDate } from 'utils/format';
 import { ContainerModal } from './styles';
 import { HoursField } from './HoursField';
 
@@ -42,6 +44,11 @@ export const Modal: React.FC = () => {
     }
   }, [dateSelect, append]);
 
+  const onCloseModal = () => {
+    (document.getElementById('button_close'))?.click();
+    fields.forEach((item, index) => remove(index));
+  };
+
   return (
     <ContainerModal>
       <Dialog.Root>
@@ -55,13 +62,13 @@ export const Modal: React.FC = () => {
               <div className="header">
                 <h5 className="title">Lista de espera</h5>
                 <Dialog.Close asChild>
-                  <IconButton>
+                  <IconButton id="button_close">
                     <Close width={24} height={24} color={theme.colors.BLACK[500]} />
                   </IconButton>
                 </Dialog.Close>
               </div>
               <div className="content">
-                <form onSubmit={methods.handleSubmit(onSubmitSaveWaitingList)}>
+                <form onSubmit={methods.handleSubmit((waitingList: FormWaitingListProps) => onSubmitSaveWaitingList(waitingList, onCloseModal))}>
                   <FormProvider {...methods}>
                     <div className="hours">
                       <div className="header_form">
@@ -85,8 +92,8 @@ export const Modal: React.FC = () => {
                       </div>
                       <div className="form_my_data">
                         <Input
-                          name="user.name"
-                          id="user.name"
+                          name="user.nome"
+                          id="user.nome"
                           type="text"
                           label="Nome"
                           placeholder="Nome completo"
@@ -137,17 +144,27 @@ export const Modal: React.FC = () => {
                             error={(methods.formState.errors as any) && (methods.formState.errors as any).user ? (methods.formState.errors as any).user.cpf?.message : undefined}
                           />
                           <Input
-                            name="user.date_birth"
-                            id="user.date_birth"
+                            name="user.dtNascimento"
+                            id="user.dtNascimento"
                             type="tel"
                             label="Data de nascimento"
                             mask="99/99/9999"
                             placeholder="dd/mm/yyyy"
+                            rules={{
+                              validate: (date: string) => {
+                                if (date) {
+                                  return validateDate(date) ? true : 'Data de Nascimento é inválido! Verifique.';
+                                }
+
+                                return true;
+                              },
+                            }}
                             icon={{
                               direction: 'right',
                               icon: <Calendar width={24} height={24} color={theme.colors.GREY[850]} />,
                             }}
-                            defaultValue={user?.dtNascimento}
+                            defaultValue={user?.dtNascimento ? formatDate(user.dtNascimento) : undefined}
+                            error={(methods.formState.errors as any) && (methods.formState.errors as any).user ? (methods.formState.errors as any).user.dtNascimento?.message : undefined}
                           />
                         </div>
                         <Input

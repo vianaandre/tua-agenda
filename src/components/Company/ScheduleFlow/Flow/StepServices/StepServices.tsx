@@ -19,7 +19,9 @@ export const StepServices: React.FC = () => {
   const methods = useForm<{
     search: string;
   }>();
-  const { servicesPerEmployees, onSelectStepper, stepper } = useScheduleFlow();
+  const {
+    servicesPerEmployees, onSelectStepper, stepper, onLoadHoursPerEmployee,
+  } = useScheduleFlow();
   const {
     onSelectService, servicesSelect, onSearchServices, servicesSearch,
   } = useCompany();
@@ -79,7 +81,10 @@ export const StepServices: React.FC = () => {
           type="button"
           className="next"
           disabled={!servicesSelect?.length}
-          onClick={() => onSelectStepper(stepperScheduleFlow[stepper.length + 1])}
+          onClick={() => {
+            onSelectStepper(stepperScheduleFlow[stepper.length + 1]);
+            onLoadHoursPerEmployee();
+          }}
           icon={{
             icon: <ArrowAlternative width={24} height={24} color={theme.colors.WHITE} />,
             direction: 'right',

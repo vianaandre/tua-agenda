@@ -28,3 +28,4 @@ export { Clock } from './Clock';
 export { ArrowAlternativePrev } from './ArrowAlternativePrev';
 export { Hour } from './Hour';
 export { Trash } from './Trash';
+export { Company } from './Company';

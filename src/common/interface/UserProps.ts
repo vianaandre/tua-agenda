@@ -29,3 +29,23 @@ export interface UserProps {
     complemento?: string;
     phone?: string;
 }
+
+export interface RequestUserProps {
+    id?: string;
+    nome?: string;
+    email?: string;
+    codPais?: string;
+    telefone?: string;
+    dtNascimento?: string;
+    cpf?: string;
+    cep?: string;
+    rua?: string;
+    numero?: string;
+    complemento?: string;
+    bairro?: string;
+    cidade?: string;
+    estado?: string;
+    pais?: string;
+    informouEndereco?: boolean;
+    imageUrl?: string;
+}

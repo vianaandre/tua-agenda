@@ -2,7 +2,6 @@ import React, {
   useCallback, useEffect, useMemo, useState,
 } from 'react';
 import { createContext } from 'use-context-selector';
-import { useRouter } from 'next/router';
 
 import { StepperProps } from 'common/interface/StepperProps';
 import { stepperScheduleFlow } from 'utils/stepper';
@@ -28,24 +27,25 @@ interface ScheduleFlowContextProps {
     loadingHours: boolean;
     fieldsDate: string[];
     loadingSubmitWaitingList: boolean;
+    amoutValueServicesSelect: number;
     onSelectDate: (date: Date) => void;
     onSelectStepper: (stepper: StepperProps) => void;
     onSelectEmployees: (employee: EmployeeProps) => void;
     onSelectHour: (hourSelect: HourProps, date: string) => void;
     onAddFieldDateInWaitingList: () => void;
     onRemovedFieldDateInWaitingList: (index: number) => void;
-    onSubmitSaveWaitingList: (waitingListData: FormWaitingListProps) => void;
+    onSubmitSaveWaitingList: (waitingListData: FormWaitingListProps, callback: () => void) => void;
+    onLoadHoursPerEmployee: () => Promise<void>;
 }
 
 export const ScheduleFlowContext = createContext({} as ScheduleFlowContextProps);
 
 export function ScheduleFlowProvider({ children }: { children: React.ReactNode }) {
   const {
-    employees, services, employeesProducts, config, servicesSelect,
+    employees, services, employeesProducts, config, servicesSelect, onCloseFlowSchedule, onClearSelectServices,
   } = useCompany();
   const { onToast } = useToast();
   const { user } = useAuth();
-  const { push } = useRouter();
 
   const [isStepper, setIsStepper] = useState<StepperProps[]>([]);
   const [isSelectEmployees, setIsSelectEmployees] = useState<EmployeeProps[]>([]);
@@ -65,26 +65,6 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
   const handleRemovedFieldDateInWaitingList = useCallback((index: number) => {
     setIsFieldsDate((current) => current.filter((curr, i) => i !== index));
   }, []);
-
-  console.log(config);
-
-  const handleSubmitSaveWaitingList = useCallback(async (waitingListData: FormWaitingListProps) => {
-    try {
-      if (config && config.id && servicesSelect) {
-        setIsLoadingWaitingList(true);
-        await saveWaitingList(waitingListData, config.id, servicesSelect, waitingListData.user, 'asasa', isSelectEmployees[0].id);
-        push(`/company/${config.usuario}`);
-      }
-
-      setIsLoadingWaitingList(false);
-    } catch (err: any) {
-      setIsLoadingWaitingList(false);
-      onToast({
-        message: err ?? 'Ocorreu um erro de comunicação.',
-        type: 'error',
-      });
-    }
-  }, [onToast, config, isSelectEmployees, servicesSelect, push]);
 
   const handleSelectDate = useCallback((date: Date) => {
     setIsDateSelect(date);
@@ -140,6 +120,37 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
     });
   }, []);
 
+  const handleSubmitSaveWaitingList = useCallback(async (waitingListData: FormWaitingListProps, callback: () => void) => {
+    try {
+      if (config && config.id && servicesSelect) {
+        setIsLoadingWaitingList(true);
+        await saveWaitingList(waitingListData, config.id, servicesSelect, waitingListData.user, 'asasa', isSelectEmployees[0].id, user?.id);
+        callback();
+        onCloseFlowSchedule();
+        onToast({
+          message: 'Registrado com sucesso na lista de espera.',
+          type: 'success',
+        });
+        onClearSelectServices();
+        setTimeout(() => {
+          if (employees && employees.length === 1) {
+            handleSelectStepper(stepperScheduleFlow[1]);
+          } else {
+            handleSelectStepper(stepperScheduleFlow[0]);
+          }
+        }, 600);
+      }
+
+      setIsLoadingWaitingList(false);
+    } catch (err: any) {
+      setIsLoadingWaitingList(false);
+      onToast({
+        message: err.message ?? 'Ocorreu um erro de comunicação.',
+        type: 'error',
+      });
+    }
+  }, [onToast, config, isSelectEmployees, servicesSelect, user, onCloseFlowSchedule, onClearSelectServices, employees, handleSelectStepper]);
+
   const isServicesPerEmployees = useMemo(() => {
     const isIdsProcuts = employeesProducts?.filter((employeeProduct) => {
       return isSelectEmployees.find((selectEmployee) => employeeProduct.idFuncionario === selectEmployee.id);
@@ -180,11 +191,15 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
     }
   }, [employees, handleSelectStepper, handleSelectEmployees]);
 
-  useEffect(() => {
-    if (isStepper.length >= 2) {
-      handleLoadHoursPerEmployee();
-    }
-  }, [handleLoadHoursPerEmployee, isStepper]);
+  const isAmoutValueServicesSelect = useMemo((): number => {
+    const isServicesSelect = services?.filter((service) => servicesSelect?.includes(service.id));
+
+    const isSum = isServicesSelect?.reduce((prev, curr) => {
+      return prev + curr.preco;
+    }, 0);
+
+    return isSum ?? 0;
+  }, [services, servicesSelect]);
 
   return (
     <ScheduleFlowContext.Provider value={{
@@ -198,6 +213,7 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
       loadingHours: isLoadingHours,
       fieldsDate: isFieldsDate,
       loadingSubmitWaitingList: isLoadingSubmitWaitingList,
+      amoutValueServicesSelect: isAmoutValueServicesSelect,
       onSelectDate: handleSelectDate,
       onSelectStepper: handleSelectStepper,
       onSelectEmployees: handleSelectEmployees,
@@ -205,6 +221,7 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
       onAddFieldDateInWaitingList: handleAddFieldDateInWaitingList,
       onRemovedFieldDateInWaitingList: handleRemovedFieldDateInWaitingList,
       onSubmitSaveWaitingList: handleSubmitSaveWaitingList,
+      onLoadHoursPerEmployee: handleLoadHoursPerEmployee,
     }}
     >
       {children}
