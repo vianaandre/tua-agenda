@@ -1,21 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 
 import { Container } from 'common/styles/container';
 import { useScheduleFlow } from 'common/hooks/useScheduleFlow';
 import { Avatar } from 'components/Avatar';
-import { Hour, Company } from 'common/icons';
+import { Hour, Company, ArrowAlternative } from 'common/icons';
 import { theme } from 'common/styles/theme';
 import { useCompany } from 'common/hooks/useCompany';
 import { formatMoney } from 'utils/format';
+import { Button } from 'components/Button';
+import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
 import { ContainerStepSummary } from './styles';
+import { CardService } from './CardService';
 
 export const StepSummary: React.FC = () => {
   const {
-    selectEmployees, dateSelect, hourSelect, amoutValueServicesSelect,
+    selectEmployees, dateSelect, hourSelect, amoutValueServicesSelect, servicesSelected, onSubmitCreateSchedule, loading,
   } = useScheduleFlow();
-  const { config } = useCompany();
+  const { config, onSelectService } = useCompany();
+  const [isObservation, setIsObservation] = useState<string>();
 
   return (
     <ContainerStepSummary>
@@ -68,6 +72,56 @@ export const StepSummary: React.FC = () => {
               </ul>
             ))}
           </div>
+        </div>
+        <div className="list_services">
+          <h6 className="title color_grey_1000">Serviços</h6>
+          <div className="list">
+            <div className="header_list list_data">
+              <div className="tag">
+                <p className="small color_grey_700">#</p>
+              </div>
+              <div className="name">
+                <p className="small color_grey_700">Serviço</p>
+              </div>
+              <div className="description">
+                <p className="small color_grey_700">Descrição</p>
+              </div>
+              <div className="duration">
+                <p className="small color_grey_700">Duração</p>
+              </div>
+              <div className="value">
+                <p className="small color_grey_700">Valor</p>
+              </div>
+              <div className="category">
+                <p className="small color_grey_700">Categoria</p>
+              </div>
+            </div>
+            {servicesSelected.map((item, index) => (
+              <CardService category="Cabelo" description={item.descricao} duration={item.tempoDuracao} name={item.nome} remove={() => onSelectService(item.id)} tag={index + 1} value={item.preco} key={item.id} disabledRemove={servicesSelected.length <= 1} />
+            ))}
+          </div>
+        </div>
+        <div className="observation">
+          <textarea name="observation" id="observation" cols={30} rows={5} placeholder="Observação" onChange={(event) => setIsObservation(event.target.value)} />
+        </div>
+        <div className="buttom_complete">
+          <p className="small color_black_500">
+            Valor total
+            {' '}
+            <strong>{formatMoney(amoutValueServicesSelect, 'pt-BR', 'BRL')}</strong>
+          </p>
+          <Button.Normal
+            variant={ButtonVariantProps.FULL}
+            text="Confirmar Agendamento"
+            type="button"
+            icon={{
+              icon: <ArrowAlternative width={24} height={24} color={theme.colors.WHITE} />,
+              direction: 'right',
+            }}
+            onClick={() => onSubmitCreateSchedule(isObservation)}
+            disabled={loading}
+            loading={loading}
+          />
         </div>
       </Container>
     </ContainerStepSummary>

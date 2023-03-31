@@ -13,6 +13,9 @@ export function useScheduleFlow() {
   const fieldsDate = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.fieldsDate);
   const loadingSubmitWaitingList = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.loadingSubmitWaitingList);
   const amoutValueServicesSelect = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.amoutValueServicesSelect);
+  const servicesSelected = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.servicesSelected);
+  const loading = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.loading);
+
   const onSelectStepper = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.onSelectStepper);
   const onSelectEmployees = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.onSelectEmployees);
   const onSelectDate = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.onSelectDate);
@@ -21,6 +24,7 @@ export function useScheduleFlow() {
   const onRemovedFieldDateInWaitingList = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.onRemovedFieldDateInWaitingList);
   const onSubmitSaveWaitingList = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.onSubmitSaveWaitingList);
   const onLoadHoursPerEmployee = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.onLoadHoursPerEmployee);
+  const onSubmitCreateSchedule = useContextSelector(ScheduleFlowContext, (scheduleFlow) => scheduleFlow.onSubmitCreateSchedule);
 
   return {
     stepper,
@@ -34,6 +38,8 @@ export function useScheduleFlow() {
     fieldsDate,
     loadingSubmitWaitingList,
     amoutValueServicesSelect,
+    servicesSelected,
+    loading,
     onSelectHour,
     onSelectStepper,
     onSelectEmployees,
@@ -42,5 +48,6 @@ export function useScheduleFlow() {
     onRemovedFieldDateInWaitingList,
     onSubmitSaveWaitingList,
     onLoadHoursPerEmployee,
+    onSubmitCreateSchedule,
   };
 }

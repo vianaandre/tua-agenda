@@ -12,4 +12,7 @@ export const ContainerIconButton = styled.button`
         transition: 400ms;
         background-color: ${({ theme }) => theme.colors.ICON_BUTTON};
     }
+    &:disabled:hover {
+        background-color: transparent !important;
+    }
 `;

@@ -12,6 +12,7 @@ export const theme = {
     },
     PRIMARY_LIGHT: 'rgba(81, 41, 166, 0.1)',
     DANGER: '#E95432',
+    DANGER_LIGHT: 'rgba(233, 84, 50, 0.05)',
     WARNING: '#FAAD13',
     SUCCESS: '#0FAB60',
     INFO: '#00B8D9',

@@ -15,6 +15,8 @@ import { ScheduleHoursProps } from 'common/interface/ScheduleHoursProps';
 import { format } from 'date-fns';
 import { HourProps } from 'common/interface/HourProps';
 import { FormWaitingListProps } from 'common/interface/WaitingListProps';
+import { createSchedule } from 'services/modules/schedule';
+import { captchatoken } from 'common/mock/captchatoken';
 
 interface ScheduleFlowContextProps {
     stepper: StepperProps[];
@@ -28,6 +30,8 @@ interface ScheduleFlowContextProps {
     fieldsDate: string[];
     loadingSubmitWaitingList: boolean;
     amoutValueServicesSelect: number;
+    servicesSelected: ServicesCompanyProps[];
+    loading: boolean;
     onSelectDate: (date: Date) => void;
     onSelectStepper: (stepper: StepperProps) => void;
     onSelectEmployees: (employee: EmployeeProps) => void;
@@ -36,6 +40,7 @@ interface ScheduleFlowContextProps {
     onRemovedFieldDateInWaitingList: (index: number) => void;
     onSubmitSaveWaitingList: (waitingListData: FormWaitingListProps, callback: () => void) => void;
     onLoadHoursPerEmployee: () => Promise<void>;
+    onSubmitCreateSchedule: (observation?: string) => void;
 }
 
 export const ScheduleFlowContext = createContext({} as ScheduleFlowContextProps);
@@ -57,6 +62,7 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
     'date',
   ]);
   const [isLoadingSubmitWaitingList, setIsLoadingWaitingList] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleAddFieldDateInWaitingList = useCallback(() => {
     setIsFieldsDate((current) => [...current, 'date']);
@@ -151,6 +157,29 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
     }
   }, [onToast, config, isSelectEmployees, servicesSelect, user, onCloseFlowSchedule, onClearSelectServices, employees, handleSelectStepper]);
 
+  const handleSubmitCreateSchedule = useCallback(async (observation?: string) => {
+    try {
+      setIsLoading(true);
+      if (user && servicesSelect && isSelectEmployees && config && config.id && isDateSelect && isHourSelect) {
+        const result = await createSchedule(user, servicesSelect, isSelectEmployees, config.id, isDateSelect, isHourSelect, observation ?? '', captchatoken);
+
+        if (result.obj && result.ok) {
+          onToast({
+            message: 'Agendamento feito com sucesso.',
+            type: 'success',
+          });
+        }
+      }
+      setIsLoading(false);
+    } catch (err: any) {
+      setIsLoading(false);
+      onToast({
+        message: err ?? 'Ocorreu um erro de comunicação.',
+        type: 'error',
+      });
+    }
+  }, [config, isDateSelect, servicesSelect, isHourSelect, user, isSelectEmployees, onToast]);
+
   const isServicesPerEmployees = useMemo(() => {
     const isIdsProcuts = employeesProducts?.filter((employeeProduct) => {
       return isSelectEmployees.find((selectEmployee) => employeeProduct.idFuncionario === selectEmployee.id);
@@ -201,6 +230,13 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
     return isSum ?? 0;
   }, [services, servicesSelect]);
 
+  const isServicesSelected = useMemo((): ServicesCompanyProps[] => {
+    if (services && servicesSelect) {
+      return services?.filter((i) => servicesSelect?.includes(i.id));
+    }
+    return [];
+  }, [services, servicesSelect]);
+
   return (
     <ScheduleFlowContext.Provider value={{
       stepper: isStepper,
@@ -214,6 +250,8 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
       fieldsDate: isFieldsDate,
       loadingSubmitWaitingList: isLoadingSubmitWaitingList,
       amoutValueServicesSelect: isAmoutValueServicesSelect,
+      servicesSelected: isServicesSelected,
+      loading: isLoading,
       onSelectDate: handleSelectDate,
       onSelectStepper: handleSelectStepper,
       onSelectEmployees: handleSelectEmployees,
@@ -222,6 +260,7 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
       onRemovedFieldDateInWaitingList: handleRemovedFieldDateInWaitingList,
       onSubmitSaveWaitingList: handleSubmitSaveWaitingList,
       onLoadHoursPerEmployee: handleLoadHoursPerEmployee,
+      onSubmitCreateSchedule: handleSubmitCreateSchedule,
     }}
     >
       {children}

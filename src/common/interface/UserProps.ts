@@ -28,6 +28,7 @@ export interface UserProps {
     numero?: string;
     complemento?: string;
     phone?: string;
+    bairro?: string;
 }
 
 export interface RequestUserProps {
