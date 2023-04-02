@@ -5,14 +5,11 @@ import { Location } from 'common/icons';
 import { theme } from 'common/styles/theme';
 import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
-import { useCompany } from 'common/hooks/useCompany';
 import { ContainerInfos, ContainerInfosBanner } from './styles';
 import { InfosProps } from './interface';
 import { Hours } from './Hours';
 
 export const Infos: React.FC<InfosProps> = ({ countProfissional, config }) => {
-  const { onOpenFlowSchedule } = useCompany();
-
   const isDays = useMemo(() => {
     const isFormattedDays = [];
 
@@ -92,7 +89,7 @@ export const Infos: React.FC<InfosProps> = ({ countProfissional, config }) => {
           )}
         </div>
         <div className="btn">
-          <Button.Normal type="button" variant={ButtonVariantProps.PRIMARY} text="Agendar Agora" onClick={onOpenFlowSchedule} />
+          <Button.Link href="#flowSchedule" variant={ButtonVariantProps.PRIMARY} text="Agendar Agora" />
         </div>
       </div>
     </ContainerInfos>

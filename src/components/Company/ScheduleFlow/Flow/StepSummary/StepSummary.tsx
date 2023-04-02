@@ -5,12 +5,15 @@ import ptBR from 'date-fns/locale/pt-BR';
 import { Container } from 'common/styles/container';
 import { useScheduleFlow } from 'common/hooks/useScheduleFlow';
 import { Avatar } from 'components/Avatar';
-import { Hour, Company, ArrowAlternative } from 'common/icons';
+import {
+  Hour, Company, ArrowAlternative, Alert,
+} from 'common/icons';
 import { theme } from 'common/styles/theme';
 import { useCompany } from 'common/hooks/useCompany';
 import { formatMoney } from 'utils/format';
 import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
+import { useAuth } from 'common/hooks/useAuth';
 import { ContainerStepSummary } from './styles';
 import { CardService } from './CardService';
 
@@ -19,13 +22,15 @@ export const StepSummary: React.FC = () => {
     selectEmployees, dateSelect, hourSelect, amoutValueServicesSelect, servicesSelected, onSubmitCreateSchedule, loading,
   } = useScheduleFlow();
   const { config, onSelectService } = useCompany();
+  const { user, onAuthPerScheduleFlow } = useAuth();
+
   const [isObservation, setIsObservation] = useState<string>();
 
   return (
     <ContainerStepSummary>
       <Container>
         <div className="header">
-          <h6 className="title_two">Selecione o horário</h6>
+          <h6 className="title_two">Resumo</h6>
           <div className="list_infos">
             {selectEmployees.map((selectEmployee) => (
               <ul key={selectEmployee.id}>
@@ -105,23 +110,44 @@ export const StepSummary: React.FC = () => {
           <textarea name="observation" id="observation" cols={30} rows={5} placeholder="Observação" onChange={(event) => setIsObservation(event.target.value)} />
         </div>
         <div className="buttom_complete">
-          <p className="small color_black_500">
-            Valor total
-            {' '}
-            <strong>{formatMoney(amoutValueServicesSelect, 'pt-BR', 'BRL')}</strong>
-          </p>
-          <Button.Normal
-            variant={ButtonVariantProps.FULL}
-            text="Confirmar Agendamento"
-            type="button"
-            icon={{
-              icon: <ArrowAlternative width={24} height={24} color={theme.colors.WHITE} />,
-              direction: 'right',
-            }}
-            onClick={() => onSubmitCreateSchedule(isObservation)}
-            disabled={loading}
-            loading={loading}
-          />
+          <div>
+            {!user && (
+            <div className="help">
+              <Alert width={24} height={24} color={theme.colors.PRIMARY[800]} />
+              <p className="small ">Acesse sua conta para dar continuidade no seu agendamento</p>
+            </div>
+            )}
+            <p className="small color_black_500">
+              Valor total
+              {' '}
+              <strong>{formatMoney(amoutValueServicesSelect, 'pt-BR', 'BRL')}</strong>
+            </p>
+          </div>
+          {user && (
+            <Button.Normal
+              variant={ButtonVariantProps.FULL}
+              text="Confirmar Agendamento"
+              type="button"
+              icon={{
+                icon: <ArrowAlternative width={24} height={24} color={theme.colors.WHITE} />,
+                direction: 'right',
+              }}
+              onClick={() => onSubmitCreateSchedule(isObservation)}
+              disabled={loading}
+              loading={loading}
+            />
+          )}
+          {!user && (
+            <Button.Normal
+              variant={ButtonVariantProps.FULL}
+              text="Acessar sua conta"
+              type="button"
+              disabled={loading}
+              loading={loading}
+              className="login"
+              onClick={() => onAuthPerScheduleFlow(true)}
+            />
+          )}
         </div>
       </Container>
     </ContainerStepSummary>

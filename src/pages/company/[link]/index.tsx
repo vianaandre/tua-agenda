@@ -7,6 +7,7 @@ import { CompanyProps } from 'common/interface/CompanyProps';
 import { Company } from 'components/Company';
 import { CompanyProvider } from 'common/context/CompanyContext';
 import { Loading } from 'components/Loading';
+import { SEO } from 'components/SEO';
 
 const CompanyPage: NextPage<{ company: CompanyProps, ok: boolean }> = ({ company, ok }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,6 +24,11 @@ const CompanyPage: NextPage<{ company: CompanyProps, ok: boolean }> = ({ company
 
   return (
     <CompanyProvider>
+      <SEO
+        nome={`${process.env.WEBSITE_NAME} - ${company.config.nome}`}
+        description="Sistema de agendamento para demonstrar como será o sistema do cliente. Tua Agenda - Sua agenda sempre em mãos"
+        pathname="/"
+      />
       <Loading open={isLoading} />
       <Company {...company} />
     </CompanyProvider>

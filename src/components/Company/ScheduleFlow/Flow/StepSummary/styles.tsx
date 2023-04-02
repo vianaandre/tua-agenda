@@ -22,6 +22,9 @@ export const ContainerStepSummary = styled.div`
                 justify-content: space-between;
                 gap: ${({ theme }) => theme.spacing(3)};
                 width: 100%;
+                @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+                    flex-wrap: wrap;
+                }
                 li {
                     width: calc(100% / 4);
                     background-color: ${({ theme }) => theme.colors.WHITE}; 
@@ -33,6 +36,14 @@ export const ContainerStepSummary = styled.div`
                     gap: ${({ theme }) => theme.spacing(2)};
                     min-height: 84px;
                     max-width: 252px;
+                    @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+                        width: calc(100% / 2 -  ${({ theme }) => theme.spacing(2)});
+                        max-width: calc(100% / 2);
+                    }
+                    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                        width: 100%;
+                        max-width: 100%;
+                    }
                     div.infos {
                         display: flex;
                         flex-direction: column;
@@ -78,6 +89,9 @@ export const ContainerStepSummary = styled.div`
                         -webkit-line-clamp: 2; /* Definimos quantas linhas queremos */
                         display: -webkit-box;
                         overflow: hidden;
+                        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                            width: 35%;
+                        }
                     }
                     div.description {
                         width: 25%;
@@ -86,15 +100,27 @@ export const ContainerStepSummary = styled.div`
                         display: -webkit-box;
                         overflow: hidden;
                         padding-right: ${({ theme }) => theme.spacing(3)};
+                        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                            display: none;
+                        }
                     }
                     div.duration {
                         width: 15%;
+                        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                            width: 25%;
+                        }
                     }
                     div.value {
                         width: 15%;
+                        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                            width: 25%;
+                        }
                     }
                     div.category {
                         width: 10%;
+                        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                            display: none;
+                        }
                     }
                     div.remove {
                         width: 5%;
@@ -138,6 +164,27 @@ export const ContainerStepSummary = styled.div`
             align-items: flex-end;
             margin-top: ${({ theme }) => theme.spacing(5.25)};
             margin-bottom: ${({ theme }) => theme.spacing(5)};
+            > div {
+                display: flex;
+                width: 100%;
+                justify-content: flex-end;
+                align-items: center;
+                @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                    flex-direction: column;
+                    align-items: flex-end;
+                    gap: ${({ theme }) => theme.spacing(2)}
+                }
+                div.help {
+                    flex: 1;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    gap: ${({ theme }) => theme.spacing(1.5)};
+                    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                        order: 1;
+                    }
+                }
+            }
             p {
                 font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
                 font-weight: 400;
@@ -148,6 +195,9 @@ export const ContainerStepSummary = styled.div`
             }
             button {
                 justify-content: space-between;
+                &.login {
+                    justify-content: center;
+                }
             }
         }
     }

@@ -3,5 +3,6 @@ export enum ButtonVariantProps {
     SECONDARY = 'SECONDARY',
     OUTLINE = 'OUTLINE',
     FULL = 'FULL',
-    OUTLINE_TEXT = 'OUTLINE_TEXT'
+    OUTLINE_TEXT = 'OUTLINE_TEXT',
+    TERTIARY = 'TERTIARY'
 }

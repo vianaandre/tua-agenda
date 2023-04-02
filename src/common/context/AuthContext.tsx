@@ -49,6 +49,7 @@ interface AuthContextProps {
     loadingUpdatedUser: boolean;
     uploadPhoto?: string | ArrayBuffer | null | undefined;
     notifications?: NotificationProps[];
+    authPerScheduleFlow: boolean;
     onLoginUser: (user: UserProps) => void;
     onNextAuthPerPhone: (data: AuthPerPhoneProps) => void;
     onFlowAuthPerPhone: () => void;
@@ -62,6 +63,7 @@ interface AuthContextProps {
     onUpdateUser: (user: UserProps) => Promise<void>;
     onUploadPhoto: (inputFile: React.ChangeEvent<HTMLInputElement>) => void;
     onLogoutUser: () => void;
+    onAuthPerScheduleFlow: (authPerScheduleFlow: boolean) => void;
 }
 
 export const AuthContext = createContext({} as AuthContextProps);
@@ -69,7 +71,7 @@ export const AuthContext = createContext({} as AuthContextProps);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { location } = useLocation();
   const { onToast } = useToast();
-  const { push } = useRouter();
+  const { push, asPath } = useRouter();
 
   const [isUser, setIsUser] = useState<UserProps>();
   const [isStepperTypeAuthPerPhone, setIsStepperTypeAuthPerPhone] = useState<StepperProps>();
@@ -93,6 +95,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoadingUpdatedUser, setIsUpdatedUser] = useState<boolean>(false);
   const [isUploadPhoto, setIsUploadPhoto] = useState<string | ArrayBuffer | null | undefined>();
   const [isNotifications, setIsNotifications] = useState<NotificationProps[]>();
+  const [isAuthPerScheduleFlow, setIsAuthPerScheduleFlow] = useState<boolean>(false);
+
+  const handleAuthPerScheduleFlow = (authPerScheduleFlow: boolean) => setIsAuthPerScheduleFlow(authPerScheduleFlow);
 
   const handleLoadUser = useCallback(async () => {
     try {
@@ -131,7 +136,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const result = await loginUser(user.senha, user.email, user.keepConnected);
 
         setIsUser(result);
-        push('/');
+        if (asPath.includes('#flowSchedule')) {
+          handleAuthPerScheduleFlow(false);
+        } else {
+          push('/');
+        }
         onToast({
           message: 'Sessão iniciada com sucesso.',
           type: 'success',
@@ -150,7 +159,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         type: 'error',
       });
     }
-  }, [onToast, push]);
+  }, [onToast, push, asPath]);
 
   const handleRegisterUser = useCallback(async (user: UserProps) => {
     try {
@@ -159,7 +168,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const result = await registerUser(user);
 
         setIsUser(result);
-        push('/');
+        if (asPath.includes('#flowSchedule')) {
+          handleAuthPerScheduleFlow(false);
+        } else {
+          push('/');
+        }
         onToast({
           message: 'Sessão iniciada com sucesso.',
           type: 'success',
@@ -178,7 +191,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         type: 'error',
       });
     }
-  }, [onToast, push]);
+  }, [onToast, push, asPath]);
 
   const handleSendEmailForForgotPassword = useCallback(async (user: UserProps) => {
     try {
@@ -259,7 +272,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             message: 'Sessão iniciada com sucesso.',
             type: 'success',
           });
-          push('/');
+          if (asPath.includes('#flowSchedule')) {
+            handleAuthPerScheduleFlow(false);
+          } else {
+            push('/');
+          }
         }
       }
       setIsLoadingAuthPerPhone(false);
@@ -270,7 +287,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         type: 'error',
       });
     }
-  }, [location, onToast, isStepperTypeAuthPerPhone, push]);
+  }, [location, onToast, isStepperTypeAuthPerPhone, push, asPath]);
 
   const handleLoadCountry = useCallback(async () => {
     try {
@@ -309,7 +326,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
       if (result && result.obj) {
         setIsUser(result.obj);
-        push('/');
+        if (asPath.includes('#flowSchedule')) {
+          handleAuthPerScheduleFlow(false);
+        } else {
+          push('/');
+        }
         onToast({
           message: 'Sessão iniciada com sucesso.',
           type: 'success',
@@ -323,7 +344,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
       setIsLoadingAuthGoogle(false);
     }
-  }, [onToast, push]);
+  }, [onToast, push, asPath]);
 
   const handleLoadAddress = useCallback(async (cep: string, setValue: UseFormSetValue<UserProps>) => {
     try {
@@ -464,6 +485,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       loadingUpdatedUser: isLoadingUpdatedUser,
       uploadPhoto: isUploadPhoto,
       notifications: isNotifications,
+      authPerScheduleFlow: isAuthPerScheduleFlow,
       onFlowAuthPerPhone: handleFlowAuthPerPhone,
       onBackStepperFlowAuthPerPhone: handleBackStepperFlowAuthPerPhone,
       onLoginGoogle: handleLoginGoogle,
@@ -474,6 +496,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       onUpdateUser: handleUpdateUser,
       onUploadPhoto: handleUploadPhoto,
       onLogoutUser: handleLogoutUser,
+      onAuthPerScheduleFlow: handleAuthPerScheduleFlow,
     }}
     >
       {children}

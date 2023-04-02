@@ -8,9 +8,6 @@ export const Loading: React.FC = () => {
   return (
     <ContainerLoading>
       <div className="loading_calendar">
-        <p className="header">
-          <Skeleton count={1} style={{ height: '100%' }} />
-        </p>
         <div className="calendar">
           <Skeleton count={1} style={{ height: '100%' }} />
         </div>
@@ -20,6 +17,49 @@ export const Loading: React.FC = () => {
           <Skeleton count={1} style={{ height: '100%' }} />
         </p>
         <div className="hours">
+          <div>
+            <Skeleton count={1} style={{ height: '100%' }} />
+          </div>
+          <div>
+            <Skeleton count={1} style={{ height: '100%' }} />
+          </div>
+          <div>
+            <Skeleton count={1} style={{ height: '100%' }} />
+          </div>
+          <div>
+            <Skeleton count={1} style={{ height: '100%' }} />
+          </div>
+          <div>
+            <Skeleton count={1} style={{ height: '100%' }} />
+          </div>
+          <div>
+            <Skeleton count={1} style={{ height: '100%' }} />
+          </div>
+          <div>
+            <Skeleton count={1} style={{ height: '100%' }} />
+          </div>
+        </div>
+      </div>
+      <div className="loading_list_hours_mobile">
+        <p className="button">
+          <Skeleton count={1} style={{ height: '100%' }} />
+        </p>
+        <p className="title">
+          <Skeleton count={1} style={{ height: '100%' }} />
+        </p>
+        <div className="hours">
+          <div>
+            <Skeleton count={1} style={{ height: '100%' }} />
+          </div>
+          <div>
+            <Skeleton count={1} style={{ height: '100%' }} />
+          </div>
+          <div>
+            <Skeleton count={1} style={{ height: '100%' }} />
+          </div>
+          <div>
+            <Skeleton count={1} style={{ height: '100%' }} />
+          </div>
           <div>
             <Skeleton count={1} style={{ height: '100%' }} />
           </div>

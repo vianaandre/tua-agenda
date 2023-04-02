@@ -12,6 +12,10 @@ export const ContainerScheduleFlow = styled.div`
     transform: translateY(100vh);
     display: flex;
     flex-direction: column;
+    &.auth_flow {
+        height: 100vh !important;
+        overflow: auto;
+    }
     &.active {
         transform: translateY(0px);
         transition: 400ms;

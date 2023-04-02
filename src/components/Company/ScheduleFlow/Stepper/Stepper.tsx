@@ -9,11 +9,14 @@ export const Stepper: React.FC = () => {
   const { stepper, onSelectStepper } = useScheduleFlow();
 
   return (
-    <ContainerStepper>
+    <ContainerStepper className="container_stepper">
       <Container>
         <ul>
           {stepperScheduleFlow.map((item) => (
-            <li key={item.stage}>
+            <li
+              key={item.stage}
+              className={`${stepperScheduleFlow[stepper.length].stepper === item.stepper ? 'active' : ''}`}
+            >
               <button type="button" className={`${stepper.find((i) => i.stepper === item.stepper) ? 'active' : ''}`} onClick={() => onSelectStepper(item)} disabled={item.stepper > stepper.length}>
                 <div>{item.stepper + 1}</div>
                 <div>

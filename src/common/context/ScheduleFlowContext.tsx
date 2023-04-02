@@ -2,6 +2,7 @@ import React, {
   useCallback, useEffect, useMemo, useState,
 } from 'react';
 import { createContext } from 'use-context-selector';
+import { useRouter } from 'next/router';
 
 import { StepperProps } from 'common/interface/StepperProps';
 import { stepperScheduleFlow } from 'utils/stepper';
@@ -47,10 +48,11 @@ export const ScheduleFlowContext = createContext({} as ScheduleFlowContextProps)
 
 export function ScheduleFlowProvider({ children }: { children: React.ReactNode }) {
   const {
-    employees, services, employeesProducts, config, servicesSelect, onCloseFlowSchedule, onClearSelectServices,
+    employees, services, employeesProducts, config, servicesSelect, onCloseFlowSchedule, onClearSelectServices, openFlowSchedule,
   } = useCompany();
   const { onToast } = useToast();
   const { user } = useAuth();
+  const { push } = useRouter();
 
   const [isStepper, setIsStepper] = useState<StepperProps[]>([]);
   const [isSelectEmployees, setIsSelectEmployees] = useState<EmployeeProps[]>([]);
@@ -94,16 +96,17 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
 
   const handleLoadHoursPerEmployee = useCallback(async () => {
     try {
-      if (user && config && services && services.length > 0 && isSelectEmployees.length > 0) {
+      if (config && services && services.length > 0 && isSelectEmployees.length > 0) {
         setIsLoadingHours(true);
         const isMinutes = services?.reduce((curr, prev) => {
           return curr + prev.minutos;
         }, 0);
-        const result = await listHoursSchedule(user, config.id, isSelectEmployees[0].id, isMinutes);
+        const result = await listHoursSchedule(config.id, isSelectEmployees[0].id, isMinutes, user);
 
         setIsScheduleHours(result);
         setIsLoadingHours(false);
       }
+      setIsLoadingHours(false);
     } catch (err: any) {
       setIsLoadingHours(false);
       onToast({
@@ -168,6 +171,17 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
             message: 'Agendamento feito com sucesso.',
             type: 'success',
           });
+          push({
+            pathname: `/appointments/${result.obj.idAgenda}`,
+            query: {
+              companyId: result.obj.idEmpresa,
+            },
+          });
+        } else {
+          onToast({
+            message: result.mensagem ?? 'Ocorreu um erro de comunicação.',
+            type: 'error',
+          });
         }
       }
       setIsLoading(false);
@@ -178,7 +192,7 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
         type: 'error',
       });
     }
-  }, [config, isDateSelect, servicesSelect, isHourSelect, user, isSelectEmployees, onToast]);
+  }, [config, isDateSelect, servicesSelect, isHourSelect, user, isSelectEmployees, onToast, push]);
 
   const isServicesPerEmployees = useMemo(() => {
     const isIdsProcuts = employeesProducts?.filter((employeeProduct) => {
@@ -236,6 +250,16 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
     }
     return [];
   }, [services, servicesSelect]);
+
+  useEffect(() => {
+    if (!openFlowSchedule) {
+      if (employees && employees.length <= 1) {
+        handleSelectStepper(stepperScheduleFlow[1]);
+      } else {
+        handleSelectStepper(stepperScheduleFlow[0]);
+      }
+    }
+  }, [handleSelectStepper, openFlowSchedule, employees]);
 
   return (
     <ScheduleFlowContext.Provider value={{

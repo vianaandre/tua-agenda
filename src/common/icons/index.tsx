@@ -29,3 +29,6 @@ export { ArrowAlternativePrev } from './ArrowAlternativePrev';
 export { Hour } from './Hour';
 export { Trash } from './Trash';
 export { Company } from './Company';
+export { Alert } from './Alert';
+export { GoogleAlternative } from './GoogleAlternative';
+export { Delete } from './Delete';

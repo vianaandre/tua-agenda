@@ -9,6 +9,10 @@ export const ContainerStepServices = styled.div`
         padding-bottom: ${({ theme }) => theme.spacing(4)};
         display: flex;
         flex-direction: column;
+        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+            padding-top: ${({ theme }) => theme.spacing(1.5)};
+            padding-bottom: ${({ theme }) => theme.spacing(1.5)};
+        }
         div.header {
             max-width: 500px;
         }

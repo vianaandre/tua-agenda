@@ -2,10 +2,13 @@ import styled from 'styled-components';
 
 export const ContainerLoginAndRegister = styled.div`
     height: fit-content;
-    min-height: 100vh;
-    width: 100vw;
+    width: 100%;
     display: flex;
     align-items: center;
+    &.not_auth_flow_schedule {
+        overflow: auto;
+        min-height: 100vh;
+    }
 `;
 
 export const ContainerLoginAndRegisterContent = styled.div`
@@ -22,6 +25,9 @@ export const ContainerLoginAndRegisterContent = styled.div`
     }
     @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
         padding: ${({ theme }) => theme.spacing(4)} ${({ theme }) => theme.spacing(3)};
+    }
+    button.back_schedulo_flow {
+        padding-left: 0px;
     }
     div.content_auth {
         height: 100%;

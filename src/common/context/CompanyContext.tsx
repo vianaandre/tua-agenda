@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { createContext } from 'use-context-selector';
+import { useRouter } from 'next/router';
 
 import { ConfigProps } from 'common/interface/ConfigProps';
 import { IntlProps } from 'common/interface/IntlProps';
@@ -31,6 +32,8 @@ interface CompanyContextProps {
 export const CompanyContext = createContext({} as CompanyContextProps);
 
 export function CompanyProvider({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+
   const [isIntl, setIsIntl] = useState<IntlProps>();
   const [isConfig, setIsConfig] = useState<ConfigProps>();
   const [isEmployees, setIsisEmployees] = useState<EmployeeProps[]>();
@@ -42,7 +45,10 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
   const [isOpenFlowSchedule, setIsOpenFlowShcedule] = useState<boolean>(false);
 
   const handleOpenFlowSchedule = () => setIsOpenFlowShcedule(true);
-  const handleCloseFlowSchedule = () => setIsOpenFlowShcedule(false);
+  const handleCloseFlowSchedule = () => {
+    setIsOpenFlowShcedule(false);
+    setIsServicesSelect([]);
+  };
 
   const handleUpdatedStates = useCallback((company: CompanyProps) => {
     setIsIntl(company.intl);
@@ -86,6 +92,15 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
       window.document.body.style.overflowY = 'auto';
     };
   }, [isOpenFlowSchedule]);
+
+  useEffect(() => {
+    if (router.asPath.includes('#flowSchedule')) {
+      setIsOpenFlowShcedule(true);
+    } else {
+      setIsOpenFlowShcedule(false);
+      setIsServicesSelect([]);
+    }
+  }, [router]);
 
   return (
     <CompanyContext.Provider value={{

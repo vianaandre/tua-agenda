@@ -17,3 +17,4 @@ export const GET_HOURS_SCHEDULE = '/api/agenda/horarios';
 export const SAVE_WAITING_LIST = '/api/lista-espera/save/';
 export const SAVE_SERVER_CLIENT = '/api/cliente/save-in-server/';
 export const CREATE_SCHEDULE = '/api/agenda/agendar';
+export const GET_SCHEDULE = '/agenda';

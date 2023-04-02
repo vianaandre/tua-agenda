@@ -18,6 +18,8 @@ export const useAuth = () => {
   const VIACEP = useContextSelector(AuthContext, (auth) => auth.VIACEP);
   const uploadPhoto = useContextSelector(AuthContext, (auth) => auth.uploadPhoto);
   const notifications = useContextSelector(AuthContext, (auth) => auth.notifications);
+  const authPerScheduleFlow = useContextSelector(AuthContext, (auth) => auth.authPerScheduleFlow);
+
   const onLoginUser = useContextSelector(AuthContext, (auth) => auth.onLoginUser);
   const onNextAuthPerPhone = useContextSelector(AuthContext, (auth) => auth.onNextAuthPerPhone);
   const onFlowAuthPerPhone = useContextSelector(AuthContext, (auth) => auth.onFlowAuthPerPhone);
@@ -31,6 +33,7 @@ export const useAuth = () => {
   const onUpdateUser = useContextSelector(AuthContext, (auth) => auth.onUpdateUser);
   const onUploadPhoto = useContextSelector(AuthContext, (auth) => auth.onUploadPhoto);
   const onLogoutUser = useContextSelector(AuthContext, (auth) => auth.onLogoutUser);
+  const onAuthPerScheduleFlow = useContextSelector(AuthContext, (auth) => auth.onAuthPerScheduleFlow);
 
   return {
     user,
@@ -49,6 +52,7 @@ export const useAuth = () => {
     loadingUpdatedUser,
     uploadPhoto,
     notifications,
+    authPerScheduleFlow,
     onLoginUser,
     onNextAuthPerPhone,
     onLoadCountry,
@@ -62,5 +66,6 @@ export const useAuth = () => {
     onUpdateUser,
     onUploadPhoto,
     onLogoutUser,
+    onAuthPerScheduleFlow,
   };
 };

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
 
 import { Logo, ArrowRight, ArrowLeft } from 'common/icons';
@@ -13,13 +13,14 @@ import { Form } from './Form';
 import { AuthPerPhone } from './AuthPerPhone';
 import { LoginAndRegisterProps } from './interface';
 
-export const LoginAndRegister: React.FC<LoginAndRegisterProps> = ({ type }) => {
+export const LoginAndRegister: React.FC<LoginAndRegisterProps> = ({ type, variant = 'flow-auth' }) => {
   const {
-    stepperTypeAuthPerPhone, onBackStepperFlowAuthPerPhone, forgotPassword, onForgotPassword, sendForgotPassword,
+    stepperTypeAuthPerPhone, onBackStepperFlowAuthPerPhone, forgotPassword, onForgotPassword, sendForgotPassword, authPerScheduleFlow, onAuthPerScheduleFlow,
   } = useAuth();
+  const [isType, setIsType] = useState<'login' | 'register'>(type);
 
   const isTextButton = useMemo(() => {
-    switch (type) {
+    switch (isType) {
       case 'login':
         return forgotPassword ? 'Voltar' : 'Criar conta';
       case 'register':
@@ -27,31 +28,59 @@ export const LoginAndRegister: React.FC<LoginAndRegisterProps> = ({ type }) => {
       default:
         return forgotPassword ? 'Voltar' : 'Acessar conta';
     }
-  }, [type, forgotPassword]);
+  }, [isType, forgotPassword]);
+
+  const handleChangeType = (isTypeChange: 'login' | 'register') => setIsType(isTypeChange);
 
   return (
-    <ContainerLoginAndRegister>
+    <ContainerLoginAndRegister className={authPerScheduleFlow ? '' : 'not_auth_flow_schedule'}>
       <ContainerLoginAndRegisterContent>
         <div className="content_auth">
           <header>
-            <Link href="/" passHref>
-              <a>
-                <Logo width={159} height={19} color={theme.colors.PRIMARY[500]} />
-              </a>
-            </Link>
+            {variant === 'flow-schedule' ? (
+              <Button.Normal
+                text="Voltar"
+                variant={ButtonVariantProps.OUTLINE_TEXT}
+                onClick={() => onAuthPerScheduleFlow(false)}
+                type="button"
+                className="back_schedulo_flow"
+                icon={{
+                  direction: 'left',
+                  icon: <ArrowLeft color={theme.colors.PRIMARY[500]} height={20} width={20} />,
+                }}
+              />
+            ) : (
+              <Link href="/" passHref>
+                <a>
+                  <Logo width={159} height={19} color={theme.colors.PRIMARY[500]} />
+                </a>
+              </Link>
+            )}
             {!stepperTypeAuthPerPhone && (
             <React.Fragment>
               {!forgotPassword && (
-              <Button.Link
-                text={isTextButton}
-                variant={ButtonVariantProps.OUTLINE_TEXT}
-                href={type === 'login' ? '/register' : '/login'}
-                icon={{
-                  direction: 'right',
-                  icon: <ArrowRight color={theme.colors.PRIMARY[500]} height={20} width={20} />,
-                }}
-              />
-              )}
+                variant === 'flow-schedule' ? (
+                  <Button.Normal
+                    text={isTextButton}
+                    variant={ButtonVariantProps.OUTLINE_TEXT}
+                    onClick={() => handleChangeType(isType === 'login' ? 'register' : 'login')}
+                    type="button"
+                    icon={{
+                      direction: 'right',
+                      icon: <ArrowRight color={theme.colors.PRIMARY[500]} height={20} width={20} />,
+                    }}
+                  />
+                ) : (
+                  <Button.Link
+                    text={isTextButton}
+                    variant={ButtonVariantProps.OUTLINE_TEXT}
+                    href={isType === 'login' ? '/register' : '/login'}
+                    icon={{
+                      direction: 'right',
+                      icon: <ArrowRight color={theme.colors.PRIMARY[500]} height={20} width={20} />,
+                    }}
+                  />
+                ))}
               {forgotPassword && (
                 <Button.Normal
                   type="button"
@@ -121,7 +150,7 @@ export const LoginAndRegister: React.FC<LoginAndRegisterProps> = ({ type }) => {
                   )}
             </div>
             )}
-            <Form type={type} />
+            <Form type={isType} />
           </React.Fragment>
           )}
           {stepperTypeAuthPerPhone && (

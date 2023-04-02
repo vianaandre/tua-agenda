@@ -1,15 +1,14 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
-    *::-webkit-scrollbar {
+    /* *::-webkit-scrollbar {
         width: 6px;
         height: 8px;
     }
-    /* Handle */
     *::-webkit-scrollbar-thumb {
         background: ${({ theme }) => theme.colors.PRIMARY[500]};
         border-radius: 6px;
-    }
+    } */
     * {
         margin: 0;
         padding: 0;
@@ -448,6 +447,9 @@ export const GlobalStyles = createGlobalStyle`
                 h5 {
                     color: ${({ theme }) => theme.colors.BLACK[500]};
                 }
+                @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                    padding: ${({ theme }) => theme.spacing(2)} ${({ theme }) => theme.spacing(2)};
+                }
             }
             div.content {
                 width: 100%;
@@ -461,6 +463,9 @@ export const GlobalStyles = createGlobalStyle`
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
+                    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                        padding: ${({ theme }) => theme.spacing(2)} ${({ theme }) => theme.spacing(2)};
+                    }
                     label, h6 {
                         font-size: ${({ theme }) => theme.fonts.sizes[16]};
                         font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
@@ -480,6 +485,10 @@ export const GlobalStyles = createGlobalStyle`
                             transition: 400ms;
                             background-color: ${({ theme }) => theme.colors.PRIMARY[500]};
                             color: ${({ theme }) => theme.colors.WHITE};
+                            @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                                background-color: transparent;
+                                color: ${({ theme }) => theme.colors.PRIMARY[500]};
+                            }
                         }
                     }
                 }
@@ -492,6 +501,11 @@ export const GlobalStyles = createGlobalStyle`
                         gap: ${({ theme }) => theme.spacing(3)};
                         width: 100%;
                         padding: ${({ theme }) => theme.spacing(2)} ${({ theme }) => theme.spacing(4)};
+                        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                            flex-direction: column;
+                            gap: ${({ theme }) => theme.spacing(0)};
+                            padding: ${({ theme }) => theme.spacing(2)} ${({ theme }) => theme.spacing(2)};
+                        }
                         div.hour {
                             width: 100%;
                         }
@@ -505,7 +519,7 @@ export const GlobalStyles = createGlobalStyle`
                                 display: flex;
                                 position: absolute;
                                 right: ${({ theme }) => theme.spacing(4)};
-                                top: 68px
+                                top: 68px;
                             }
                         }
                 }
@@ -520,10 +534,17 @@ export const GlobalStyles = createGlobalStyle`
                         flex-direction: column;
                         gap: ${({ theme }) => theme.spacing(2)};
                         padding: ${({ theme }) => theme.spacing(1.5)} ${({ theme }) => theme.spacing(4)};
+                        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                            padding: ${({ theme }) => theme.spacing(1.5)} ${({ theme }) => theme.spacing(2)};
+                            gap: ${({ theme }) => theme.spacing(1)};
+                        }
                     }
                     div.cpf_date {
                         display: flex;
                         gap: ${({ theme }) => theme.spacing(2)};
+                        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                            flex-direction: column;
+                        }
                     }
                 }
                 div.btns {
@@ -532,6 +553,9 @@ export const GlobalStyles = createGlobalStyle`
                     gap: ${({ theme }) => theme.spacing(2)};
                     padding: ${({ theme }) => theme.spacing(2)} ${({ theme }) => theme.spacing(4)};
                     padding-bottom: ${({ theme }) => theme.spacing(3)};
+                    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                        padding: ${({ theme }) => theme.spacing(2)} ${({ theme }) => theme.spacing(2)};
+                    }
                 }
             }
         }

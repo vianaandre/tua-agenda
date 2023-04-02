@@ -18,6 +18,10 @@ const sharedStyles = css<{
     switch (variant) {
       case ButtonVariantProps.SECONDARY:
         return `1px solid ${theme.colors.PRIMARY[350]}`;
+      case ButtonVariantProps.TERTIARY:
+        return `1px solid ${theme.colors.GREY[900]}`;
+      case ButtonVariantProps.PRIMARY:
+        return `1px solid ${theme.colors.PRIMARY[500]}`;
       default:
         return 'none';
     }
@@ -38,6 +42,8 @@ const sharedStyles = css<{
         return theme.colors.WHITE;
       case ButtonVariantProps.FULL:
         return theme.colors.WHITE;
+      case ButtonVariantProps.TERTIARY:
+        return theme.colors.GREY[900];
       default:
         return theme.colors.PRIMARY[500];
     }
@@ -73,12 +79,20 @@ const sharedStyles = css<{
       case ButtonVariantProps.FULL:
         return theme.colors.PRIMARY[500];
       case ButtonVariantProps.OUTLINE_TEXT:
+      case ButtonVariantProps.TERTIARY:
         return 'transparent';
       default:
         return theme.colors.PRIMARY[500];
     }
   }};
-        border-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+        border-color: ${({ theme, variant }) => {
+    switch (variant) {
+      case ButtonVariantProps.TERTIARY:
+        return theme.colors.GREY[900];
+      default:
+        return theme.colors.PRIMARY[500];
+    }
+  }};
         color: ${({ variant, theme }) => {
     switch (variant) {
       case ButtonVariantProps.PRIMARY:
@@ -87,6 +101,8 @@ const sharedStyles = css<{
         return theme.colors.WHITE;
       case ButtonVariantProps.OUTLINE_TEXT:
         return theme.colors.PRIMARY[500];
+      case ButtonVariantProps.TERTIARY:
+        return theme.colors.GREY[900];
       default:
         return theme.colors.WHITE;
     }
@@ -99,13 +115,22 @@ const sharedStyles = css<{
         return 'brightness(1.2)';
       case ButtonVariantProps.OUTLINE_TEXT:
         return 'brightness(1.3)';
+      case ButtonVariantProps.TERTIARY:
+        return 'brightness(0.7)';
       default:
         return 'none';
     }
   }};
     };
     &:active {
-        filter: brightness(1.6)
+        filter: ${({ variant }) => {
+    switch (variant) {
+      case ButtonVariantProps.TERTIARY:
+        return 'brightness(0.4)';
+      default:
+        return 'brightness(1.6)';
+    }
+  }}
     }
     position: relative;
     height: fit-content;

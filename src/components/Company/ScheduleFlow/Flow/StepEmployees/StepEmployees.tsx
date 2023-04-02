@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { Input } from 'components/Form';
@@ -12,6 +12,8 @@ import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
 import { useScheduleFlow } from 'common/hooks/useScheduleFlow';
 import { stepperScheduleFlow } from 'utils/stepper';
+import { ProfessionalProps } from 'common/interface/ProfesssionalProps';
+import { Empty } from 'components/Empty';
 import { ContainerStepEmployees } from './styles';
 
 export const StepEmployees: React.FC = () => {
@@ -20,6 +22,15 @@ export const StepEmployees: React.FC = () => {
   const {
     onSelectEmployees, selectEmployees, onSelectStepper, stepper,
   } = useScheduleFlow();
+  const isSearch = methods.watch('search');
+
+  const isServicesSearch = useMemo((): ProfessionalProps[] | undefined => {
+    if (isSearch && isSearch !== '') {
+      return employees?.filter((employee) => employee.nome.toLowerCase().includes(isSearch));
+    }
+
+    return employees;
+  }, [isSearch, employees]);
 
   return (
     <ContainerStepEmployees>
@@ -42,9 +53,9 @@ export const StepEmployees: React.FC = () => {
           </form>
         </div>
         <div className="list">
-          {employees && employees.length && (
+          {isServicesSearch && isServicesSearch.length > 0 ? (
             <ul>
-              {employees.map((employee) => (
+              {isServicesSearch.map((employee) => (
                 <li key={employee.id}>
                   <button type="button" onClick={() => onSelectEmployees(employee)} className={`${selectEmployees.find((i) => i.id === employee.id) ? 'active' : ''}`}>
                     <Avatar
@@ -57,6 +68,8 @@ export const StepEmployees: React.FC = () => {
                 </li>
               ))}
             </ul>
+          ) : (
+            <Empty text="Nada encontrado" />
           )}
         </div>
         <Button.Normal

@@ -40,6 +40,46 @@ export const ContainerSelectHour = styled.button`
             color: ${({ theme }) => theme.colors.WHITE};
         }
     }
+    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        &:hover {
+            border-color:  1px solid ${({ theme }) => theme.colors.GREY[700]};
+            background-color: transparent;
+            div.checkbox {
+                width: ${({ theme }) => theme.spacing(3)};
+                height: ${({ theme }) => theme.spacing(3)};
+                border-radius: 50%;
+                border: 1px solid ${({ theme }) => theme.colors.GREY[700]};
+                transition: 400ms;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                > div {
+                    width: 0px;
+                }
+            }
+            p.small {
+                color: ${({ theme }) => theme.colors.PRIMARY[800]};
+            }
+        }
+        &.active {
+            transition: 400ms;
+            border-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+            background-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+            div.checkbox {
+                transition: 400ms;
+                border-color: ${({ theme }) => theme.colors.WHITE};
+                > div {
+                    width: ${({ theme }) => theme.spacing(2)};
+                    height: ${({ theme }) => theme.spacing(2)};
+                    border-radius: 50%;
+                    background-color: ${({ theme }) => theme.colors.WHITE};
+                }
+            }
+            p.small {
+                color: ${({ theme }) => theme.colors.WHITE};
+            }
+        }
+    }
     &:disabled {
         border-color: ${({ theme }) => theme.colors.GREY[700]};
         background-color: transparent;

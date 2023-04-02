@@ -57,7 +57,7 @@ export const ContainerInfos = styled.div`
         }
         div.btn {
             width: 100%;
-            button {
+            a {
                 width: 100%;
             }
         }

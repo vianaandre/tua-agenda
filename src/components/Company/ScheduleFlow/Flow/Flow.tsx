@@ -11,7 +11,7 @@ export const Flow: React.FC = () => {
   const { stepper } = useScheduleFlow();
 
   return (
-    <ContainerFlow>
+    <ContainerFlow className="container_flow">
       {stepper.length <= 0 && (
         <StepEmployees />
       )}
