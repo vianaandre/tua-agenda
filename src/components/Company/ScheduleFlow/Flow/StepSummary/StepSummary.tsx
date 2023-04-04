@@ -14,14 +14,14 @@ import { formatMoney } from 'utils/format';
 import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
 import { useAuth } from 'common/hooks/useAuth';
+import { CardService } from 'components/CardService';
 import { ContainerStepSummary } from './styles';
-import { CardService } from './CardService';
 
 export const StepSummary: React.FC = () => {
   const {
-    selectEmployees, dateSelect, hourSelect, amoutValueServicesSelect, servicesSelected, onSubmitCreateSchedule, loading,
+    dateSelect, hourSelect, amoutValueServicesSelect, servicesSelected, onSubmitCreateSchedule, loading,
   } = useScheduleFlow();
-  const { config, onSelectService } = useCompany();
+  const { config, onSelectService, selectEmployees } = useCompany();
   const { user, onAuthPerScheduleFlow } = useAuth();
 
   const [isObservation, setIsObservation] = useState<string>();

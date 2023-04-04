@@ -18,9 +18,9 @@ import { ContainerStepEmployees } from './styles';
 
 export const StepEmployees: React.FC = () => {
   const methods = useForm();
-  const { employees } = useCompany();
+  const { employees, selectEmployees, onSelectEmployees } = useCompany();
   const {
-    onSelectEmployees, selectEmployees, onSelectStepper, stepper,
+    onSelectStepper, stepper,
   } = useScheduleFlow();
   const isSearch = methods.watch('search');
 

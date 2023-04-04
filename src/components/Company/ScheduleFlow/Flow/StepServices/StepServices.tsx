@@ -20,10 +20,10 @@ export const StepServices: React.FC = () => {
     search: string;
   }>();
   const {
-    servicesPerEmployees, onSelectStepper, stepper, onLoadHoursPerEmployee,
+    onSelectStepper, stepper, onLoadHoursPerEmployee,
   } = useScheduleFlow();
   const {
-    onSelectService, servicesSelect, onSearchServices, servicesSearch,
+    onSelectService, servicesSelect, onSearchServices, servicesSearch, servicesPerEmployees,
   } = useCompany();
   const isSearch = methods.watch('search');
 

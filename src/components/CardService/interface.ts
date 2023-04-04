@@ -5,6 +5,6 @@ export type CardServiceProps = {
     duration: string;
     value: number;
     category: string;
-    remove: () => void;
+    remove?: () => void;
     disabledRemove: boolean;
 }

@@ -22,4 +22,5 @@ export type ScheduleResponseProps = {
     enabledCancelamento: boolean;
     motivoBloqueioCancelamento?: any;
     situacaoFmt: string;
+    stAnamnese?: string;
 }

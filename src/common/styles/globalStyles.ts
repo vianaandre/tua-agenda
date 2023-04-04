@@ -198,7 +198,7 @@ export const GlobalStyles = createGlobalStyle`
     .color_grey_800 {
         color: ${({ theme }) => theme.colors.GREY[800]} !important;
     }
-    .color_grey_800 {
+    .color_grey_850 {
         color: ${({ theme }) => theme.colors.GREY[850]} !important;
     }
     .color_grey_900 {

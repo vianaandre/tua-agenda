@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
 import { createContext } from 'use-context-selector';
 import { useRouter } from 'next/router';
 
@@ -21,12 +23,15 @@ interface CompanyContextProps {
     servicesSearch?: ServicesCompanyProps[];
     openFlowSchedule: boolean;
     employeesProducts?: EmployeeProductProps[];
+    selectEmployees: EmployeeProps[];
+    servicesPerEmployees: ServicesCompanyProps[];
     onUpdatedStates: (company: CompanyProps) => void;
-    onSelectService: (id: string) => void;
+    onSelectService: (id: string, ids?: string[]) => void;
     onSearchServices: (search: string) => void;
     onOpenFlowSchedule: () => void;
     onCloseFlowSchedule: () => void;
     onClearSelectServices: () => void;
+    onSelectEmployees: (employee: EmployeeProps) => void;
 }
 
 export const CompanyContext = createContext({} as CompanyContextProps);
@@ -43,8 +48,20 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
   const [isServicesSelect, setIsServicesSelect] = useState<string[]>();
   const [isServicesSearch, setIsServicesSearch] = useState<ServicesCompanyProps[]>();
   const [isOpenFlowSchedule, setIsOpenFlowShcedule] = useState<boolean>(false);
+  const [isSelectEmployees, setIsSelectEmployees] = useState<EmployeeProps[]>([]);
+
+  const handleSelectEmployees = useCallback((employee: EmployeeProps) => {
+    setIsSelectEmployees((current: EmployeeProps[]) => {
+      if (current.find((i) => i.id === employee.id)) {
+        return current.filter((i) => i.id !== employee.id);
+      }
+
+      return [...current, employee];
+    });
+  }, []);
 
   const handleOpenFlowSchedule = () => setIsOpenFlowShcedule(true);
+
   const handleCloseFlowSchedule = () => {
     setIsOpenFlowShcedule(false);
     setIsServicesSelect([]);
@@ -59,16 +76,20 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
     setIsisEmployeesProducts(company.funcionarioProduto);
   }, []);
 
-  const handleSelectService = useCallback((id: string) => {
-    setIsServicesSelect((current) => {
-      if (current?.includes(id)) {
-        return current.filter((i) => i !== id);
-      }
-      if (current) {
-        return [...current, id];
-      }
-      return [id];
-    });
+  const handleSelectService = useCallback((id: string, ids?: string[]) => {
+    if (ids) {
+      setIsServicesSelect(ids);
+    } else {
+      setIsServicesSelect((current) => {
+        if (current?.includes(id)) {
+          return current.filter((i) => i !== id);
+        }
+        if (current) {
+          return [...current, id];
+        }
+        return [id];
+      });
+    }
   }, []);
 
   const handleClearSelectServices = useCallback(() => {
@@ -82,6 +103,21 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
       setIsServicesSearch(undefined);
     }
   }, [isServices]);
+
+  const isServicesPerEmployees = useMemo(() => {
+    const isIdsProcuts = isEmployeesProducts?.filter((employeeProduct) => {
+      return isSelectEmployees.find((selectEmployee) => employeeProduct.idFuncionario === selectEmployee.id);
+    });
+
+    if (isIdsProcuts) {
+      const isServicesFilter = isServices?.filter((service) => {
+        return isIdsProcuts?.find((isIdProduct) => isIdProduct.idProduto === service.id);
+      });
+      return isServicesFilter ?? [];
+    }
+
+    return isServices ?? [];
+  }, [isEmployeesProducts, isSelectEmployees, isServices]);
 
   useEffect(() => {
     if (isOpenFlowSchedule) {
@@ -113,12 +149,15 @@ export function CompanyProvider({ children }: { children: React.ReactNode }) {
       servicesSearch: isServicesSearch,
       openFlowSchedule: isOpenFlowSchedule,
       employeesProducts: isEmployeesProducts,
+      selectEmployees: isSelectEmployees,
+      servicesPerEmployees: isServicesPerEmployees,
       onUpdatedStates: handleUpdatedStates,
       onSelectService: handleSelectService,
       onSearchServices: handleSearchServices,
       onCloseFlowSchedule: handleCloseFlowSchedule,
       onOpenFlowSchedule: handleOpenFlowSchedule,
       onClearSelectServices: handleClearSelectServices,
+      onSelectEmployees: handleSelectEmployees,
     }}
     >
       {children}

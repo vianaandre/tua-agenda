@@ -38,12 +38,12 @@ const CompanyPage: NextPage<{ company: CompanyProps, ok: boolean }> = ({ company
 export async function getServerSideProps(context: GetStaticPropsContext) {
   const { link } = context.params as { link: string };
 
-  const result = await findByCompany(link) as ResponseProps<CompanyProps>;
+  const company = await findByCompany(link) as ResponseProps<CompanyProps>;
 
   return {
     props: {
-      company: result.obj,
-      ok: result.ok,
+      company: company.obj,
+      ok: company.ok,
     },
   };
 }

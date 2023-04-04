@@ -12,6 +12,7 @@ export const ContainerScheduleFlow = styled.div`
     transform: translateY(100vh);
     display: flex;
     flex-direction: column;
+    z-index: ${({ theme }) => theme.zIndex.BASE};
     &.auth_flow {
         height: 100vh !important;
         overflow: auto;
