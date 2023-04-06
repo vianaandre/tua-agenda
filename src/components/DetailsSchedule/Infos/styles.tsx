@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const ContainerInfos = styled.div`
     padding-top: ${({ theme }) => theme.spacing(4)};
+    padding-bottom: ${({ theme }) => theme.spacing(6.5)};
     div.list_infos {
         width: 100%;
         margin-top: ${({ theme }) => theme.spacing(3)};
@@ -128,11 +129,5 @@ export const ContainerInfos = styled.div`
     }
     div.observation {
         margin-top: ${({ theme }) => theme.spacing(2.25)};
-    }
-    div.payment {
-        margin-top: ${({ theme }) => theme.spacing(4)};
-        h6 {
-            margin-bottom: ${({ theme }) => theme.spacing(1)};
-        }
     }
 `;

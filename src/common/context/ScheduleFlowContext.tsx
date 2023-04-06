@@ -48,7 +48,7 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
   } = useCompany();
   const { onToast } = useToast();
   const { user } = useAuth();
-  const { push } = useRouter();
+  const { push, query: { id } } = useRouter();
 
   const [isStepper, setIsStepper] = useState<StepperProps[]>([]);
   const [isScheduleHours, setIsScheduleHours] = useState<ScheduleHoursProps[]>();
@@ -198,11 +198,11 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
   }, [isDateSelect, isScheduleHours]);
 
   useEffect(() => {
-    if (employees && employees.length === 1) {
+    if (employees && employees.length === 1 && !id) {
       handleSelectStepper(stepperScheduleFlow[1]);
       onSelectEmployees(employees[0]);
     }
-  }, [employees, handleSelectStepper, onSelectEmployees]);
+  }, [employees, handleSelectStepper, onSelectEmployees, id]);
 
   const isAmoutValueServicesSelect = useMemo((): number => {
     const isServicesSelect = services?.filter((service) => servicesSelect?.includes(service.id));

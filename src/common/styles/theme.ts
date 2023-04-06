@@ -16,6 +16,7 @@ export const theme = {
     WARNING: '#FAAD13',
     WARNING_LIGHT: 'rgba(250, 173, 19, 0.05)',
     SUCCESS: '#0FAB60',
+    SUCCESS_LIGHT: 'rgba(243, 255, 250, 100)',
     INFO: '#00B8D9',
     SECONDARY: '#201042',
     ICON_BUTTON: 'rgba(0, 0, 0, 0.04)',

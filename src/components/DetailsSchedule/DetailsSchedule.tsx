@@ -11,8 +11,6 @@ import { Infos } from './Infos';
 export const DetailsSchedule: React.FC = () => {
   const { loading, schedule } = useDetailsSchedule();
 
-  console.log('schedule', schedule);
-
   return (
     <ContainerDetailsSchedule>
       <Loading open={loading} />

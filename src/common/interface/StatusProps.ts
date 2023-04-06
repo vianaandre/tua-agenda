@@ -1,4 +1,5 @@
 export enum StatusProps {
     PENDENTE = 'PENDENTE',
-    CONCLUIDO = 'CONCLUIDO'
+    CONCLUIDO = 'CONCLUIDO',
+    AGUARDANDO = 'AGUARDANDO',
 }

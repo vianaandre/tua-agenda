@@ -32,3 +32,5 @@ export { Company } from './Company';
 export { Alert } from './Alert';
 export { GoogleAlternative } from './GoogleAlternative';
 export { Delete } from './Delete';
+export { Link } from './Link';
+export { Cursor } from './Cursor';

@@ -60,7 +60,7 @@ const sharedStyles = css<{
       case ButtonVariantProps.PRIMARY:
         return 'center';
       case ButtonVariantProps.FULL:
-        return 'flex-start';
+        return 'space-between';
       default:
         return 'center';
     }

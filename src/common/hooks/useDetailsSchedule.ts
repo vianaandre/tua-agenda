@@ -6,10 +6,23 @@ export const useDetailsSchedule = () => {
   const schedule = useContextSelector(DetailsScheduleContext, (detailsSchedule) => detailsSchedule.schedule);
   const loading = useContextSelector(DetailsScheduleContext, (detailsSchedule) => detailsSchedule.loading);
   const company = useContextSelector(DetailsScheduleContext, (detailsSchedule) => detailsSchedule.company);
+  const companyDataAlternative = useContextSelector(DetailsScheduleContext, (detailsSchedule) => detailsSchedule.companyDataAlternative);
+  const selectMethodPayment = useContextSelector(DetailsScheduleContext, (detailsSchedule) => detailsSchedule.selectMethodPayment);
+  const paymentsGenerate = useContextSelector(DetailsScheduleContext, (detailsSchedule) => detailsSchedule.paymentsGenerate);
+  const loadingPaymnetGenerate = useContextSelector(DetailsScheduleContext, (detailsSchedule) => detailsSchedule.loadingPaymnetGenerate);
+
+  const onSelectedMethodPayment = useContextSelector(DetailsScheduleContext, (detailsSchedule) => detailsSchedule.onSelectedMethodPayment);
+  const onGeneratePayment = useContextSelector(DetailsScheduleContext, (detailsSchedule) => detailsSchedule.onGeneratePayment);
 
   return {
     schedule,
     loading,
     company,
+    companyDataAlternative,
+    selectMethodPayment,
+    paymentsGenerate,
+    loadingPaymnetGenerate,
+    onSelectedMethodPayment,
+    onGeneratePayment,
   };
 };

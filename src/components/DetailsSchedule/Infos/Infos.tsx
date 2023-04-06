@@ -12,6 +12,7 @@ import { useDetailsSchedule } from 'common/hooks/useDetailsSchedule';
 import { CardService } from 'components/CardService';
 import { ActionsButtons } from './ActionsButtons';
 import { ContainerInfos } from './styles';
+import { PaymentOptions } from './PaymentOptions';
 
 export const Infos: React.FC = () => {
   const { config, selectEmployees, services } = useCompany();
@@ -113,12 +114,7 @@ export const Infos: React.FC = () => {
             {schedule?.observacaoPublica ?? '-'}
           </p>
         </div>
-        <div className="payment">
-          <h6 className="title_two">Efetuar Pagamento</h6>
-          <p className="small color_grey_850">
-            Para garantir sua reserva, efetue o pagamento de 30% do valor do pagamento.
-          </p>
-        </div>
+        <PaymentOptions />
       </Container>
     </ContainerInfos>
   );

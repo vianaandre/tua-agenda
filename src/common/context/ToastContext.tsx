@@ -38,6 +38,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           fontSize: theme.fonts.sizes[14],
           fontWeight: 600,
           fontFamily: theme.fonts.family.ALTERNATIVE,
+          lineHeight: '140%',
         }}
       />
       {children}
