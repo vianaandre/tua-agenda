@@ -40,4 +40,11 @@ export const ContainerStatus = styled.div<{
   }};
         }
     }
+    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        svg {
+            display: none;
+        }
+        width: 100%;
+        margin-top: ${({ theme }) => theme.spacing(2)};
+    }
 `;

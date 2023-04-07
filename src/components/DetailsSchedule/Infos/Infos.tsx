@@ -16,7 +16,7 @@ import { PaymentOptions } from './PaymentOptions';
 
 export const Infos: React.FC = () => {
   const { config, selectEmployees, services } = useCompany();
-  const { schedule } = useDetailsSchedule();
+  const { schedule, companyDataAlternative } = useDetailsSchedule();
 
   const isMessages = useMemo(() => {
     return (
@@ -34,11 +34,15 @@ export const Infos: React.FC = () => {
   return (
     <ContainerInfos>
       <Container>
+        {schedule?.situacaoFmt === 'Pendente' && companyDataAlternative && companyDataAlternative.configPagamento && companyDataAlternative.configPagamento.peValorAgendamento && companyDataAlternative.configPagamento.peValorAgendamento > 0 && companyDataAlternative.configPagamento.gateways && companyDataAlternative.configPagamento.gateways.length > 0 && (
         <Alert
-          status={StatusProps.PENDENTE}
+          status={StatusProps.AGUARDANDO}
           message={isMessages}
         />
+        )}
+        {schedule?.situacao === 'AGENDADO' && (
         <ActionsButtons />
+        )}
         <div className="list_infos">
           {selectEmployees.map((selectEmployee) => (
             <ul key={selectEmployee.id}>
@@ -114,7 +118,9 @@ export const Infos: React.FC = () => {
             {schedule?.observacaoPublica ?? '-'}
           </p>
         </div>
+        {schedule?.situacao === 'AGENDADO' && (
         <PaymentOptions />
+        )}
       </Container>
     </ContainerInfos>
   );

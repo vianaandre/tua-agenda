@@ -20,3 +20,4 @@ export const SAVE_SERVER_CLIENT = '/api/cliente/save-in-server/';
 export const CREATE_SCHEDULE = '/api/agenda/agendar';
 export const GET_SCHEDULE = '/agenda';
 export const GENERATE_PAYMENT = '/api/pagamento';
+export const CANCEL_SCHEDULE = '/api/agenda/solicitar-cancelamento';

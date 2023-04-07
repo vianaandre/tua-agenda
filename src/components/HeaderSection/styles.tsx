@@ -13,6 +13,9 @@ export const ContainerHeaderSection = styled.div`
             align-items: center;
             justify-content: space-between;
             width: 100%;
+            @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                flex-direction: column;
+            }
             div.title {
                 display: flex;
                 flex-direction: column;
@@ -24,6 +27,17 @@ export const ContainerHeaderSection = styled.div`
                         color: ${({ theme }) => theme.colors.WHITE};
                         filter: brightness(0.8)
                     }
+                }
+                @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                    h4 {
+                        font-size: ${({ theme }) => theme.fonts.sizes[20]};
+                    }
+                    p.small {
+                        font-size: ${({ theme }) => theme.fonts.sizes[12]};
+                    }
+                }
+                @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                    width: 100%;
                 }
             }
         }

@@ -3,7 +3,7 @@ import { createContext } from 'use-context-selector';
 import { useRouter } from 'next/router';
 
 import { useToast } from 'common/hooks/useToast';
-import { findSchedule } from 'services/modules/schedule';
+import { cancelSchedule, findSchedule } from 'services/modules/schedule';
 import { useAuth } from 'common/hooks/useAuth';
 import { getToken } from 'utils/getToken';
 import { ScheduleResponseProps } from 'common/interface/ScheduleResponseProps';
@@ -25,8 +25,10 @@ interface DetailsScheduleContextProps {
     selectMethodPayment?: string;
     paymentsGenerate: PaymentGenerateProps[];
     loadingPaymnetGenerate: boolean;
+    loadingCancelSchedule: boolean;
     onSelectedMethodPayment: (id: string) => void;
     onGeneratePayment: () => Promise<void>;
+    onCancelSchedule: () => Promise<void>;
 }
 
 export const DetailsScheduleContext = createContext({} as DetailsScheduleContextProps);
@@ -41,11 +43,12 @@ export function DetailsScheduleProvider({ children }: { children: React.ReactNod
   } = useCompany();
 
   const [isSchedule, setIsSchedule] = useState<ScheduleResponseProps>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isCompanyDataAlternative, setIsCompanyDataAlternative] = useState<CompanyAlternativeProps>();
   const [isSelectMethodPayment, setIsSelectMethodPayment] = useState<string>();
   const [isPaymentsGenerate, setIsPaymentsGenerate] = useState<PaymentGenerateProps[]>([]);
   const [isLoadingPaymnetGenerate, setIsLoadingPaymentGenerate] = useState<boolean>(false);
+  const [isLoadingCancelSchedule, setIsLoadingCancelSchedule] = useState<boolean>(false);
 
   const handleSelectedMethodPayment = (id: string) => setIsSelectMethodPayment((current) => (current === id ? undefined : id));
 
@@ -103,6 +106,7 @@ export function DetailsScheduleProvider({ children }: { children: React.ReactNod
         setIsCompanyDataAlternative(result);
       }
     } catch (err: any) {
+      setIsLoading(false);
       onToast({
         message: err ?? 'Ocorreu um erro de comunicação.',
         type: 'error',
@@ -148,18 +152,18 @@ export function DetailsScheduleProvider({ children }: { children: React.ReactNod
         if (result) {
           setIsPaymentsGenerate([result]);
           onToast({
-            message: 'Link de pagamento gerado.',
+            message: 'Link do pagamento gerado.',
             type: 'success',
           });
         } else {
           onToast({
-            message: 'Não é possível gerar o link de pagamento.',
+            message: 'Não foi possível gerar o link de pagamento.',
             type: 'info',
           });
         }
       } else {
         onToast({
-          message: 'Não é possível gerar o link de pagamento.',
+          message: 'Não foi possível gerar o link de pagamento.',
           type: 'info',
         });
       }
@@ -172,6 +176,35 @@ export function DetailsScheduleProvider({ children }: { children: React.ReactNod
       });
     }
   }, [isSchedule, isSelectMethodPayment, companyId, onToast]);
+
+  const handleCancelSchedule = useCallback(async () => {
+    try {
+      setIsLoadingCancelSchedule(true);
+      const isToken = getToken() as string;
+      if (isSchedule && isCompanyDataAlternative && user && user.id && isToken) {
+        const result = await cancelSchedule(isSchedule.idAgenda, isCompanyDataAlternative.id, user.id, isToken);
+
+        onToast({
+          message: result.obj ?? 'Ocorreu um erro de comunicação.',
+          type: 'info',
+        });
+        if (result.obj && result.ok) {
+          setIsSchedule((current) => ({
+            ...current!,
+            situacao: 'REQ_CANCELAMENTO',
+            situacaoFmt: 'Cancelamento solicitado',
+          }));
+        }
+      }
+      setIsLoadingCancelSchedule(false);
+    } catch (err: any) {
+      setIsLoadingCancelSchedule(false);
+      onToast({
+        message: err ?? 'Ocorreu um erro de comunicação.',
+        type: 'error',
+      });
+    }
+  }, [isSchedule, user, isCompanyDataAlternative, onToast]);
 
   useEffect(() => {
     handleLoadSchedule();
@@ -190,6 +223,12 @@ export function DetailsScheduleProvider({ children }: { children: React.ReactNod
   }, [handleSelectEmployee]);
 
   useEffect(() => {
+    if (isSchedule && isCompanyDataAlternative) {
+      setIsLoading(false);
+    }
+  }, [isSchedule, isCompanyDataAlternative]);
+
+  useEffect(() => {
     if (isSchedule) {
       handleLoadPayment();
     }
@@ -197,7 +236,7 @@ export function DetailsScheduleProvider({ children }: { children: React.ReactNod
 
   return (
     <DetailsScheduleContext.Provider value={{
-      schedule: isSchedule, loading: isLoading, companyDataAlternative: isCompanyDataAlternative, selectMethodPayment: isSelectMethodPayment, paymentsGenerate: isPaymentsGenerate, loadingPaymnetGenerate: isLoadingPaymnetGenerate, onSelectedMethodPayment: handleSelectedMethodPayment, onGeneratePayment: handleGeneratePayment,
+      schedule: isSchedule, loading: isLoading, companyDataAlternative: isCompanyDataAlternative, selectMethodPayment: isSelectMethodPayment, paymentsGenerate: isPaymentsGenerate, loadingPaymnetGenerate: isLoadingPaymnetGenerate, loadingCancelSchedule: isLoadingCancelSchedule, onSelectedMethodPayment: handleSelectedMethodPayment, onGeneratePayment: handleGeneratePayment, onCancelSchedule: handleCancelSchedule,
     }}
     >
       {children}

@@ -44,7 +44,7 @@ export const StepHours: React.FC = () => {
             <div className={`calendar ${isSelectHour ? 'select_hour' : 'select_date'}`}>
               <button type="button" className="btn_select_type" onClick={() => setIsSelectHour(true)}>
                 <ArrowLeft width={18} height={18} color={theme.colors.BLACK[500]} />
-                <h6 className="title_two title_date">Selecionar o horário</h6>
+                <h6 className="title_two title_date">Selecionar horário</h6>
               </button>
               <h6 className="title_two title_date">Selecione a data</h6>
               <Calendar
@@ -69,7 +69,7 @@ export const StepHours: React.FC = () => {
             <div className={`select_hours ${isSelectHour ? 'select_hour' : 'select_date'}`}>
               <button type="button" className="btn_select_type" onClick={() => setIsSelectHour(false)}>
                 <ArrowLeft width={18} height={18} color={theme.colors.BLACK[500]} />
-                <h6 className="title_two title_date">Selecionar outra data </h6>
+                <h6 className="title_two title_date">Selecionar data </h6>
               </button>
               {dateSelect && (
                 <h6 className="title_two">

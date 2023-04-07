@@ -4,7 +4,7 @@ import * as Tooltip from '@radix-ui/react-tooltip';
 import { useDetailsSchedule } from 'common/hooks/useDetailsSchedule';
 import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
-import { ArrowAlternative, Link, Cursor } from 'common/icons';
+import { ArrowAlternative, Check, Link } from 'common/icons';
 import { theme } from 'common/styles/theme';
 import { StatusProps } from 'common/interface/StatusProps';
 import { formatMoney } from 'utils/format';
@@ -23,13 +23,16 @@ export const PaymentOptions: React.FC = () => {
         status: StatusProps.AGUARDANDO,
       };
     }
-    if (payment.status === 'AGUARDANDO') {
+    if (payment.status === 'CONCLUIDO') {
       return {
         message: 'Pagamento efetuado',
         status: StatusProps.CONCLUIDO,
       };
     }
-    return null;
+    return {
+      message: 'Pagamento efetuado',
+      status: StatusProps.CONCLUIDO,
+    };
   }, []);
 
   return (
@@ -81,19 +84,18 @@ export const PaymentOptions: React.FC = () => {
               </div>
             )}
             <h6 className="title_two">{formatMoney(paymentGenerate.valorLiquido, 'pt-BR', 'BRL')}</h6>
-            {isStatusPayment(paymentGenerate) && isStatusPayment(paymentGenerate)?.status === StatusProps.AGUARDANDO && (
+            {isStatusPayment(paymentGenerate) && isStatusPayment(paymentGenerate)?.status === StatusProps.AGUARDANDO ? (
               <a href={paymentGenerate.link} target="_black">
                 <Link width={28} height={28} color={theme.colors.PRIMARY[500]} />
                 <p className="normal color_black_500">Pagar agora</p>
-                {/* <div className="cursor">
-                  <Cursor width={24} height={24} color={theme.colors.PRIMARY[350]} />
-                </div> */}
               </a>
+            ) : (
+              <Check width={32} height={32} color={theme.colors.SUCCESS} />
             )}
           </div>
         ))
       )}
-      {paymentsGenerate && paymentsGenerate.length > 0 && (
+      {paymentsGenerate && paymentsGenerate.length <= 0 && (
         <Button.Normal
           text="Realizar pagamento"
           type="button"

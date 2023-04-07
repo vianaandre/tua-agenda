@@ -157,7 +157,7 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
             type: 'success',
           });
           push({
-            pathname: `/appointments/${result.obj.idAgenda}`,
+            pathname: `/company/${result.obj.usuarioEmpresa}/appointments/${result.obj.idAgenda}`,
             query: {
               companyId: result.obj.idEmpresa,
             },
@@ -173,7 +173,7 @@ export function ScheduleFlowProvider({ children }: { children: React.ReactNode }
     } catch (err: any) {
       setIsLoading(false);
       onToast({
-        message: err ?? 'Ocorreu um erro de comunicação.',
+        message: err.message ?? 'Ocorreu um erro de comunicação.',
         type: 'error',
       });
     }

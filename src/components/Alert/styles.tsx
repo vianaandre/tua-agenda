@@ -14,6 +14,9 @@ export const ContainerAlert = styled.div<{
     switch (status) {
       case StatusProps.PENDENTE:
         return theme.colors.WARNING;
+      case StatusProps.CONCLUIDO:
+      case StatusProps.SUCESSO:
+        return theme.colors.SUCCESS;
       default:
         return theme.colors.WARNING;
     }
@@ -22,6 +25,9 @@ export const ContainerAlert = styled.div<{
     switch (status) {
       case StatusProps.PENDENTE:
         return theme.colors.WARNING_LIGHT;
+      case StatusProps.CONCLUIDO:
+      case StatusProps.SUCESSO:
+        return theme.colors.SUCCESS_LIGHT;
       default:
         return theme.colors.WARNING_LIGHT;
     }
@@ -37,5 +43,8 @@ export const ContainerAlert = styled.div<{
             font-weight: 700;
         };
         line-height: ${({ theme }) => theme.fonts.height[160]};
+        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+            font-size: ${({ theme }) => theme.fonts.sizes[14]};
+        }
     }
 `;

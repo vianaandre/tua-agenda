@@ -34,3 +34,6 @@ export { GoogleAlternative } from './GoogleAlternative';
 export { Delete } from './Delete';
 export { Link } from './Link';
 export { Cursor } from './Cursor';
+export { Check } from './Check';
+export { CheckAlternative } from './CheckAlternative';
+export { CloseCircle } from './CloseCircle';

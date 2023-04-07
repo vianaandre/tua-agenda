@@ -10,9 +10,11 @@ export const useDetailsSchedule = () => {
   const selectMethodPayment = useContextSelector(DetailsScheduleContext, (detailsSchedule) => detailsSchedule.selectMethodPayment);
   const paymentsGenerate = useContextSelector(DetailsScheduleContext, (detailsSchedule) => detailsSchedule.paymentsGenerate);
   const loadingPaymnetGenerate = useContextSelector(DetailsScheduleContext, (detailsSchedule) => detailsSchedule.loadingPaymnetGenerate);
+  const loadingCancelSchedule = useContextSelector(DetailsScheduleContext, (detailsSchedule) => detailsSchedule.loadingCancelSchedule);
 
   const onSelectedMethodPayment = useContextSelector(DetailsScheduleContext, (detailsSchedule) => detailsSchedule.onSelectedMethodPayment);
   const onGeneratePayment = useContextSelector(DetailsScheduleContext, (detailsSchedule) => detailsSchedule.onGeneratePayment);
+  const onCancelSchedule = useContextSelector(DetailsScheduleContext, (detailsSchedule) => detailsSchedule.onCancelSchedule);
 
   return {
     schedule,
@@ -22,7 +24,9 @@ export const useDetailsSchedule = () => {
     selectMethodPayment,
     paymentsGenerate,
     loadingPaymnetGenerate,
+    loadingCancelSchedule,
     onSelectedMethodPayment,
     onGeneratePayment,
+    onCancelSchedule,
   };
 };

@@ -5,7 +5,6 @@ export const ContainerInfos = styled.div`
     padding-bottom: ${({ theme }) => theme.spacing(6.5)};
     div.list_infos {
         width: 100%;
-        margin-top: ${({ theme }) => theme.spacing(3)};
         display: flex;
         flex-direction: column;
         gap: ${({ theme }) => theme.spacing(2)};
@@ -83,7 +82,7 @@ export const ContainerInfos = styled.div`
                     display: -webkit-box;
                     overflow: hidden;
                     @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-                        width: 35%;
+                        width: 45%;
                     }
                 }
                 div.description {
