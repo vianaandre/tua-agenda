@@ -1,10 +1,15 @@
 import React from 'react';
 import type { NextPage } from 'next';
 
-const SchedulePage: NextPage = () => {
+import { Appointments } from 'components/Appointments';
+import { AppointmentsProvider } from 'common/context/AppointmentsContext';
+
+const AppointmentsPage: NextPage = () => {
   return (
-    <div>Olá</div>
+    <AppointmentsProvider>
+      <Appointments />
+    </AppointmentsProvider>
   );
 };
 
-export default SchedulePage;
+export default AppointmentsPage;

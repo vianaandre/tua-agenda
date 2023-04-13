@@ -16,7 +16,7 @@ export const MenuUser: React.FC = () => {
         <Translation variant="white" />
       </li>
       <li>
-        <Link href="/schedules">
+        <Link href="/appointments">
           <a>
             <p className="normal color_grey_800">
               Agendamentos

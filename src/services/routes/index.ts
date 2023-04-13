@@ -21,3 +21,4 @@ export const CREATE_SCHEDULE = '/api/agenda/agendar';
 export const GET_SCHEDULE = '/agenda';
 export const GENERATE_PAYMENT = '/api/pagamento';
 export const CANCEL_SCHEDULE = '/api/agenda/solicitar-cancelamento';
+export const FETCH_APPOINTMENTS = 'api/agenda/getAgendamentos';

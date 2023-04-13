@@ -116,7 +116,7 @@ export const Mobile: React.FC = () => {
             )}
             {user && (
             <li className="link_auth">
-              <Link href="/schedules">
+              <Link href="/appointments">
                 <a>
                   <p>
                     Agendamentos
