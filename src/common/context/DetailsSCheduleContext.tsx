@@ -189,11 +189,15 @@ export function DetailsScheduleProvider({ children }: { children: React.ReactNod
           type: 'info',
         });
         if (result.obj && result.ok) {
-          setIsSchedule((current) => ({
-            ...current!,
-            situacao: 'REQ_CANCELAMENTO',
-            situacaoFmt: 'Cancelamento solicitado',
-          }));
+          setIsSchedule((current) => {
+            if (current) {
+              return {
+                ...current,
+                situacao: 'REQ_CANCELAMENTO',
+                situacaoFmt: 'Cancelamento solicitado',
+              };
+            }
+          });
         }
       }
       setIsLoadingCancelSchedule(false);

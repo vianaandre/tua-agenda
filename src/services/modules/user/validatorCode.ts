@@ -34,14 +34,17 @@ export async function validatorCode(phone: string, countryCode: string, code: st
         phoneNumber: phone,
       } as User;
 
-      const user = await saveUser(isClient, result['auth-uid']!, result.provider, result.token_whypwd) as ResponseProps<UserProps>;
+      if (result['auth-uid']) {
+        const user = await saveUser(isClient, result['auth-uid'], result.provider, result.token_whypwd) as ResponseProps<UserProps>;
 
-      await saveLocalStorage<RefreshTokenProps>({
-        ...data.obj,
-        expires: new Date(data.obj.expiresTimestamp),
-      }, 'whypwd');
+        await saveLocalStorage<RefreshTokenProps>({
+          ...data.obj,
+          expires: new Date(data.obj.expiresTimestamp),
+        }, 'whypwd');
 
-      return user.obj;
+        return user.obj;
+      }
+      throw new Error('Ocorreu um erro de comunicação.');
     }
 
     throw new Error('Ocorreu um erro de comunicação.');
