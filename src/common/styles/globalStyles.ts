@@ -256,7 +256,7 @@ export const GlobalStyles = createGlobalStyle`
         background-color: rgba(0, 0, 0, 0.44);
         position: fixed;
         inset: 0;
-        animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+        animation: animationOverlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
         z-index: ${({ theme }) => theme.zIndex.OVERLAY};
     }
     .dialog_content {
@@ -349,6 +349,61 @@ export const GlobalStyles = createGlobalStyle`
                 }
             }
         }
+        &.popover_status_content {
+            .popover_notification_content_arrow {
+                fill: ${({ theme }) => theme.colors.WHITE};
+            }
+            width: fit-content;
+            min-width: 200px;
+            padding: ${({ theme }) => theme.spacing(1.5)};
+            div.status {
+                width: 100%;
+                ul {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: ${({ theme }) => theme.spacing(2)};
+                    li {
+                        width: 100%;
+                        button {
+                            width: 100%;
+                            display: flex;
+                            justify-content: space-between;
+                            p {
+                                font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
+                                font-weight: 500;
+                                color: ${({ theme }) => theme.colors.GREY[1000]}
+                            };
+                            div.checkbox {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                border: 1px solid ${({ theme }) => theme.colors.GREY[850]};
+                                border-radius: 4px;
+                                width: ${({ theme }) => theme.spacing(2.25)};
+                                height: ${({ theme }) => theme.spacing(2.25)};
+                            }
+                            &:hover {
+                                div.checkbox {
+                                    border-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+                                }
+                            }
+                            &.active {
+                                div.checkbox {
+                                    border-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+                                    div {
+                                        width: ${({ theme }) => theme.spacing(1.75)};
+                                        height: ${({ theme }) => theme.spacing(1.75)};
+                                        border-radius: 4px;
+                                        background-color: ${({ theme }) => theme.colors.PRIMARY[500]};
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     div.popover_hours_content {
         width: 275px;
@@ -417,7 +472,7 @@ export const GlobalStyles = createGlobalStyle`
         }
     }
     .dialog_overlay {
-        animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+        animation: animationOverlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
     }
     div.dialog_content {
         width: 100vw;

@@ -29,6 +29,11 @@ export const ContainerFilter = styled.div`
                             transition: 400ms;
                             transform: rotate(-90deg);
                         }
+                        &.filter_status {
+                            svg {
+                                transform: rotate(90deg);
+                            }
+                        }
                     }
                     &.floor {
                         svg {
