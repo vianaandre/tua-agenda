@@ -667,4 +667,20 @@ export const GlobalStyles = createGlobalStyle`
             transform: translate(0%, 0%) scale(1);
         }
     }
+    @keyframes animationSlideDown {
+        from {
+            height: 0;
+        }
+        to {
+            height: var(--radix-accordion-content-height);
+        }
+    }
+    @keyframes animationSlideUp {
+        from {
+            height: var(--radix-accordion-content-height);
+        }
+        to {
+            height: 0;
+        }
+    }
 `;

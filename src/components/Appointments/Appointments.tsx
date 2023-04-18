@@ -8,6 +8,7 @@ import { useAppointments } from 'common/hooks/useAppointments';
 import { ContainerAppointments } from './styles';
 import { Graphics } from './Graphics';
 import { Filter } from './Filter';
+import { TableAppointments } from './TableAppointments';
 
 export const Appointments: React.FC = () => {
   const { loading } = useAppointments();
@@ -21,6 +22,7 @@ export const Appointments: React.FC = () => {
       />
       <Graphics />
       <Filter />
+      <TableAppointments />
     </ContainerAppointments>
   );
 };

@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <AuthProvider>
               {pathname !== '/login' && pathname !== '/register' ? <Header /> : null}
               <Component {...pageProps} />
-              {pathname !== '/login' && pathname !== '/register' ? <Footer /> : null}
+              {pathname !== '/login' && pathname !== '/register' && pathname !== '/appointments' ? <Footer /> : null}
             </AuthProvider>
           </LocationProvider>
         </ToastProvider>
