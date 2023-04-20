@@ -1,7 +1,6 @@
 import React from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 
-import { useAppointments } from 'common/hooks/useAppointments';
 import { Empty } from 'components/Empty';
 import { Container } from 'common/styles/container';
 import { ArrowAlternative, PasswordView } from 'common/icons';
@@ -9,16 +8,17 @@ import { theme } from 'common/styles/theme';
 import { Avatar } from 'components/Avatar';
 import { formatMoney } from 'utils/format';
 import { ContainerTableAppointments } from './styles';
+import { useTableAppointments } from './useTableAppointments';
 
 export const TableAppointments: React.FC = () => {
-  const { appointments } = useAppointments();
+  const { appointments } = useTableAppointments();
 
   return (
     <ContainerTableAppointments>
       {appointments.length > 0 ? (
         <Container>
           <div className="content">
-            <ol>
+            <ol className="header">
               <li className="hour">
                 <button type="button">
                   <p className="normal color_grey_950 font_weight_500">Horário</p>
@@ -42,7 +42,7 @@ export const TableAppointments: React.FC = () => {
               {appointments.map((appointment) => (
                 <Accordion.Item key={appointment.idAgenda} value={appointment.idAgenda} className="item">
                   <Accordion.Trigger asChild>
-                    <ul>
+                    <ul className="content_appointment">
                       <li className="hour">
                         <button type="button">
                           <ArrowAlternative width={24} height={24} color={theme.colors.BLACK[500]} />
@@ -73,12 +73,10 @@ export const TableAppointments: React.FC = () => {
                       </li>
                     </ul>
                   </Accordion.Trigger>
-                  <Accordion.Content className="content">
+                  <Accordion.Content className="content_accordion">
                     <ol>
-                      <li className="tag">
-                        <p className="small color_grey_700 font_weight_500">#</p>
-                      </li>
                       <li className="service">
+                        <p className="small color_grey_700 font_weight_500">#</p>
                         <p className="small color_grey_700 font_weight_500">Serviço</p>
                       </li>
                       <li className="description">
@@ -94,8 +92,25 @@ export const TableAppointments: React.FC = () => {
                         <p className="small color_grey_700 font_weight_500">Categoria</p>
                       </li>
                     </ol>
-                    {appointment.itens.map((item) => (
-                      <ul key={item.id} />
+                    {appointment.itens.map((item, index) => (
+                      <ul key={item.id}>
+                        <li className="service">
+                          <p className="small font_weight_500 color_black_500">{index + 1}</p>
+                          <p className="small font_weight_500 color_black_500">{item.nome}</p>
+                        </li>
+                        <li className="description">
+                          <p className="small font_weight_500 color_black_500">{item.nome}</p>
+                        </li>
+                        <li className="duration">
+                          <p className="small font_weight_500 color_black_500">{item.opcaoPreco}</p>
+                        </li>
+                        <li className="value">
+                          <p className="small font_weight_500 color_black_500">{item.valorFmt}</p>
+                        </li>
+                        <li className="category">
+                          <p className="small font_weight_500 color_black_500">Cabelo</p>
+                        </li>
+                      </ul>
                     ))}
                   </Accordion.Content>
                 </Accordion.Item>

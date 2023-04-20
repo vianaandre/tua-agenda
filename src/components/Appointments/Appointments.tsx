@@ -9,9 +9,11 @@ import { ContainerAppointments } from './styles';
 import { Graphics } from './Graphics';
 import { Filter } from './Filter';
 import { TableAppointments } from './TableAppointments';
+import { LoadingScroll } from './LoadingScroll';
+import { SelectedFilters } from './SelectedFilters';
 
 export const Appointments: React.FC = () => {
-  const { loading } = useAppointments();
+  const { loading, filters } = useAppointments();
   return (
     <ContainerAppointments>
       <Loading open={loading === 'appointments'} />
@@ -22,7 +24,13 @@ export const Appointments: React.FC = () => {
       />
       <Graphics />
       <Filter />
+      {filters && (
+        <SelectedFilters filters={filters} />
+      )}
       <TableAppointments />
+      {loading === 'appointments-scroll' && (
+        <LoadingScroll />
+      )}
     </ContainerAppointments>
   );
 };

@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+export const baseURL = process.env.REACT_APP_BACKEND_CLIENT;
+export const baseURLG = process.env.REACT_APP_BACKEND_G_CLIENT;
+
 const apiMock = axios.create({
   baseURL: process.env.URL_API_MOCK,
   headers: {
@@ -8,14 +11,14 @@ const apiMock = axios.create({
 });
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_CLIENT,
+  baseURL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 const apiAlternative = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_G_CLIENT,
+  baseURL: baseURLG,
   headers: {
     'Content-Type': 'application/json',
     token: process.env.APP_TOKEN,

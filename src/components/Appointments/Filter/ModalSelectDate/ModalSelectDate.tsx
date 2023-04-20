@@ -1,7 +1,7 @@
 import React from 'react';
 import { Close } from '@radix-ui/react-dialog';
 
-import { ReactCalendar } from 'components/_ui/ReactCalendar';
+import { ReactCalendar } from 'components/UI/ReactCalendar';
 import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
 import { ContainerModalSelectDate } from './styles';

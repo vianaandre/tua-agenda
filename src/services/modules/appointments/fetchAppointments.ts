@@ -4,13 +4,14 @@ import { getCookie } from 'cookies-next';
 
 import { api } from 'services/api';
 import { FETCH_APPOINTMENTS } from 'services/routes';
+import { LIMIT_PER_PAGE_APPOINTMENTS } from 'utils/constant';
 
-export async function fetchAppointments(userId: string) {
+export async function fetchAppointments(userId: string, offset: number) {
   try {
     const isTokenWhypwd = getCookie('@Auth:token');
 
     if (isTokenWhypwd) {
-      const { data } = await api.get(`${FETCH_APPOINTMENTS}/${userId}?offset=0`, {
+      const { data } = await api.get(`${FETCH_APPOINTMENTS}/${userId}?offset=${offset}&limit=${LIMIT_PER_PAGE_APPOINTMENTS}`, {
         timeout: 30000,
         headers: {
           'token-id': isTokenWhypwd,
