@@ -1,5 +1,5 @@
 import {
-  useCallback, useEffect, useMemo, useState,
+  useCallback, useEffect, useState,
 } from 'react';
 import { createContext } from 'use-context-selector';
 
@@ -15,6 +15,7 @@ import { ResponseProps } from 'common/interface/ResponseProps';
 
 interface AppointmentsContextProps {
     appointments: AppointmentsProps[];
+    appointmentsForFilters: AppointmentsProps[];
     loading?: 'appointments' | 'appointments-scroll';
     filters?: FilterAppointmentsProps;
     offset: number;
@@ -30,6 +31,7 @@ export function AppointmentsProvider({ children }: { children: React.ReactNode }
 
   const [isLoading, setIsLoading] = useState<'appointments' | 'appointments-scroll'>();
   const [isAppointments, setIsAppointments] = useState<AppointmentsProps[]>([]);
+  const [isAppointmentsForFilters, setIsAppointmentsForFilters] = useState<AppointmentsProps[]>([]);
   const [isFilters, setIsFilters] = useState<FilterAppointmentsProps>();
   const [isOffset, setIsOffset] = useState<number>(0);
 
@@ -37,14 +39,6 @@ export function AppointmentsProvider({ children }: { children: React.ReactNode }
 
   const handleChangeOffset = useCallback((newOffset: number) => {
     setIsOffset(newOffset);
-  }, []);
-
-  const handleFormattedPerDate = useCallback((appointments: AppointmentsProps[]): AppointmentsProps[] => {
-    const isNewFormattedPerDate = appointments.sort((appointmentA, appointmentB) => {
-      return (new Date(appointmentB.dtHrAgendamento) as any) - (new Date(appointmentA.dtHrAgendamento) as any);
-    });
-
-    return isNewFormattedPerDate;
   }, []);
 
   const handleLoadAppointments = useCallback(async (data?: AppointmentsProps[], error?: any, loadingLoad?: boolean) => {
@@ -56,9 +50,12 @@ export function AppointmentsProvider({ children }: { children: React.ReactNode }
     if (data && !loadingLoad) {
       if (data.length > 0) {
         setIsAppointments((current) => {
-          const isFormattedPerDate = handleFormattedPerDate([...(current ?? []), ...data]);
-
-          return isFormattedPerDate;
+          const dataFilterRepeat = data.filter((d) => !current.find((c) => c.idAgenda === d.idAgenda));
+          return [...(current ?? []), ...dataFilterRepeat];
+        });
+        setIsAppointmentsForFilters((current) => {
+          const dataFilterRepeat = data.filter((d) => !current.find((c) => c.idAgenda === d.idAgenda));
+          return [...(current ?? []), ...dataFilterRepeat];
         });
       }
     }
@@ -68,7 +65,7 @@ export function AppointmentsProvider({ children }: { children: React.ReactNode }
         type: 'error',
       });
     }
-  }, [onToast, handleFormattedPerDate, isOffset]);
+  }, [onToast, isOffset]);
 
   const handleChangeFilter = useCallback((filter: FilterAppointmentsProps) => {
     setIsFilters((current) => ({
@@ -77,17 +74,13 @@ export function AppointmentsProvider({ children }: { children: React.ReactNode }
     }));
   }, []);
 
-  const filteredItems = useMemo(() => {
-    return isAppointments;
-  }, [isAppointments]);
-
   useEffect(() => {
     handleLoadAppointments(data?.obj, error, loadingSWR);
   }, [data, error, loadingSWR, handleLoadAppointments]);
 
   return (
     <AppointmentsContext.Provider value={{
-      appointments: filteredItems, loading: isLoading, filters: isFilters, onChangeFilter: handleChangeFilter, offset: isOffset, onChangeOffset: handleChangeOffset,
+      appointments: isAppointments, loading: isLoading, filters: isFilters, appointmentsForFilters: isAppointmentsForFilters, onChangeFilter: handleChangeFilter, offset: isOffset, onChangeOffset: handleChangeOffset,
     }}
     >
       {children}

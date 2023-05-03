@@ -3,6 +3,7 @@ import { AppointmentsContext } from 'common/context/AppointmentsContext';
 
 export function useAppointments() {
   const appointments = useContextSelector(AppointmentsContext, (appointments) => appointments.appointments);
+  const appointmentsForFilters = useContextSelector(AppointmentsContext, (appointments) => appointments.appointmentsForFilters);
   const loading = useContextSelector(AppointmentsContext, (appointments) => appointments.loading);
   const filters = useContextSelector(AppointmentsContext, (appointments) => appointments.filters);
   const offset = useContextSelector(AppointmentsContext, (appointments) => appointments.offset);
@@ -11,6 +12,7 @@ export function useAppointments() {
 
   return {
     appointments,
+    appointmentsForFilters,
     loading,
     filters,
     offset,

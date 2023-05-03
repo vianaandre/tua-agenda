@@ -210,5 +210,9 @@ export const ContainerTableAppointments = styled.div`
                 width: 15%;
             }
         }
+        div.empty {
+            height: 400px;
+            display: flex;
+        }
     }
 `;

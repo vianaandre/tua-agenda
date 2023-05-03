@@ -11,18 +11,18 @@ import { ContainerTableAppointments } from './styles';
 import { useTableAppointments } from './useTableAppointments';
 
 export const TableAppointments: React.FC = () => {
-  const { appointments } = useTableAppointments();
+  const { appointments, loading } = useTableAppointments();
 
   return (
     <ContainerTableAppointments>
-      {appointments.length > 0 ? (
+      {loading !== 'appointments' && appointments.length > 0 && (
         <Container>
           <div className="content">
             <ol className="header">
               <li className="hour">
                 <button type="button">
                   <p className="normal color_grey_950 font_weight_500">Horário</p>
-                  <ArrowAlternative width={24} height={24} color={theme.colors.GREY[700]} />
+                  {/* <ArrowAlternative width={24} height={24} color={theme.colors.GREY[700]} /> */}
                 </button>
               </li>
               <li className="company">
@@ -118,8 +118,13 @@ export const TableAppointments: React.FC = () => {
             </Accordion.Root>
           </div>
         </Container>
-      ) : (
-        <Empty text="Sem agendamentos " />
+      )}
+      {!loading && appointments.length <= 0 && (
+        <Container>
+          <div className="empty">
+            <Empty text="Sem agendamentos " />
+          </div>
+        </Container>
       )}
     </ContainerTableAppointments>
   );

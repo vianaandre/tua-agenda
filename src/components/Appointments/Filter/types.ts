@@ -9,4 +9,5 @@ export type UseFilterType = {
     onSelectFilterStatus: (status: StatusAppointmentsProps) => void;
     onSelectFilterPrice: (price: PriceType) => void;
     onSelectDateFilter: (date: Date, confirmFilter: boolean) => void;
+    onChangeFilterSearch: (search: string) => void;
 }

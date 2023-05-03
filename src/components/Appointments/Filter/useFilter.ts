@@ -18,9 +18,7 @@ export function useFilter(): UseFilterType {
       ...filters,
       status,
     });
-    setTimeout(() => {
-      handleOpenFilterStatus(false);
-    }, 500);
+    handleOpenFilterStatus(false);
   }, [filters, onChangeFilter]);
 
   const handleSelectFilterPrice = useCallback((price: PriceType) => {
@@ -40,6 +38,13 @@ export function useFilter(): UseFilterType {
     }
   }, [filters, onChangeFilter]);
 
+  const handleChangeFilterSearch = useCallback((search: string) => {
+    onChangeFilter({
+      ...filters,
+      search,
+    });
+  }, [filters, onChangeFilter]);
+
   return {
     openFilterStatus: isOpenFilterStatus,
     filters,
@@ -48,5 +53,6 @@ export function useFilter(): UseFilterType {
     onSelectFilterStatus: handleSelectFilterStatus,
     onOpenFilterStatus: handleOpenFilterStatus,
     onSelectFilterPrice: handleSelectFilterPrice,
+    onChangeFilterSearch: handleChangeFilterSearch,
   };
 }

@@ -3,5 +3,6 @@ import { StatusAppointmentsProps } from 'common/interface/StatusAppointmentsProp
 
 export type UseTableAppointments = {
     getStatus: (status: StatusAppointmentsProps) => string;
-    appointments: AppointmentsProps[]
+    appointments: AppointmentsProps[];
+    loading?: 'appointments' | 'appointments-scroll';
 }

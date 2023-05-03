@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import * as Popover from '@radix-ui/react-popover';
 import * as Dialog from '@radix-ui/react-dialog';
@@ -15,8 +15,12 @@ import { ModalSelectDate } from './ModalSelectDate';
 export const Filter: React.FC = () => {
   const methods = useForm<{ search: string }>();
   const {
-    onOpenFilterStatus, openFilterStatus, onSelectFilterStatus, filters, onSelectFilterPrice, onSelectDateFilter, dateFilter,
+    onOpenFilterStatus, openFilterStatus, onSelectFilterStatus, filters, onSelectFilterPrice, onSelectDateFilter, dateFilter, onChangeFilterSearch,
   } = useFilter();
+
+  useEffect(() => {
+    methods.setValue('search', filters?.search ?? '');
+  }, [methods, filters]);
 
   return (
     <ContainerFilter>
@@ -32,6 +36,9 @@ export const Filter: React.FC = () => {
                 icon={{
                   direction: 'left',
                   icon: <Search color={theme.colors.GREY[600]} width={24} height={24} />,
+                }}
+                onChange={(event) => {
+                  onChangeFilterSearch(event.target.value);
                 }}
               />
             </div>
@@ -56,7 +63,7 @@ export const Filter: React.FC = () => {
                     <div className="status">
                       <ul>
                         {statusAppointments.map((status) => (
-                          <li>
+                          <li key={status.status}>
                             <button
                               type="button"
                               className={filters?.status === status.status ? 'active' : ''}
