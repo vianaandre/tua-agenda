@@ -19,6 +19,7 @@ export const ContainerStatus = styled.div<{
       case 'Pendente':
         return theme.colors.WARNING;
       case 'Concluído':
+      case 'Atendido':
         return theme.colors.SUCCESS;
       default:
         return theme.colors.DANGER;
@@ -33,6 +34,7 @@ export const ContainerStatus = styled.div<{
       case 'Pendente':
         return theme.colors.WARNING;
       case 'Concluído':
+      case 'Atendido':
         return theme.colors.SUCCESS;
       default:
         return theme.colors.DANGER;

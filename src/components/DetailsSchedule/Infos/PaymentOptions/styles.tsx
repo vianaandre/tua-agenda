@@ -33,6 +33,7 @@ export const ContainerPaymentOptions = styled.div`
             img {
                 width: fit-content;
                 height: fit-content;
+                object-fit: contain;
             };
             transition: 400ms;
             &:hover, &.active {

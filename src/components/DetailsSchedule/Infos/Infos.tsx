@@ -118,7 +118,7 @@ export const Infos: React.FC = () => {
             {schedule?.observacaoPublica ?? '-'}
           </p>
         </div>
-        {schedule?.situacao === 'AGENDADO' && (
+        {(schedule?.situacao === 'AGENDADO') && (
         <PaymentOptions />
         )}
       </Container>

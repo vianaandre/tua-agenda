@@ -53,8 +53,15 @@ export const ContainerActionAPPCardLeft = styled.div`
 
 export const ContainerActionAPPCardRight = styled.div`
     margin-bottom: -10px;
+    img {
+        max-width: 555px;
+        object-fit: contain;
+    }
     @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         margin-bottom: -90px;
+        img {
+            max-width: 400px;
+        }
     }
 `;
 

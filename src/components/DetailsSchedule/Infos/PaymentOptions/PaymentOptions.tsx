@@ -55,7 +55,7 @@ export const PaymentOptions: React.FC = () => {
                 <Tooltip.Root key={gateway.id} delayDuration={100}>
                   <Tooltip.Trigger asChild>
                     <button type="button" onClick={() => onSelectedMethodPayment(gateway.id)} className={`${selectMethodPayment === gateway.id ? 'active' : ''}`}>
-                      <img src={gateway.linkImagem} width={218} height={99} alt={gateway.nome} />
+                      <img src={gateway.linkImagem} alt={gateway.nome} />
                     </button>
                   </Tooltip.Trigger>
                   <Tooltip.Portal>

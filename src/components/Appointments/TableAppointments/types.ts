@@ -5,4 +5,6 @@ export type UseTableAppointments = {
     getStatus: (status: StatusAppointmentsProps) => string;
     appointments: AppointmentsProps[];
     loading?: 'appointments' | 'appointments-scroll';
+    hasMore: boolean;
+    handleScrollWindow: () => void;
 }

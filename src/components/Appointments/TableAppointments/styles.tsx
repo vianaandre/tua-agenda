@@ -4,9 +4,11 @@ export const ContainerTableAppointments = styled.div`
     div.container {
         div.content {
             border-radius: ${({ theme }) => theme.spacing(1)};
-            /* border: 1px solid ${({ theme }) => theme.colors.GREY[500]}; */
             padding: 0px;
             margin-bottom: ${({ theme }) => theme.spacing(6)};
+            @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                margin-bottom: ${({ theme }) => theme.spacing(1)};
+            }
         }
         p {
             font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
@@ -16,6 +18,12 @@ export const ContainerTableAppointments = styled.div`
             display: flex;
             border-bottom: 1px solid ${({ theme }) => theme.colors.GREY[500]};
             padding: 0px ${({ theme }) => theme.spacing(4)};
+            @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+                padding: 0px ${({ theme }) => theme.spacing(2)};
+            }
+            @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                display: none;
+            }
             li {
                 display: flex;
                 justify-content: flex-start;
@@ -38,9 +46,18 @@ export const ContainerTableAppointments = styled.div`
         div.item {
             border-bottom: 1px solid ${({ theme }) => theme.colors.GREY[500]};
             padding: 0px ${({ theme }) => theme.spacing(4)};
+            @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+                padding: 0px ${({ theme }) => theme.spacing(2)};
+            }
+            @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                padding: 0px;
+            }
         }
         div.item:nth-child(odd) {
             background-color: #5129A605;
+            @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                background-color: transparent;
+            }
         }
         div.item:last-child {
             border-bottom: none;
@@ -57,6 +74,9 @@ export const ContainerTableAppointments = styled.div`
                     transition: 400ms;
                     transform: rotate(0deg);
                 }
+                @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                    display: none;
+                }
             }
         }
         li.company {
@@ -70,6 +90,12 @@ export const ContainerTableAppointments = styled.div`
                     display: flex;
                     flex-direction: column;
                 }
+            }
+            @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+                div.avatar {
+                    display: none;
+                }
+                width: 15%;
             }
         }
         li.total, li.status {
@@ -85,6 +111,9 @@ export const ContainerTableAppointments = styled.div`
                     width: ${({ theme }) => theme.spacing(1)};
                     height: ${({ theme }) => theme.spacing(1)};
                     border-radius: 50%;
+                    @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+                        display: none;
+                    }
                 }
             }
             &.REQ_CANCELAMENTO, &.CANCELADO {
@@ -120,6 +149,10 @@ export const ContainerTableAppointments = styled.div`
         }
         li.total {
             padding-left: ${({ theme }) => theme.spacing(2)};
+            @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+                padding-left: ${({ theme }) => theme.spacing(1)};
+                width: 20%;
+            }
         }
         li.link {
             width: 5%;
@@ -155,6 +188,16 @@ export const ContainerTableAppointments = styled.div`
                     }
                 }
             }
+            @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                div.list_mobile {
+                    button {
+                        svg {
+                            transition: 400ms;
+                            transform: rotate(90deg);
+                        }
+                    }
+                }
+            }
         }
         div[data-state="open"].content_accordion {
             animation: animationSlideDown 300ms cubic-bezier(0.87, 0, 0.13, 1);
@@ -174,6 +217,9 @@ export const ContainerTableAppointments = styled.div`
             }
             ul, ol {
                 border-top: 1px solid ${({ theme }) => theme.colors.GREY[500]};
+                @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                    border-top: none;
+                }
             }
             ul:last-child {
                 padding-bottom: ${({ theme }) => theme.spacing(2)};
@@ -202,17 +248,135 @@ export const ContainerTableAppointments = styled.div`
             li.duration {
                 width: 20%;
                 padding-left: ${({ theme }) => theme.spacing(8)};
-            }
-            li.value {
-                padding-left: ${({ theme }) => theme.spacing(2)};
+                @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+                    padding-left: 0px;
+                    width: 15%;
+                }
             }
             li.value, li.category {
                 width: 15%;
+            }
+            li.value {
+                padding-left: ${({ theme }) => theme.spacing(2)};
+                @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+                    width: 20%;
+                }
+            }
+            div.itens_mobile {
+                display: none;
+            }
+            @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                ol {
+                    display: none;
+                }
+                ul.itens_desktop {
+                    display: none;
+                }
+                div.itens_mobile {
+                    display: flex;
+                    flex-direction: column;
+                    ul {
+                        width: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        padding-bottom: 0px;
+                        li {
+                            width: 100%;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            border-bottom: 1px solid ${({ theme }) => theme.colors.GREY[500]};
+                            &:first-child {
+                                padding-top: 0px;
+                            }
+                        }
+                    }
+                    div.status_link {
+                        width: 100%;
+                        display: flex;
+                        justify-content: flex-end;
+                        align-items: center;
+                        gap: ${({ theme }) => theme.spacing(3)};
+                        padding: ${({ theme }) => theme.spacing(3)} 0px;
+                        div.status {
+                            div.chip {
+                                position: relative;
+                                display: flex;
+                                align-items: center;
+                                gap: ${({ theme }) => theme.spacing(1)};
+                                &:before {
+                                    content: "";
+                                    display: block;
+                                    width: ${({ theme }) => theme.spacing(1)};
+                                    height: ${({ theme }) => theme.spacing(1)};
+                                    border-radius: 50%;
+                                }
+                            }
+                            &.REQ_CANCELAMENTO, &.CANCELADO {
+                                div.chip {
+                                    &:before {
+                                        background-color: ${({ theme }) => theme.colors.DANGER};
+                                    }
+                                    p.small {
+                                        color: ${({ theme }) => theme.colors.DANGER}
+                                    }
+                                }
+                            }
+                            &.AGENDADO {
+                                div.chip {
+                                    &:before {
+                                        background-color: ${({ theme }) => theme.colors.WARNING};
+                                    }
+                                    p.small {
+                                        color: ${({ theme }) => theme.colors.WARNING}
+                                    }
+                                }
+                            }
+                            &.CONFIRMADO, &.ATENDIDO {
+                                div.chip {
+                                    &:before {
+                                        background-color: ${({ theme }) => theme.colors.SUCCESS};
+                                    }
+                                    p.small {
+                                        color: ${({ theme }) => theme.colors.SUCCESS}
+                                    }
+                                }
+                            }
+                        }
+                        a {
+                            display: flex;
+                        }
+                    }
+                }
             }
         }
         div.empty {
             height: 400px;
             display: flex;
+            @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                height: 240px;
+                padding: 24px;
+            }
+        }
+        div.list_mobile {
+            display: none;
+        }
+        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+            div.list_mobile {
+                display: flex;
+                justify-content: space-between;
+                padding: ${({ theme }) => theme.spacing(3)} 0px;
+                cursor: pointer;
+                button {
+                    svg {
+                        transition: 400ms;
+                        transform: rotate(0deg);
+                    }
+                }
+            }
+            ul.list_desktop {
+                display: none;
+            }
         }
     }
 `;

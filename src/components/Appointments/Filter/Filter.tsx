@@ -44,8 +44,13 @@ export const Filter: React.FC = () => {
             </div>
             <div className="filters">
               <button type="button" className={`filter_price filter arrow ${filters?.price === 'ceil' ? 'floor' : 'ceil'}`} onClick={() => onSelectFilterPrice(filters?.price === 'ceil' ? 'floor' : 'ceil')}>
-                <p className="normal color_dark">
+                <p className="normal color_dark desktop">
                   Filtrar por Preço mais
+                  {' '}
+                  {filters?.price === 'ceil' ? 'baixo' : 'alto'}
+                </p>
+                <p className="normal color_dark mobile">
+                  Preço mais
                   {' '}
                   {filters?.price === 'ceil' ? 'baixo' : 'alto'}
                 </p>
@@ -54,7 +59,8 @@ export const Filter: React.FC = () => {
               <Popover.Root open={openFilterStatus} onOpenChange={onOpenFilterStatus}>
                 <Popover.Trigger asChild>
                   <button type="button" className="filter_price filter arrow filter_status">
-                    <p className="normal color_dark">Filtrar por Status</p>
+                    <p className="normal color_dark desktop">Filtrar por Status</p>
+                    <p className="normal color_dark mobile">Status</p>
                     <ArrowAlternative width={24} height={24} color={theme.colors.PRIMARY[800]} />
                   </button>
                 </Popover.Trigger>

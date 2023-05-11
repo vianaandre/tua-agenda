@@ -5,7 +5,7 @@ import { IAvatar } from './interface';
 
 export const Avatar: React.FC<IAvatar> = ({ image, username, variant = 'small' }) => {
   return (
-    <ContainerAvatar variant={variant} className={`${image ? 'image' : ''}`}>
+    <ContainerAvatar variant={variant} className={`${image ? 'image' : ''} avatar`}>
       {image ? (
         <ContainerAvatarImage imageUrl={image} variant={variant} />
         // <img src={image} alt={username} />

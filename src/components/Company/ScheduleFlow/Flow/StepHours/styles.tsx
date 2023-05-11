@@ -192,6 +192,7 @@ export const ContainerStepHours = styled.div`
         button.next {
             margin-top: auto;
             justify-content: space-between;
+            min-height: 50px;
         }
     }
     button.btn_select_type {

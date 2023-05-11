@@ -23,17 +23,17 @@ export const ContainerLoadingScroll = styled.div`
     }
 
     .dot1 {
-        animation: jump765 1.6s -0.32s linear infinite;
+        animation: jump765 1s -0.32s linear infinite;
         background: ${({ theme }) => theme.colors.PRIMARY[500]};
     }
 
     .dot2 {
-        animation: jump765 1.6s -0.16s linear infinite;
+        animation: jump765 1s -0.16s linear infinite;
         background: ${({ theme }) => theme.colors.PRIMARY[500]};
     }
 
     .dot3 {
-        animation: jump765 1.6s linear infinite;
+        animation: jump765 1s linear infinite;
         background: ${({ theme }) => theme.colors.PRIMARY[500]};
     }
 

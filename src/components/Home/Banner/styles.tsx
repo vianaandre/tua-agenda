@@ -14,6 +14,10 @@ export const ContainerBanner = styled.div`
             position: absolute;
             right: 0;
             top: ${({ theme }) => theme.spacing(2)};
+            img {
+                max-width: 501px;
+                object-fit: contain;
+            }
             @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
                 display: none;
             }

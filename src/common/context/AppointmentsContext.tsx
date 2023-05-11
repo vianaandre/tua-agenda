@@ -19,6 +19,7 @@ interface AppointmentsContextProps {
     loading?: 'appointments' | 'appointments-scroll';
     filters?: FilterAppointmentsProps;
     offset: number;
+    hasMore: boolean;
     onChangeFilter: (filter: FilterAppointmentsProps) => void;
     onChangeOffset: (newOffset: number) => void;
 }
@@ -34,6 +35,7 @@ export function AppointmentsProvider({ children }: { children: React.ReactNode }
   const [isAppointmentsForFilters, setIsAppointmentsForFilters] = useState<AppointmentsProps[]>([]);
   const [isFilters, setIsFilters] = useState<FilterAppointmentsProps>();
   const [isOffset, setIsOffset] = useState<number>(0);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
   const { data, error, loadingSWR } = usePaginationAppointments<ResponseProps<AppointmentsProps[]>>(`${FETCH_APPOINTMENTS}/${user?.id}?offset=${isOffset}&limit=${LIMIT_PER_PAGE_APPOINTMENTS}`, user?.id);
 
@@ -57,6 +59,11 @@ export function AppointmentsProvider({ children }: { children: React.ReactNode }
           const dataFilterRepeat = data.filter((d) => !current.find((c) => c.idAgenda === d.idAgenda));
           return [...(current ?? []), ...dataFilterRepeat];
         });
+        if (data.length < 5) {
+          setHasMore(false);
+        }
+      } else {
+        setHasMore(false);
       }
     }
     if (!data && error && !loadingLoad) {
@@ -80,7 +87,7 @@ export function AppointmentsProvider({ children }: { children: React.ReactNode }
 
   return (
     <AppointmentsContext.Provider value={{
-      appointments: isAppointments, loading: isLoading, filters: isFilters, appointmentsForFilters: isAppointmentsForFilters, onChangeFilter: handleChangeFilter, offset: isOffset, onChangeOffset: handleChangeOffset,
+      appointments: isAppointments, loading: isLoading, filters: isFilters, appointmentsForFilters: isAppointmentsForFilters, hasMore, onChangeFilter: handleChangeFilter, offset: isOffset, onChangeOffset: handleChangeOffset,
     }}
     >
       {children}

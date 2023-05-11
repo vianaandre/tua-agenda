@@ -6,6 +6,10 @@ export const ContainerLoading = styled.div`
     z-index: 1 !important;
     display: flex;
 
+    svg {
+        width: 200px;
+    }
+
     &.disabled {
         transition: 400ms;
         opacity: 0;

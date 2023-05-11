@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 
 import { Container } from 'common/styles/container';
 import ActionAppMobile from 'common/assets/home/action-app-mobile.png';
@@ -30,7 +29,7 @@ export const ActionAPP: React.FC = () => {
             </div>
           </ContainerActionAPPCardLeft>
           <ContainerActionAPPCardRight>
-            <Image src={ActionAppMobile.src} width={ActionAppMobile.width} height={ActionAppMobile.height} alt="Aplicativo" />
+            <img src={ActionAppMobile.src} alt="Aplicativo" />
           </ContainerActionAPPCardRight>
           <CoontainerActionBlockRight />
         </Container>

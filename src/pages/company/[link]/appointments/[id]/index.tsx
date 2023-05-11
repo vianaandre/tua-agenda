@@ -18,7 +18,7 @@ const DetailsSchedulePage: NextPage = () => {
     <CompanyProvider>
       <DetailsScheduleProvider>
         <SEO
-          nome={`${process.env.WEBSITE_NAME} - Portal de Agendamentos`}
+          nome={`${process.env.WEBSITE_NAME} - Detalhes do Agendamento`}
           description="Sistema de agendamento para demonstrar como será o sistema do cliente. Tua Agenda - Sua agenda sempre em mãos"
           pathname="/"
         />

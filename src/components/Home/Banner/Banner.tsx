@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import 'animate.css/animate.min.css';
 
 import HomeBannerBg from 'common/assets/home/banner-bg.png';
@@ -16,7 +15,7 @@ export const Banner: React.FC = () => {
       <ContainerBannerImageBg src={HomeBannerBg.src} alt="imagem de fundo do Banner" />
       <Container>
         <div className="banne_photo">
-          <Image src={HomeBannerPhoto.src} alt="Retrato de uma Pessoa" width={HomeBannerPhoto.width} height={HomeBannerPhoto.height} />
+          <img src={HomeBannerPhoto.src} alt="Retrato de uma Pessoa" />
         </div>
         <div className="banner_content">
           <h1 className="title">Descubra e agende profissionais de várias áreas bem perto de você</h1>

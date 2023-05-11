@@ -1,13 +1,13 @@
 import { useAppointments } from 'common/hooks/useAppointments';
 import { StatusAppointmentsProps } from 'common/interface/StatusAppointmentsProps';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { PriceType } from 'common/interface/FilterAppointmentsProps';
 import { AppointmentsProps } from 'common/interface/AppointmentsProps';
 import { UseTableAppointments } from './types';
 
 export function useTableAppointments(): UseTableAppointments {
   const {
-    appointments, onChangeOffset, loading, filters, appointmentsForFilters,
+    appointments, onChangeOffset, loading, filters, appointmentsForFilters, hasMore,
   } = useAppointments();
 
   const getStatus = (status: StatusAppointmentsProps) => {
@@ -64,21 +64,11 @@ export function useTableAppointments(): UseTableAppointments {
     return appointments;
   }, [appointments, filters, handleComparePrice, appointmentsForFilters]);
 
-  useEffect(() => {
-    if (!filters?.date && !filters?.price && !filters?.search && !filters?.status) {
-      window.addEventListener('scroll', () => {
-        if (window.innerHeight + document.documentElement.scrollTop === (window.document.scrollingElement as { scrollHeight: number }).scrollHeight) {
-          handleScrollWindow();
-        }
-      });
-    } else {
-      window.removeEventListener('scroll', () => true, true);
-    }
-  }, [handleScrollWindow, filters]);
-
   return {
     getStatus,
     appointments: filteredItems,
     loading,
+    hasMore,
+    handleScrollWindow,
   };
 }

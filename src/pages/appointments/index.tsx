@@ -17,7 +17,7 @@ const AppointmentsPage: NextPage = () => {
 
   return (
     <React.Fragment>
-      <SEO description="Listagem dos agendamentos" nome="Agendamentos" pathname="https://tua-agenda-dev.vercel.app/" />
+      <SEO description="Listagem dos agendamentos" nome={`${process.env.WEBSITE_NAME} - Agendamentos`} pathname="https://tua-agenda-dev.vercel.app/" />
       <Loading open={loadingUser} />
       {user && (
       <AppointmentsProvider>

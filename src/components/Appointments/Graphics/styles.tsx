@@ -4,9 +4,10 @@ export const ContainerGraphics = styled.div`
     width: 100%;
     background-color: ${({ theme }) => theme.colors.PRIMARY[800]};
     padding-bottom: ${({ theme }) => theme.spacing(7)};
+    @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        display: none;
+    }
     div.container {
-        display: flex;
-        gap: ${({ theme }) => theme.spacing(4)};
         div.item_graphic {
             width: calc(100% / 3 - ${({ theme }) => theme.spacing(3.5)});
             padding: ${({ theme }) => theme.spacing(4)};
@@ -15,6 +16,12 @@ export const ContainerGraphics = styled.div`
             display: flex;
             flex-direction: column;
             gap: ${({ theme }) => theme.spacing(4)};
+            @media(max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+                padding: ${({ theme }) => theme.spacing(2)};
+            }
+            @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+                width: calc(100% / 3 - ${({ theme }) => theme.spacing(1.5)})
+            }
             div.header {
                 display: flex;
                 justify-content: space-between;
@@ -47,6 +54,10 @@ export const ContainerGraphics = styled.div`
                 span {
                     font-family: ${({ theme }) => theme.fonts.family.PRIMARY};
                 }
+                @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
             }
             &.atended {
                 span {
@@ -72,6 +83,25 @@ export const ContainerGraphics = styled.div`
             div.graphic {
                 width: 100%;
                 overflow: hidden;
+            }
+        }
+        div.mobile {
+            display: none;
+        }
+        div.desktop {
+            display: flex;
+            gap: ${({ theme }) => theme.spacing(4)};
+            @media(max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+                gap: ${({ theme }) => theme.spacing(2)};
+            }
+            @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+                display: none;
+            }
+        }
+        @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+            div.mobile {
+                display: flex;
+                width: 100%;
             }
         }
     }
