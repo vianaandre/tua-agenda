@@ -3,8 +3,16 @@ import React from 'react';
 import { Notifications } from 'components/Notifications';
 import { NotificationsProvider } from 'common/context/NotificationsContext';
 import { SEO } from 'components/SEO';
+import { useAuth } from 'common/hooks/useAuth';
+import { Page404 } from 'components/Page404';
 
 const NotificationsPage: React.FC = () => {
+  const { loadingUser, user } = useAuth();
+
+  if (!loadingUser && !user) {
+    return <Page404 />;
+  }
+
   return (
     <NotificationsProvider>
       <SEO
