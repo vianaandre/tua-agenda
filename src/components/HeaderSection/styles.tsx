@@ -15,6 +15,7 @@ export const ContainerHeaderSection = styled.div`
             width: 100%;
             @media(max-width: ${({ theme }) => theme.breakpoints.mobile}) {
                 flex-direction: column;
+                border-top: 0px;
             }
             div.title {
                 display: flex;

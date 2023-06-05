@@ -1,0 +1,1 @@
+export { TableNotifications } from './TableNotifications';

@@ -31,7 +31,7 @@ export const Notification: React.FC = () => {
             {notifications && notifications.length > 0 ? (
               <React.Fragment>
                 {notifications.map((item) => (
-                  <div className="dropdown_notification_content_item">
+                  <div className="dropdown_notification_content_item" key={item.id}>
                     <button type="button">
                       <p className="small">
                         {format(new Date(item.dtInclusao), "dd/MM/yy 'ás' h:mm", {

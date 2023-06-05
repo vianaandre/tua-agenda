@@ -17,8 +17,8 @@ export const ContainerNotification = styled.div`
                 height: 8px;
                 border-radius: 50%;
                 background-color: ${({ theme }) => theme.colors.SUCCESS};
-                top: 4px;
-                right: 10px;
+                top: 6px;
+                right: 12px;
             }
         }
     }

@@ -32,7 +32,7 @@ export const SEO: React.FC<ISEO> = ({
       <link rel="apple-touch-icon" sizes="152x152" href="/assets/logo-192.png" />
       <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo-384.png" />
       <link rel="apple-touch-icon" sizes="167x167" href="/assets/logo-512.png" />
-      <link rel="icon" sizes="32x32" href="favicon.svg" />
+      <link rel="icon" sizes="32x32" href="favicon.png" />
       <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#05B59D" />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={isUrlOrigin} />

@@ -39,3 +39,4 @@ export { CheckAlternative } from './CheckAlternative';
 export { CloseCircle } from './CloseCircle';
 export { PCCheck } from './PCCheck';
 export { Remove } from './Remove';
+export { Whats } from './Whats';

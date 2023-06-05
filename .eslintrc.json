@@ -75,6 +75,7 @@
       "no-useless-escape": "off",
       "jsx-a11y/label-has-associated-control": "off",
       "class-methods-use-this": "off",
-      "react/no-children-prop": "off"
+      "react/no-children-prop": "off",
+      "react/no-array-index-key": "off"
   }
 }

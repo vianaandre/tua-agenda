@@ -116,7 +116,7 @@ export const ContainerTableAppointments = styled.div`
                     }
                 }
             }
-            &.REQ_CANCELAMENTO, &.CANCELADO {
+            &.REQ_CANCELAMENTO, &.CANCELADO, &.EXCLUIDO {
                 div.chip {
                     &:before {
                         background-color: ${({ theme }) => theme.colors.DANGER};
@@ -312,7 +312,7 @@ export const ContainerTableAppointments = styled.div`
                                     border-radius: 50%;
                                 }
                             }
-                            &.REQ_CANCELAMENTO, &.CANCELADO {
+                            &.REQ_CANCELAMENTO, &.CANCELADO, &.EXCLUIDO {
                                 div.chip {
                                     &:before {
                                         background-color: ${({ theme }) => theme.colors.DANGER};

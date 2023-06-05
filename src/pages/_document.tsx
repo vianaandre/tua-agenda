@@ -68,7 +68,7 @@ export default class MyDocument extends Document {
           <meta name="twitter:image" content="" />
           <link
             rel="shortcut icon"
-            href="favicon.svg"
+            href="favicon.png"
             type="image/x-icon"
           />
           <link href="https://fonts.cdnfonts.com/css/clash-display" rel="stylesheet" />
