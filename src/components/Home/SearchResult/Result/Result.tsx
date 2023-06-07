@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 
 import { CardCompany } from 'components/Home/CardCompany';
 import { useHome } from 'common/hooks/useHome';
@@ -12,6 +13,7 @@ import { ContainerResult } from './styles';
 
 export const Result: React.FC = () => {
   const { searchServices, onClearSearchServices } = useHome();
+  const { formatMessage } = useIntl();
 
   return (
     <ContainerResult>
@@ -21,10 +23,18 @@ export const Result: React.FC = () => {
             <div className="reasult_header">
               <div>
                 <h2 className="title">
-                  Resultado da pesquisa
+                  {formatMessage({
+                    id: 'SEARCH_RESULT',
+                  })}
                   {' '}
                   <strong>
-                    {searchServices.length > 1 ? `${searchServices.length} resultados` : `${searchServices.length} resultado`}
+                    {searchServices.length > 1 ? `${searchServices.length} ${
+                      formatMessage({
+                        id: 'RESULTS',
+                      })
+                    }` : `${searchServices.length} ${formatMessage({
+                      id: 'RESULT',
+                    })}`}
                   </strong>
                 </h2>
                 <p className="normal color_light">
@@ -33,7 +43,9 @@ export const Result: React.FC = () => {
               </div>
               <Button.Normal
                 type="button"
-                text="Voltar"
+                text={formatMessage({
+                  id: 'BACK',
+                })}
                 variant={ButtonVariantProps.OUTLINE_TEXT}
                 icon={{
                   direction: 'left',
@@ -44,19 +56,21 @@ export const Result: React.FC = () => {
             </div>
             <ul>
               {searchServices.map((item) => (
-                <CardCompany address={item.address} categories={item.categories} evaluation={item.evaluation} image={item.image} name={item.name} logo={item.logo} key={`${item.name}`} variant="large" />
+                <CardCompany address={item.enderecoCompleto} image={item.linkImagem} name={item.nome} logo={item.linkImagem} key={`${item.id}`} variant="large" />
               ))}
               {searchServices.map((item) => (
-                <CardCompany address={item.address} categories={item.categories} evaluation={item.evaluation} image={item.image} name={item.name} logo={item.logo} key={`${item.name}`} variant="large" />
+                <CardCompany address={item.enderecoCompleto} image={item.linkImagem} name={item.nome} logo={item.linkImagem} key={`${item.id}`} variant="large" />
               ))}
               {searchServices.map((item) => (
-                <CardCompany address={item.address} categories={item.categories} evaluation={item.evaluation} image={item.image} name={item.name} logo={item.logo} key={`${item.name}`} variant="large" />
+                <CardCompany address={item.enderecoCompleto} image={item.linkImagem} name={item.nome} logo={item.linkImagem} key={`${item.id}`} variant="large" />
               ))}
             </ul>
           </React.Fragment>
         ) : (
           <Empty
-            text="Nada encontrado."
+            text={formatMessage({
+              id: 'EMTPY',
+            })}
             buttonBack={{
               active: true,
               onClick: () => onClearSearchServices(),

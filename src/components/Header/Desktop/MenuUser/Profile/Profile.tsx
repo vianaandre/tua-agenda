@@ -7,10 +7,12 @@ import { ArrowAlternativeBottom, User, Logout } from 'common/icons';
 import { theme } from 'common/styles/theme';
 import Link from 'next/link';
 import { useAuth } from 'common/hooks/useAuth';
+import { useIntl } from 'react-intl';
 import { ContainerProfile, ContainerProfileAvatar } from './styles';
 
 export const Profile: React.FC<UserProps> = ({ imageUrl, nome }) => {
   const { onLogoutUser } = useAuth();
+  const { formatMessage } = useIntl();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -35,7 +37,11 @@ export const Profile: React.FC<UserProps> = ({ imageUrl, nome }) => {
                   </React.Fragment>
                 ) : 'Sem nome'}
               </p>
-              <p className="small color_grey_800">Cliente</p>
+              <p className="small color_grey_800">
+                {formatMessage({
+                  id: 'CLIENT',
+                })}
+              </p>
             </div>
             <div className={`icon_btn ${isOpen ? 'open' : ''}`}>
               <ArrowAlternativeBottom width={24} height={24} color={theme.colors.WHITE} />
@@ -47,7 +53,9 @@ export const Profile: React.FC<UserProps> = ({ imageUrl, nome }) => {
             <DropdownMenu.Item className="dropdown_profile_content_item" onClick={() => setIsOpen(false)}>
               <Link href="/profile">
                 <a>
-                  Meu Perfil
+                  {formatMessage({
+                    id: 'MENU_PROFILE_OPTION_ONE',
+                  })}
                   <User width={25} height={25} color={theme.colors.BLACK[500]} />
                 </a>
               </Link>
@@ -61,7 +69,9 @@ export const Profile: React.FC<UserProps> = ({ imageUrl, nome }) => {
                   onLogoutUser();
                 }}
               >
-                Sair
+                {formatMessage({
+                  id: 'MENU_PROFILE_OPTION_TWO',
+                })}
                 <Logout width={24} height={24} color={theme.colors.DANGER} />
               </button>
             </DropdownMenu.Item>

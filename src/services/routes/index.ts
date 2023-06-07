@@ -22,3 +22,5 @@ export const GET_SCHEDULE = '/agenda';
 export const GENERATE_PAYMENT = '/api/pagamento';
 export const CANCEL_SCHEDULE = '/api/agenda/solicitar-cancelamento';
 export const FETCH_APPOINTMENTS = 'api/agenda/getAgendamentos';
+export const FIND_ALL_COMPANIES = '/api/empresa/findAll';
+export const LIST_CITIES = '/api/cidade/topCidades';

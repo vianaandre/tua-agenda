@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useIntl } from 'react-intl';
 
 import { Input, Select } from 'components/Form';
 import { InputVariantProps } from 'common/interface/InputVariantProps';
@@ -16,6 +17,7 @@ export const FormSearch: React.FC = () => {
   const methods = useForm<SearchServiceFormProps>();
   const { cities } = useCities();
   const { onLoadServicePerServiceAndCity } = useHome();
+  const { formatMessage } = useIntl();
 
   const onSubmit = (data: SearchServiceFormProps) => {
     onLoadServicePerServiceAndCity(data);
@@ -29,7 +31,9 @@ export const FormSearch: React.FC = () => {
             id="name"
             name="name"
             type="text"
-            placeholder="Selecione o serviço"
+            placeholder={formatMessage({
+              id: 'FORM_SEARCH_INPUT_ONE_PLACEHOLDER',
+            })}
             variant={InputVariantProps.OUTLINE}
             icon={{
               icon: <Search width={24} height={25} stroke={2} color={theme.colors.BLACK[500]} />,
@@ -37,7 +41,9 @@ export const FormSearch: React.FC = () => {
             }}
             rules={{
               required: {
-                message: 'Campo obrigatório.',
+                message: formatMessage({
+                  id: 'REQUIRED',
+                }),
                 value: true,
               },
             }}
@@ -54,15 +60,24 @@ export const FormSearch: React.FC = () => {
             }}
             variant={InputVariantProps.OUTLINE}
             options={cities.map((item) => ({
-              innerText: item.city,
-              value: item.city,
+              innerText: item.cidade,
+              value: item.cidade,
             }))}
             widthOption={231}
             left={19}
-            placeholder="Cidade"
+            placeholder={formatMessage({
+              id: 'CITY',
+            })}
           />
         </ContainerFormInputs>
-        <Button.Normal type="submit" text="Buscar" variant={ButtonVariantProps.PRIMARY} className="btn_submit" />
+        <Button.Normal
+          type="submit"
+          text={formatMessage({
+            id: 'FORM_SEARCH_BUTTON',
+          })}
+          variant={ButtonVariantProps.PRIMARY}
+          className="btn_submit"
+        />
       </FormProvider>
     </ContainerFormSearch>
   );

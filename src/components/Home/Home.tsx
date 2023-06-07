@@ -11,7 +11,7 @@ import { CompanyHighlights } from './CompanyHighlights';
 import { HomeProps } from './interface';
 import { SearchResult } from './SearchResult';
 
-export const Home: React.FC<HomeProps> = ({ categories, cities, services }) => {
+export const Home: React.FC<HomeProps> = ({ categories }) => {
   const { searchServices, loadingSearch } = useHome();
 
   return (
@@ -29,8 +29,8 @@ export const Home: React.FC<HomeProps> = ({ categories, cities, services }) => {
           <Banner />
           <Categories categories={categories} />
           <ActionAPP />
-          <CompanyHighlights services={services} />
-          <Cities cities={cities} />
+          <CompanyHighlights />
+          <Cities />
         </React.Fragment>
       )}
     </React.Fragment>

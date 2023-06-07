@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { useIntl } from 'react-intl';
 
 import { Logo } from 'common/icons/Logo';
 import { theme } from 'common/styles/theme';
@@ -8,24 +9,34 @@ import { dataStatic } from 'utils/socialMedia';
 import { ContainerContentFooter, ContainerContentFooterCardLeft, ContainerContentFooterCardRight } from './styles';
 
 export const ContentFooter: React.FC = () => {
+  const { formatMessage } = useIntl();
+
   return (
     <ContainerContentFooter>
       <ContainerContentFooterCardLeft>
         <Logo color={theme.colors.WHITE} width={159} height={19} />
         <p className="normal color_grey_600">
-          Usada por pessoas que procuram deixar as coisas mais simples.
+          {formatMessage({
+            id: 'APRESENTATION_SUBTITLE',
+          })}
         </p>
         <SocialMedia items={dataStatic} color="transparent" />
       </ContainerContentFooterCardLeft>
       <ContainerContentFooterCardRight>
         <div className="menu_about">
-          <h6 className="title color_white">Sobre</h6>
+          <h6 className="title color_white">
+            {formatMessage({
+              id: 'ABOUT',
+            })}
+          </h6>
           <ul>
             <li>
               <Link href="#" passHref>
                 <a>
                   <p className="normal color_grey_600">
-                    Sobre
+                    {formatMessage({
+                      id: 'ABOUT',
+                    })}
                   </p>
                 </a>
               </Link>
@@ -33,14 +44,22 @@ export const ContentFooter: React.FC = () => {
             <li>
               <a href="google.com.br" target="_black">
                 <p className="normal color_grey_600">
-                  Baixar Play Store
+                  {formatMessage({
+                    id: 'DOWNLOAD',
+                  })}
+                  {' '}
+                  Play Store
                 </p>
               </a>
             </li>
             <li>
               <a href="google.com.br" target="_black">
                 <p className="normal color_grey_600">
-                  Baixar App Store
+                  {formatMessage({
+                    id: 'DOWNLOAD',
+                  })}
+                  {' '}
+                  App Store
                 </p>
               </a>
             </li>
@@ -48,7 +67,9 @@ export const ContentFooter: React.FC = () => {
               <Link href="#" passHref>
                 <a>
                   <p className="normal color_grey_600">
-                    Entre em contato
+                    {formatMessage({
+                      id: 'CONTACT',
+                    })}
                   </p>
                 </a>
               </Link>
@@ -56,13 +77,19 @@ export const ContentFooter: React.FC = () => {
           </ul>
         </div>
         <div className="menu_legal">
-          <h6 className="title color_white">Jurídico</h6>
+          <h6 className="title color_white">
+            {formatMessage({
+              id: 'LEGAL',
+            })}
+          </h6>
           <ul>
             <li>
               <Link href="#" passHref>
                 <a>
                   <p className="normal color_grey_600">
-                    Politica Privacidade
+                    {formatMessage({
+                      id: 'PRIVACY',
+                    })}
                   </p>
                 </a>
               </Link>
@@ -71,7 +98,9 @@ export const ContentFooter: React.FC = () => {
               <Link href="#" passHref>
                 <a>
                   <p className="normal color_grey_600">
-                    Termos de Uso
+                    {formatMessage({
+                      id: 'TERMS',
+                    })}
                   </p>
                 </a>
               </Link>
@@ -80,7 +109,9 @@ export const ContentFooter: React.FC = () => {
               <Link href="#" passHref>
                 <a>
                   <p className="normal color_grey_600">
-                    Termos de Serviço
+                    {formatMessage({
+                      id: 'TERMS_SERVICE',
+                    })}
                   </p>
                 </a>
               </Link>

@@ -1,19 +1,22 @@
 import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
+import { useIntl } from 'react-intl';
 
 import { Title } from 'components/Home/Title';
 import { Container } from 'common/styles/container';
 import CitiesBgEffect from 'common/assets/home/cities-bg-effect.png';
+import { useCities } from 'common/hooks/useCities';
+import { useHome } from 'common/hooks/useHome';
 import { Button } from 'components/Button';
 import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
-import { CityProps } from 'common/interface/CityProps';
-import { useCities } from 'common/hooks/useCities';
-import { ContainerCities, ContainerCitiesBgEffect } from './styles';
 import { CardCity } from './CardCity';
+import { ContainerCities, ContainerCitiesBgEffect } from './styles';
 
-export const Cities: React.FC<{ cities: CityProps[] }> = ({ cities }) => {
-  const { onUpdateStateCities, listCities, onUpdateIsViewMore } = useCities();
+export const Cities: React.FC = () => {
+  const { onUpdateStateCities, cities, onUpdateIsViewMore } = useCities();
+  const { loading } = useHome();
+  const { formatMessage } = useIntl();
 
   useEffect(() => {
     onUpdateStateCities(cities);
@@ -26,18 +29,42 @@ export const Cities: React.FC<{ cities: CityProps[] }> = ({ cities }) => {
       </ContainerCitiesBgEffect>
       <Container>
         <AnimationOnScroll animateIn="animate__fadeInUp" duration={0.5} animateOnce>
-          <Title title="Explore" emphasis="cidades" />
+          <Title
+            title={formatMessage({
+              id: 'EXPLORE',
+            })}
+            emphasis={formatMessage({
+              id: 'CITIES',
+            })}
+          />
         </AnimationOnScroll>
         <ul>
-          {listCities.map((item) => (
-            <CardCity key={item.city} city={item.city} />
+          {cities.map((item) => (
+            <CardCity key={item.cidade} city={item.cidade} count={item.count} />
           ))}
         </ul>
-        {listCities.length < cities.length && (
-        <Button.Normal type="button" text="Ver mais" variant={ButtonVariantProps.OUTLINE} className="view_more" onClick={() => onUpdateIsViewMore(true)} />
-        )}
-        {listCities.length === cities.length && (
-        <Button.Normal type="button" text="Ver menos" variant={ButtonVariantProps.OUTLINE} className="view_more" onClick={() => onUpdateIsViewMore(false)} />
+        {cities.length <= 4 ? (
+          <Button.Normal
+            type="button"
+            text={formatMessage({
+              id: 'VIEW_MORE',
+            })}
+            variant={ButtonVariantProps.OUTLINE}
+            className="view_more"
+            onClick={() => onUpdateIsViewMore(true)}
+            loading={loading === 'cities'}
+            disabled={loading === 'cities'}
+          />
+        ) : (
+          <Button.Normal
+            type="button"
+            text={formatMessage({
+              id: 'VIEW_LESS',
+            })}
+            variant={ButtonVariantProps.OUTLINE}
+            className="view_more"
+            onClick={() => onUpdateIsViewMore(false)}
+          />
         )}
       </Container>
     </ContainerCities>

@@ -2,6 +2,7 @@ import React from 'react';
 import * as Popover from '@radix-ui/react-popover';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import { useIntl } from 'react-intl';
 
 import { theme } from 'common/styles/theme';
 import { Notification as NotificationIcon } from 'common/icons';
@@ -12,6 +13,7 @@ import { ContainerNotification } from './styles';
 
 export const Notification: React.FC = () => {
   const { notifications } = useAuth();
+  const { formatMessage } = useIntl();
 
   return (
     <ContainerNotification>
@@ -26,7 +28,11 @@ export const Notification: React.FC = () => {
         <Popover.Portal>
           <Popover.Content sideOffset={5} className="dropdown_notification_content">
             <header>
-              <h6 className="title">Notificações</h6>
+              <h6 className="title">
+                {formatMessage({
+                  id: 'MENU_NOTIFICATION_TITLE',
+                })}
+              </h6>
             </header>
             {notifications && notifications.length > 0 ? (
               <React.Fragment>
@@ -45,7 +51,10 @@ export const Notification: React.FC = () => {
               </React.Fragment>
             ) : (
               <div className="empty">
-                <Empty text="Sem notificação" />
+                <Empty text={formatMessage({
+                  id: 'EMPTY_NOTIFICATION',
+                })}
+                />
               </div>
             )}
             <Popover.Arrow className="popover_notification_content_arrow" />

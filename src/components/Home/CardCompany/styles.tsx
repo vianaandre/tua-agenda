@@ -79,7 +79,7 @@ export const ContainerCardCompanyInfos = styled.div`
 `;
 
 export const ContainerCardCompanyImage = styled.div<{
-    image: string;
+    image?: string;
 }>`
     background: url(${({ image }) => image}) no-repeat center;
     width: 100%;

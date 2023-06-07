@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
+import { theme } from 'common/styles/theme';
 import { ISEO } from './interface';
 
 export const SEO: React.FC<ISEO> = ({
@@ -26,14 +27,14 @@ export const SEO: React.FC<ISEO> = ({
       <meta name="description" content={description} />
       <meta name="format-detection" content="telephone=no" />
       <meta name="mobile-web-app-capable" content="yes" />
-      <meta name="msapplication-TileColor" content="#05B59D" />
+      <meta name="msapplication-TileColor" content={theme.colors.PRIMARY[500]} />
       <meta name="msapplication-tap-highlight" content="no" />
-      <meta name="theme-color" content="#05B59D" />
+      <meta name="theme-color" content={theme.colors.PRIMARY[500]} />
       <link rel="apple-touch-icon" sizes="152x152" href="/assets/logo-192.png" />
       <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo-384.png" />
       <link rel="apple-touch-icon" sizes="167x167" href="/assets/logo-512.png" />
       <link rel="icon" sizes="32x32" href="favicon.png" />
-      <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#05B59D" />
+      <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color={theme.colors.PRIMARY[500]} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={isUrlOrigin} />
       <meta property="og:title" content={nome} />

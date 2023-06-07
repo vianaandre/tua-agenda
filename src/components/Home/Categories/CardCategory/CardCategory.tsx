@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useIntl } from 'react-intl';
 
 import {
   Beleza, Cabeleleiro, Cilios, Depilacao, Massagem, Spa, Tatuagem, Unhas,
@@ -12,6 +13,7 @@ import { CardCategoryProps } from './interface';
 
 export const CardCategory: React.FC<CardCategoryProps> = ({ category, countProfessionals, title }) => {
   const { category: categoryContext, onChangeCaregory } = useCategories();
+  const { formatMessage } = useIntl();
 
   const isIcon = useMemo(() => {
     switch (category) {
@@ -54,7 +56,9 @@ export const CardCategory: React.FC<CardCategoryProps> = ({ category, countProfe
         <p className="great color_light">
           {countProfessionals}
           {' '}
-          profissionais
+          {formatMessage({
+            id: 'PROFESSIONALS',
+          })}
         </p>
         <Arrow width={24} height={24} color={theme.colors.BLACK[500]} />
       </div>

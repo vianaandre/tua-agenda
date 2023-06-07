@@ -64,6 +64,8 @@ export const LocationProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       setIsLocationPerCityAndState({
         city: data[0].name,
         state: data[0].state,
+        lat,
+        long,
       });
     } else {
       onToast({

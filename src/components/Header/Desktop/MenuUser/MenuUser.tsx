@@ -3,12 +3,14 @@ import Link from 'next/link';
 
 import { Translation } from 'components/Translation';
 import { useAuth } from 'common/hooks/useAuth';
+import { useIntl } from 'react-intl';
 import { ContainerMenuUser } from './styles';
 import { Notification } from './Notification';
 import { Profile } from './Profile';
 
 export const MenuUser: React.FC = () => {
   const { user } = useAuth();
+  const { formatMessage } = useIntl();
 
   return (
     <ContainerMenuUser>
@@ -19,7 +21,9 @@ export const MenuUser: React.FC = () => {
         <Link href="/appointments">
           <a>
             <p className="normal color_grey_800">
-              Agendamentos
+              {formatMessage({
+                id: 'MENU_OPTION_ONE',
+              })}
             </p>
           </a>
         </Link>
@@ -28,7 +32,9 @@ export const MenuUser: React.FC = () => {
         <Link href="/Anamneses">
           <a>
             <p className="normal color_grey_800">
-              Anamneses
+              {formatMessage({
+                id: 'MENU_OPTION_TWO',
+              })}
             </p>
           </a>
         </Link>
@@ -37,7 +43,9 @@ export const MenuUser: React.FC = () => {
         <Link href="/notifications">
           <a>
             <p className="normal color_grey_800">
-              Notificações
+              {formatMessage({
+                id: 'MENU_OPTION_THREE',
+              })}
             </p>
           </a>
         </Link>

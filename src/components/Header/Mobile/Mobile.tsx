@@ -13,12 +13,14 @@ import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
 import { useAuth } from 'common/hooks/useAuth';
 import { ContainerProfileAvatar } from 'components/Header/Desktop/MenuUser/Profile/styles';
 import { Avatar } from 'components/Avatar';
+import { useIntl } from 'react-intl';
 import { ContainerMobile, ContainerMobileMenu } from './styles';
 
 export const Mobile: React.FC = () => {
   const { onShowMenu, showMenu, onCloseMenu } = useAnimation();
   const { locationPerCityAndState, onGetLocationBrowser } = useLocation();
   const { user, onLogoutUser } = useAuth();
+  const { formatMessage } = useIntl();
 
   useEffect(() => {
     if (showMenu) {
@@ -39,7 +41,11 @@ export const Mobile: React.FC = () => {
         </a>
       </Link>
       <button type="button" onClick={onShowMenu} className={`${user ? 'auth_user' : ''}`}>
-        <p className="normal color_normal">Menu</p>
+        <p className="normal color_normal">
+          {formatMessage({
+            id: 'MENU',
+          })}
+        </p>
         <div>
           <div />
           <div />
@@ -50,12 +56,20 @@ export const Mobile: React.FC = () => {
         <div className="header">
           <button type="button" onClick={onCloseMenu} className="close_button">
             <Close width={24} height={24} color={theme.colors.PRIMARY[500]} stroke={3} />
-            <p className="normal color_normal">Fechar</p>
+            <p className="normal color_normal">
+              {formatMessage({
+                id: 'CLOSED',
+              })}
+            </p>
           </button>
           {!locationPerCityAndState ? (
             <button type="button" onClick={onGetLocationBrowser} className="button_location">
               <Location width={22} height={22} color={theme.colors.GREY[950]} />
-              <p className="small">Permitir localização</p>
+              <p className="small">
+                {formatMessage({
+                  id: 'LOCALIZATION',
+                })}
+              </p>
             </button>
           ) : (
             <div className="button_location">
@@ -80,7 +94,11 @@ export const Mobile: React.FC = () => {
               </div>
               <div className="infos">
                 <p className="normal color_dark">{user.nome}</p>
-                <p className="small color_grey_800">Cliente</p>
+                <p className="small color_grey_800">
+                  {formatMessage({
+                    id: 'CLIENT',
+                  })}
+                </p>
               </div>
             </li>
             )}
@@ -91,7 +109,9 @@ export const Mobile: React.FC = () => {
             <li>
               <Button.Link
                 variant={ButtonVariantProps.SECONDARY}
-                text="Para Empresa"
+                text={formatMessage({
+                  id: 'MENU_OPTION_FOUR',
+                })}
                 href="/"
               />
             </li>
@@ -100,7 +120,9 @@ export const Mobile: React.FC = () => {
             <li className="separator">
               <Button.Link
                 variant={ButtonVariantProps.OUTLINE}
-                text="Entrar"
+                text={formatMessage({
+                  id: 'MENU_OPTION_FIVE',
+                })}
                 href="/login"
               />
             </li>
@@ -109,7 +131,9 @@ export const Mobile: React.FC = () => {
             <li>
               <Button.Link
                 variant={ButtonVariantProps.PRIMARY}
-                text="Cadastrar"
+                text={formatMessage({
+                  id: 'MENU_OPTION_SIX',
+                })}
                 href="/register"
               />
             </li>
@@ -117,9 +141,11 @@ export const Mobile: React.FC = () => {
             {user && (
             <li className="link_auth">
               <Link href="/appointments">
-                <a>
+                <a onClick={onCloseMenu}>
                   <p>
-                    Agendamentos
+                    {formatMessage({
+                      id: 'MENU_OPTION_ONE',
+                    })}
                   </p>
                 </a>
               </Link>
@@ -128,9 +154,11 @@ export const Mobile: React.FC = () => {
             {user && (
             <li className="link_auth">
               <Link href="/anamneses">
-                <a>
+                <a onClick={onCloseMenu}>
                   <p>
-                    Anamneses
+                    {formatMessage({
+                      id: 'MENU_OPTION_TWO',
+                    })}
                   </p>
                 </a>
               </Link>
@@ -139,9 +167,11 @@ export const Mobile: React.FC = () => {
             {user && (
             <li className="link_auth">
               <Link href="/notifications">
-                <a>
+                <a onClick={onCloseMenu}>
                   <p>
-                    Notificações
+                    {formatMessage({
+                      id: 'MENU_OPTION_THREE',
+                    })}
                   </p>
                 </a>
               </Link>
@@ -152,7 +182,9 @@ export const Mobile: React.FC = () => {
               <Link href="/profile">
                 <a onClick={onCloseMenu}>
                   <p>
-                    Meu Perfil
+                    {formatMessage({
+                      id: 'MENU_PROFILE_OPTION_ONE',
+                    })}
                   </p>
                 </a>
               </Link>
@@ -162,7 +194,9 @@ export const Mobile: React.FC = () => {
             <li className="link_auth">
               <button type="button" className="logout" onClick={onLogoutUser}>
                 <p>
-                  Sair
+                  {formatMessage({
+                    id: 'MENU_PROFILE_OPTION_TWO',
+                  })}
                 </p>
               </button>
             </li>

@@ -8,6 +8,7 @@ import Document, {
   NextScript,
 } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
+import { theme } from 'common/styles/theme';
 
 export default class MyDocument extends Document {
   static async getInitialProps(
@@ -42,7 +43,7 @@ export default class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-          <meta name="theme-color" content="" />
+          <meta name="theme-color" content={theme.colors.PRIMARY[500]} />
           <meta name="language" content="" />
           <meta
             httpEquiv="Content-Type"

@@ -10,18 +10,26 @@ import { useToast } from 'common/hooks/useToast';
 import { apiMock } from 'services/api';
 import { GET_SERVICES } from 'services/routes';
 import { SearchServiceFormProps } from 'common/interface/Form/SearchServiceFormProps';
+import { useLocation } from 'common/hooks/useLocation';
+import { findAllCompanies } from 'services/modules/company ';
+import { CompanyAlternativeProps } from 'common/interface/CompanyAlternativeProps';
+import { findCities } from 'services/modules/cities/findCities';
+import { CitiesProps } from 'common/interface/CitiesProps';
+import { LoadingHomeProps } from 'common/interface/LoadingHomeProps';
 
 export interface HomeContextProps {
     services: ServiceProps[];
-    cities: CityProps[];
     categories: CategoriesProps[];
     listCities: CityProps[];
     category?: CategoriesProps;
-    searchServices?: ServiceProps[];
+    searchServices?: CompanyAlternativeProps[];
     loadingSearch: boolean;
+    companies: CompanyAlternativeProps[];
+    cities: CitiesProps[];
+    loadingHome: LoadingHomeProps;
     onUpdateStateServices: (data: ServiceProps[]) => void;
     onUpdateStateCategories: (data: CategoriesProps[]) => void;
-    onUpdateStateCities: (data: CityProps[]) => void;
+    onUpdateStateCities: (data: CitiesProps[]) => void;
     onUpdateIsViewMore: (viewMore: boolean) => void;
     onChangeCaregory: (category: CategoriesProps) => void;
     onLoadServicesPerCategory: () => Promise<void>;
@@ -35,29 +43,52 @@ export const HomeContext = createContext({} as HomeContextProps);
 
 export function HomeProvider({ children }: { children: React.ReactNode }): JSX.Element {
   const { onToast } = useToast();
+  const { locationPerCityAndState } = useLocation();
   const [isServices, setIsServices] = useState<ServiceProps[]>([]);
-  const [isCities, setIsCities] = useState<CityProps[]>([]);
+  const [isCities] = useState<CityProps[]>([]);
   const [isCategories, setIsCategories] = useState<CategoriesProps[]>([]);
   const [isViewMore, setIsViewMore] = useState<boolean>(false);
   const [isCategory, setIsCategory] = useState<CategoriesProps>();
-  const [isSearchServices, setIsSearchServices] = useState<ServiceProps[]>();
+  const [isSearchServices, setIsSearchServices] = useState<CompanyAlternativeProps[]>();
   const [isLoadingSearch, setIsLoadingSearch] = useState<boolean>(false);
+  const [companies, setCompanies] = useState<CompanyAlternativeProps[]>([]);
+  const [cities, setCities] = useState<CitiesProps[]>([]);
+  const [loadingHome, setLoadingHome] = useState<LoadingHomeProps>(undefined);
 
   const handleUpdateStateServices = useCallback((data: ServiceProps[]) => {
     setIsServices(data);
   }, []);
 
-  const handleUpdateStateCities = useCallback((data: CityProps[]) => {
-    setIsCities(data);
+  const handleUpdateStateCities = useCallback((data: CitiesProps[]) => {
+    setCities(data);
   }, []);
 
   const handleUpdateStateCategories = useCallback((data: CategoriesProps[]) => {
     setIsCategories(data);
   }, []);
 
-  const handleUpdateIsViewMore = useCallback((viewMore: boolean) => {
-    setIsViewMore(viewMore);
-  }, []);
+  const handleUpdateIsViewMore = useCallback(async (viewMore: boolean) => {
+    try {
+      if (viewMore) {
+        setLoadingHome('cities');
+        const cities = await findCities(50);
+
+        if (cities) {
+          setCities(cities);
+          setIsViewMore(viewMore);
+        }
+        setLoadingHome(undefined);
+      } else {
+        setCities((current) => current.splice(0, 4));
+      }
+    } catch (err: any) {
+      setLoadingHome(undefined);
+      onToast({
+        message: err.message ?? 'Ocorreu um erro de comunicação.',
+        type: 'error',
+      });
+    }
+  }, [onToast]);
 
   const handleChangeCaregory = useCallback((category: CategoriesProps) => {
     setIsCategory(category);
@@ -134,14 +165,45 @@ export function HomeProvider({ children }: { children: React.ReactNode }): JSX.E
   const handleLoadServicesAll = useCallback(async () => {
     try {
       setIsLoadingSearch(true);
-      const { data } = await apiMock.get(GET_SERVICES);
+      const companies = await findAllCompanies(locationPerCityAndState?.lat, locationPerCityAndState?.long, 200.00, 50);
 
-      setIsSearchServices(data);
+      if (companies) {
+        setIsSearchServices(companies);
+      }
       setIsLoadingSearch(false);
     } catch (err) {
       setIsLoadingSearch(false);
       onToast({
         message: 'Houve um problema de comunicação.',
+        type: 'error',
+      });
+    }
+  }, [onToast, locationPerCityAndState]);
+
+  const handleLoadCompanies = useCallback(async () => {
+    try {
+      const companies = await findAllCompanies(locationPerCityAndState?.lat, locationPerCityAndState?.long, 200.00, 4);
+      if (companies) {
+        setCompanies(companies);
+      }
+    } catch (err: any) {
+      onToast({
+        message: err.message ?? 'Ocorreu um erro de comunicação.',
+        type: 'error',
+      });
+    }
+  }, [onToast, locationPerCityAndState]);
+
+  const handleLoadCities = useCallback(async () => {
+    try {
+      const cities = await findCities(4);
+
+      if (cities) {
+        setCities(cities);
+      }
+    } catch (err: any) {
+      onToast({
+        message: err.message ?? 'Ocorreu um erro de comunicação',
         type: 'error',
       });
     }
@@ -160,15 +222,25 @@ export function HomeProvider({ children }: { children: React.ReactNode }): JSX.E
     }
   }, [isCategories, handleChangeCaregory]);
 
+  useEffect(() => {
+    handleLoadCompanies();
+  }, [handleLoadCompanies]);
+
+  useEffect(() => {
+    handleLoadCities();
+  }, [handleLoadCities]);
+
   return (
     <HomeContext.Provider value={{
       services: isServices,
       categories: isCategories,
-      cities: isCities,
+      cities,
       listCities: isListCities,
       category: isCategory,
       searchServices: isSearchServices,
       loadingSearch: isLoadingSearch,
+      companies,
+      loadingHome,
       onUpdateStateServices: handleUpdateStateServices,
       onUpdateStateCategories: handleUpdateStateCategories,
       onUpdateStateCities: handleUpdateStateCities,

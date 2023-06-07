@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Carousel from 'react-multi-carousel';
+import { useIntl } from 'react-intl';
 
 import { Title } from 'components/Home/Title';
 import { Container } from 'common/styles/container';
@@ -13,6 +14,7 @@ import { CardCategory } from './CardCategory';
 
 export const Categories: React.FC<{ categories: CategoriesProps[] }> = ({ categories }) => {
   const { category, onUpdateStateCategories, onLoadServicesPerCategory } = useCategories();
+  const { formatMessage } = useIntl();
 
   useEffect(() => {
     onUpdateStateCategories(categories);
@@ -22,10 +24,21 @@ export const Categories: React.FC<{ categories: CategoriesProps[] }> = ({ catego
     <ContainerCategories>
       <Container>
         <header>
-          <Title title="Principais" emphasis="categorias" />
+          <Title
+            title={formatMessage({
+              id: 'MAIN',
+            })}
+            emphasis={formatMessage({
+              id: 'CATEGORIES',
+            })}
+          />
           {category && (
             <button type="button" onClick={onLoadServicesPerCategory}>
-              <p className="normal color_normal">Buscar</p>
+              <p className="normal color_normal">
+                {formatMessage({
+                  id: 'SEARCH',
+                })}
+              </p>
               <Arrow width={24} height={24} color={theme.colors.PRIMARY[500]} />
             </button>
           )}

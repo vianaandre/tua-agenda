@@ -1,5 +1,6 @@
 import React from 'react';
 import 'animate.css/animate.min.css';
+import { useIntl } from 'react-intl';
 
 import HomeBannerBg from 'common/assets/home/banner-bg.png';
 import HomeBannerPhoto from 'common/assets/home/banner-photo.png';
@@ -10,6 +11,8 @@ import { theme } from 'common/styles/theme';
 import { ContainerBanner, ContainerBannerImageBg } from './styles';
 
 export const Banner: React.FC = () => {
+  const { formatMessage } = useIntl();
+
   return (
     <ContainerBanner>
       <ContainerBannerImageBg src={HomeBannerBg.src} alt="imagem de fundo do Banner" />
@@ -18,12 +21,18 @@ export const Banner: React.FC = () => {
           <img src={HomeBannerPhoto.src} alt="Retrato de uma Pessoa" />
         </div>
         <div className="banner_content">
-          <h1 className="title">Descubra e agende profissionais de várias áreas bem perto de você</h1>
+          <h1 className="title">
+            {formatMessage({
+              id: 'APRESENTATION_TITLE',
+            })}
+          </h1>
           <div className="effect_title">
             <EffectTitle width={411} height={25} color={theme.colors.PRIMARY[500]} />
           </div>
           <p className="great color_light">
-            Usada por pessoas que procuram deixar as coisas mais simples.
+            {formatMessage({
+              id: 'APRESENTATION_SUBTITLE',
+            })}
           </p>
           <div className="form_search">
             <FormSearch />
