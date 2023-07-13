@@ -56,13 +56,13 @@ export const Result: React.FC = () => {
             </div>
             <ul>
               {searchServices.map((item) => (
-                <CardCompany address={item.enderecoCompleto} image={item.linkImagem} name={item.nome} logo={item.linkImagem} key={`${item.id}`} variant="large" />
+                <CardCompany address={item.enderecoCompleto} image={item.linkImagem} name={item.nome} logo={item.linkImagem} key={`${item.id}`} variant="large" usuario={item.usuario} />
               ))}
               {searchServices.map((item) => (
-                <CardCompany address={item.enderecoCompleto} image={item.linkImagem} name={item.nome} logo={item.linkImagem} key={`${item.id}`} variant="large" />
+                <CardCompany address={item.enderecoCompleto} image={item.linkImagem} name={item.nome} logo={item.linkImagem} key={`${item.id}`} variant="large" usuario={item.usuario} />
               ))}
               {searchServices.map((item) => (
-                <CardCompany address={item.enderecoCompleto} image={item.linkImagem} name={item.nome} logo={item.linkImagem} key={`${item.id}`} variant="large" />
+                <CardCompany address={item.enderecoCompleto} image={item.linkImagem} name={item.nome} logo={item.linkImagem} key={`${item.id}`} variant="large" usuario={item.usuario} />
               ))}
             </ul>
           </React.Fragment>
