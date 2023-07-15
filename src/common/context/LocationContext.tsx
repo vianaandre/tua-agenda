@@ -97,13 +97,13 @@ export const LocationProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   }, [handleLoadLocationPerCoordinates, onToast]);
 
   useEffect(() => {
-    let isLocale: LanguageProps = 'pt';
+    let isLocale: LanguageProps = LOCALES.PORTUGUES;
 
     if (navigator?.language === 'en' || navigator?.language === 'en-US') {
-      isLocale = 'en';
+      isLocale = LOCALES.ENGLISH;
     }
     if (navigator?.language === 'es') {
-      isLocale = 'es';
+      isLocale = LOCALES.ESPANHOL;
     }
 
     setIsLocation(isLocale);

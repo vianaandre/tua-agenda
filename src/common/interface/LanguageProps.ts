@@ -1,1 +1,1 @@
-export type LanguageProps = 'pt' | 'en' | 'es'
+export type LanguageProps = 'BR' | 'US' | 'ES'

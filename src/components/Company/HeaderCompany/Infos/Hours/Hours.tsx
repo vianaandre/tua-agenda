@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { format, isAfter } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import * as Popover from '@radix-ui/react-popover';
+import { useIntl } from 'react-intl';
 
 import { Clock, ArrowAlternative } from 'common/icons';
 import { theme } from 'common/styles/theme';
@@ -9,11 +10,15 @@ import { ContainerHours } from './styles';
 import { HoursProps } from './interface';
 
 export const Hours: React.FC<HoursProps> = ({ days }) => {
+  const { formatMessage } = useIntl();
+
   const [isIndex, setIsIndex] = useState<number>();
   const [isActiveOpen, setIsActiveOpen] = useState<boolean>(false);
 
   const isDayCurrentIsOpen = useMemo(() => {
-    let isText = 'Fechado agora';
+    let isText = formatMessage({
+      id: 'CLOSE_NOW',
+    });
 
     days.forEach((item, index) => {
       const isDayCurrent = format(new Date(), 'EEEE', {
@@ -29,14 +34,16 @@ export const Hours: React.FC<HoursProps> = ({ days }) => {
         const isStart = new Date().setHours(Number(startHourPerHour), Number(startHourPerMinute));
         const isEnd = new Date().setHours(Number(endHourPerHour), Number(endHourPerMinute));
         if (isAfter(new Date(), isStart) && !isAfter(new Date(), isEnd)) {
-          isText = `Aberto agora ${item.hour}`;
+          isText = `${formatMessage({
+            id: 'OPEN_NOW',
+          })} ${item.hour}`;
         }
         setIsIndex(index);
       }
     });
 
     return isText;
-  }, [days]);
+  }, [days, formatMessage]);
 
   return (
     <ContainerHours>

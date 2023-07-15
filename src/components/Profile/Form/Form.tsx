@@ -13,12 +13,15 @@ import { ButtonVariantProps } from 'common/interface/ButtonVariantProps';
 import { Loading } from 'common/icons';
 import { theme } from 'common/styles/theme';
 import { formatDate } from 'utils/format';
+import { useLocation } from 'common/hooks/useLocation';
+import { getMaskPerCoutryes } from 'utils/getMaskPerCountrys';
 import { ContainerForm } from './styles';
 
 export const Form: React.FC = () => {
   const {
     countrys, optionsCountry, onLoadAddress, VIACEP, onUpdateUser, loadingUpdatedUser, user,
   } = useAuth();
+  const { location } = useLocation();
   const methods = useForm<UserProps>();
   const isCep = methods.watch('cep');
 
@@ -87,28 +90,40 @@ export const Form: React.FC = () => {
                 />
               </div>
               <div className="container_input">
-                <Input
-                  defaultValue={user?.cpf}
-                  name="cpf"
-                  id="cpf"
-                  label="CPF"
-                  type="tel"
-                  mask="999.999.999-99"
-                  rules={{
-                    pattern: {
-                      value: cpf,
-                      message: 'CPF é inválido! Verifique.',
-                    },
-                    validate: (cpf: string) => {
-                      if (cpf) {
-                        return validateCPF(cpf) ? true : 'CPF inválido! Verifique.';
-                      }
-                      return true;
-                    },
-                  }}
-                  error={methods.formState.errors.cpf?.message}
-                  placeholder="Digite seu CPF"
-                />
+                {location === 'BR' ? (
+                  <Input
+                    defaultValue={user?.cpf}
+                    name="cpf"
+                    id="cpf"
+                    label="CPF"
+                    type="tel"
+                    mask={getMaskPerCoutryes(location, countrys, 'cpfMask', 'cpf', '999.999.999-99')}
+                    rules={location === 'BR' ? {
+                      pattern: location === 'BR' ? {
+                        value: cpf,
+                        message: 'CPF é inválido! Verifique.',
+                      } : undefined,
+                      validate: (cpf: string) => {
+                        if (cpf) {
+                          return validateCPF(cpf) ? true : 'CPF inválido! Verifique.';
+                        }
+                        return true;
+                      },
+                    } : undefined}
+                    error={methods.formState.errors.cpf?.message}
+                    placeholder="Digite seu CPF"
+                  />
+                ) : (
+                  <Input
+                    defaultValue={user?.cpf}
+                    name="cpf"
+                    id="cpf"
+                    label="CPF"
+                    type="tel"
+                    mask={getMaskPerCoutryes(location, countrys, 'cpfMask', 'cpf', '999.999.999-99')}
+                    placeholder="Registro"
+                  />
+                )}
               </div>
               <div className="container_input">
                 <Input
@@ -117,11 +132,11 @@ export const Form: React.FC = () => {
                   id="dtNascimento"
                   label="Data de Nascimento"
                   type="tel"
-                  mask="99/99/9999"
+                  mask={getMaskPerCoutryes(location, countrys, 'dateMask', 'dtNascimento', '99/99/9999')}
                   rules={{
                     validate: (date: string) => {
                       if (date) {
-                        return validateDate(date) ? true : 'Data de Nascimento é inválido! Verifique.';
+                        return validateDate(date, location) ? true : 'Data de Nascimento é inválido! Verifique.';
                       }
 
                       return true;
@@ -143,7 +158,7 @@ export const Form: React.FC = () => {
                     name="cep"
                     id="cep"
                     label="CEP"
-                    mask="99999-999"
+                    mask={getMaskPerCoutryes(location, countrys, 'zipCodeMask', 'cep', '99999-999')}
                     type="tel"
                     error={methods.formState.errors.cep?.message}
                     placeholder="Digite seu CEP"

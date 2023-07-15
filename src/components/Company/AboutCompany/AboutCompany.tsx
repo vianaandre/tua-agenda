@@ -14,7 +14,7 @@ export const AboutCompany: React.FC = () => {
       <Container>
         <div className="content">
           {config && config.metaDescricao && (
-          <Description description={config?.metaDescricao} images={[{ imageLink: 'asas' }]} />
+          <Description description={config?.metaDescricao} images={config.urlFotos} />
           )}
           <InfosCompany />
         </div>

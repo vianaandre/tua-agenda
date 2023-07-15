@@ -13,7 +13,7 @@ export const ContainerInfos = styled.div`
         flex-direction: column;
         gap: ${({ theme }) => theme.spacing(3)};
         justify-content: space-between;
-        max-width: 334px;
+        max-width: 600px;
         @media(max-width: 524px) {
             max-width: 100%;
         }
@@ -30,6 +30,7 @@ export const ContainerInfos = styled.div`
         div.infos_header {
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
             gap: ${({ theme }) => theme.spacing(1.5)};
         }
         div.hours_address {
@@ -57,6 +58,10 @@ export const ContainerInfos = styled.div`
         }
         div.btn {
             width: 100%;
+            max-width: 260px;
+            @media(max-width: 524px) {
+                max-width: 100%;
+            }
             a {
                 width: 100%;
             }

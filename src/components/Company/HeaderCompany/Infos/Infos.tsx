@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useIntl } from 'react-intl';
 
 import { Badge } from 'components/Badge';
 import { Location } from 'common/icons';
@@ -10,56 +11,72 @@ import { InfosProps } from './interface';
 import { Hours } from './Hours';
 
 export const Infos: React.FC<InfosProps> = ({ countProfissional, config }) => {
+  const { formatMessage } = useIntl();
+
   const isDays = useMemo(() => {
     const isFormattedDays = [];
 
     if (config) {
       if (config.seg) {
         isFormattedDays.push({
-          day: 'Segunda Feira',
+          day: formatMessage({
+            id: 'MONDAY',
+          }),
           hour: config.seg,
         });
       }
       if (config.ter) {
         isFormattedDays.push({
-          day: 'Terça Feira',
+          day: formatMessage({
+            id: 'TUESDAY',
+          }),
           hour: config.ter,
         });
       }
       if (config.qua) {
         isFormattedDays.push({
-          day: 'Quarta Feira',
+          day: formatMessage({
+            id: 'FOURTH',
+          }),
           hour: config.qua,
         });
       }
       if (config.qui) {
         isFormattedDays.push({
-          day: 'Quinta Feira',
+          day: formatMessage({
+            id: 'FIFTH',
+          }),
           hour: config.qui,
         });
       }
       if (config.sex) {
         isFormattedDays.push({
-          day: 'Sexta Feira',
+          day: formatMessage({
+            id: 'FRIDAY',
+          }),
           hour: config.sex,
         });
       }
       if (config.sab) {
         isFormattedDays.push({
-          day: 'Sábado',
+          day: formatMessage({
+            id: 'SATURDAY',
+          }),
           hour: config.sab,
         });
       }
       if (config.dom) {
         isFormattedDays.push({
-          day: 'Domingo',
+          day: formatMessage({
+            id: 'SUNDAY',
+          }),
           hour: config.dom,
         });
       }
     }
 
     return isFormattedDays;
-  }, [config]);
+  }, [config, formatMessage]);
 
   return (
     <ContainerInfos>
@@ -68,8 +85,15 @@ export const Infos: React.FC<InfosProps> = ({ countProfissional, config }) => {
       )}
       <div className="infos">
         <div className="infos_header">
-          <h3 className="title">Isabella</h3>
-          <Badge text={`${countProfissional > 1 ? `${countProfissional} profissionais` : `${countProfissional} profissional`}`} variant="primary" />
+          <h3 className="title">{config?.nome}</h3>
+          <Badge
+            text={`${countProfissional > 1 ? `${countProfissional} ${formatMessage({
+              id: 'PROFESSIONAL_PLURAL',
+            })}` : `${countProfissional} ${formatMessage({
+              id: 'PROFESSIONAL_SINGULAR',
+            })}`}`}
+            variant="primary"
+          />
         </div>
         <div className="hours_address">
           <Hours
@@ -89,7 +113,13 @@ export const Infos: React.FC<InfosProps> = ({ countProfissional, config }) => {
           )}
         </div>
         <div className="btn">
-          <Button.Link href="#flowSchedule" variant={ButtonVariantProps.PRIMARY} text="Agendar Agora" />
+          <Button.Link
+            href="#flowSchedule"
+            variant={ButtonVariantProps.PRIMARY}
+            text={formatMessage({
+              id: 'SCHEDULE_NOW',
+            })}
+          />
         </div>
       </div>
     </ContainerInfos>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 
 import { Avatar } from 'components/Avatar';
 import { ContainerProfessional } from './styles';
@@ -7,6 +8,8 @@ import { CardProfessionalProps } from './interface';
 export const CardProfessional: React.FC<CardProfessionalProps> = ({
   assessment, name, photoUrl, service,
 }) => {
+  const { formatMessage } = useIntl();
+
   return (
     <ContainerProfessional type="button">
       <Avatar
@@ -23,7 +26,11 @@ export const CardProfessional: React.FC<CardProfessionalProps> = ({
           </svg>
           <span className="normal color_grey_800">
             {assessment.toFixed(1)}
-            /10 avaliações
+            /10
+            {' '}
+            {formatMessage({
+              id: 'ASSESSMENTS',
+            })}
           </span>
         </div>
       </div>

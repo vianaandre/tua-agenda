@@ -5,4 +5,6 @@ export interface CountryProps {
     phoneMask: string;
     language: string;
     id: string;
+    cpfMask: string;
+    [key: string]: string;
 }

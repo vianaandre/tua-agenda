@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 
 import { Container } from 'common/styles/container';
 import { useCompany } from 'common/hooks/useCompany';
@@ -13,6 +14,7 @@ export const Services: React.FC = () => {
   const {
     services, onSelectService, servicesSelect, servicesSearch,
   } = useCompany();
+  const { formatMessage } = useIntl();
 
   return (
     <ContainerServices>
@@ -26,11 +28,21 @@ export const Services: React.FC = () => {
                   <CardService key={item.id} service={item} onSelect={() => onSelectService(item.id)} active={!!servicesSelect?.includes(item.id)} />
                 ))}
               </ul>
-              <Button.Normal text="Realizar Agendamento" variant={ButtonVariantProps.FULL} type="button" className="btn" />
+              <Button.Normal
+                text={formatMessage({
+                  id: 'SCHEDULE',
+                })}
+                variant={ButtonVariantProps.FULL}
+                type="button"
+                className="btn"
+              />
             </React.Fragment>
           ) : (
             <div className="empty">
-              <Empty text="Sem serviços disponiveis" />
+              <Empty text={formatMessage({
+                id: 'EMPTY_SERVICES',
+              })}
+              />
             </div>
           ))}
         {servicesSearch && (
@@ -41,11 +53,21 @@ export const Services: React.FC = () => {
                   <CardService key={item.id} service={item} onSelect={() => onSelectService(item.id)} active={!!servicesSelect?.includes(item.id)} />
                 ))}
               </ul>
-              <Button.Normal text="Realizar Agendamento" variant={ButtonVariantProps.FULL} type="button" className="btn" />
+              <Button.Normal
+                text={formatMessage({
+                  id: 'SCHEDULE',
+                })}
+                variant={ButtonVariantProps.FULL}
+                type="button"
+                className="btn"
+              />
             </React.Fragment>
           ) : (
             <div className="empty">
-              <Empty text="Nada encontrado" />
+              <Empty text={formatMessage({
+                id: 'NOTHING_FOUND',
+              })}
+              />
             </div>
           )
         )}

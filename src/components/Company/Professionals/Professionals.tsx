@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 
 import { Container } from 'common/styles/container';
 import { useCompany } from 'common/hooks/useCompany';
@@ -9,12 +10,17 @@ import { CardProfessional } from './CardProfessional';
 
 export const Professionals: React.FC = () => {
   const { employees } = useCompany();
+  const { formatMessage } = useIntl();
 
   return (
     <ContainerProfessionals>
       <Container>
         <div className="content">
-          <h4 className="title">Agendar com profissional</h4>
+          <h4 className="title">
+            {formatMessage({
+              id: 'SCHEDULE_PROFESSIONAL',
+            })}
+          </h4>
           {employees && (
           <div className="professionals">
             <Carousel

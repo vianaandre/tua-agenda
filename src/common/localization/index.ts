@@ -1,6 +1,6 @@
-import pt from './pt/messages.json';
-import en from './en/messages.json';
-import es from './es/messages.json';
+import pt from './BR/messages.json';
+import en from './US/messages.json';
+import es from './ES/messages.json';
 import { LOCALES } from './locales';
 
 export const messages = {

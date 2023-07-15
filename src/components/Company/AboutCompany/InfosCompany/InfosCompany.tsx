@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useIntl } from 'react-intl';
 
 import { useCompany } from 'common/hooks/useCompany';
 import { SocialMedia } from 'components/SocialMedia';
@@ -12,6 +13,7 @@ import { ContainerInfosCompany } from './styles';
 
 export const InfosCompany: React.FC = () => {
   const { config } = useCompany();
+  const { formatMessage } = useIntl();
 
   const isMediaSocial = useMemo(() => {
     const isSocialMedia = [] as SocialMediaProps[];
@@ -51,13 +53,21 @@ export const InfosCompany: React.FC = () => {
       <div className="infos">
         {isMediaSocial.length > 0 && (
         <div className="social_media info">
-          <h6 className="title">Redes sociais</h6>
+          <h6 className="title">
+            {formatMessage({
+              id: 'SOCIAL_MEDIA',
+            })}
+          </h6>
           <SocialMedia items={isMediaSocial} color="primary" help />
         </div>
         )}
         {config && config.telefone && (
         <div className="phone info">
-          <h6 className="title">Telefone</h6>
+          <h6 className="title">
+            {formatMessage({
+              id: 'PHONE',
+            })}
+          </h6>
           <Link href={`tel:${config.telefone}`}>
             <a target="_black">{config.telefone}</a>
           </Link>
@@ -75,7 +85,11 @@ export const InfosCompany: React.FC = () => {
       {config && config.enderecoCompleto && (
       <div className="info_address">
         <h4 className="title">Google Maps</h4>
-        <p className="normal">Veja localização detalhada no mapa</p>
+        <p className="normal">
+          {formatMessage({
+            id: 'VIEW_DETAILS_ADDRESS',
+          })}
+        </p>
         <div className="map">
           <iframe
             src={`https://www.google.com/maps/embed/v1/place?key=${process.env.GOOGLE_MAPS_KEY_API}&q=${encodeURIComponent(config.enderecoCompleto)}`}
@@ -93,7 +107,9 @@ export const InfosCompany: React.FC = () => {
               href={`https://www.google.com/maps/dir/${config.latitude},${config.longitude}`}
               variant={ButtonVariantProps.OUTLINE}
               target="_black"
-              text="Abrir Google Maps"
+              text={`${formatMessage({
+                id: 'OPEN',
+              })} Google Maps`}
               icon={{
                 direction: 'right',
                 icon: <ArrowRight width={24} height={24} color={theme.colors.PRIMARY[500]} />,

@@ -15,12 +15,14 @@ import { FormWaitingListProps } from 'common/interface/WaitingListProps';
 import { format } from 'date-fns';
 import { validateDate } from 'utils/validateDate';
 import { formatDate } from 'utils/format';
+import { useLocation } from 'common/hooks/useLocation';
 import { ContainerModal } from './styles';
 import { HoursField } from './HoursField';
 
 export const Modal: React.FC = () => {
   const methods = useForm<FormWaitingListProps>();
   const { countrys, optionsCountry, user } = useAuth();
+  const { location } = useLocation();
   const {
     dateSelect, onSubmitSaveWaitingList, loadingSubmitWaitingList,
   } = useScheduleFlow();
@@ -153,7 +155,7 @@ export const Modal: React.FC = () => {
                             rules={{
                               validate: (date: string) => {
                                 if (date) {
-                                  return validateDate(date) ? true : 'Data de Nascimento é inválido! Verifique.';
+                                  return validateDate(date, location) ? true : 'Data de Nascimento é inválido! Verifique.';
                                 }
 
                                 return true;

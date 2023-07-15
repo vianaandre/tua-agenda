@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useIntl } from 'react-intl';
 
 import { Container } from 'common/styles/container';
 import BannerEffectOne from 'common/assets/company/banner-effect-one.png';
@@ -11,6 +12,7 @@ import { Infos } from './Infos';
 
 export const HeaderCompany: React.FC = () => {
   const { config, employees } = useCompany();
+  const { formatMessage } = useIntl();
 
   return (
     <ContainerHeaderCompany>
@@ -30,7 +32,13 @@ export const HeaderCompany: React.FC = () => {
             </Link>
           </li>
           <li>
-            <span>Empresas /</span>
+            <span>
+              {formatMessage({
+                id: 'COMPANY',
+              })}
+              {' '}
+              /
+            </span>
           </li>
           {config && config.nome && (
           <li>

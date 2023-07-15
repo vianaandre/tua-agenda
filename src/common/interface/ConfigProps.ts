@@ -115,5 +115,6 @@ export interface ConfigProps {
     distanciaMaxKmAgendamentoCliente: number;
     versaoHorarios: number;
     enderecoCompleto: string;
-    dtAlteracaoFmt: string
+    dtAlteracaoFmt: string;
+    urlFotos?: string[];
 }

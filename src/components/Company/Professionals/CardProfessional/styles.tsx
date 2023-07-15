@@ -23,9 +23,10 @@ export const ContainerProfessional = styled.button`
         div.assessment {
             display: flex; 
             align-items: center;
-            gap: ${({ theme }) => theme.spacing(1)};
+            gap: ${({ theme }) => theme.spacing(0.5)};
             span.normal {
                 line-height: 100%;
+                padding-top: 2px;
             }
         }
     }

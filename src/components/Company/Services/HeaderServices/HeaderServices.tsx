@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useIntl } from 'react-intl';
 
 import { Input } from 'components/Form';
 import { Search } from 'common/icons';
@@ -9,6 +10,7 @@ import { ContainerHeaderServices } from './styles';
 
 export const HeaderServices: React.FC = () => {
   const { onSearchServices } = useCompany();
+  const { formatMessage } = useIntl();
   const methods = useForm<{
         search: string
       }>();
@@ -23,8 +25,16 @@ export const HeaderServices: React.FC = () => {
   return (
     <ContainerHeaderServices>
       <div className="part_one">
-        <h4 className="title">Serviços</h4>
-        <p className="normal color_blue_200">Muitas opções disponíveis para você</p>
+        <h4 className="title">
+          {formatMessage({
+            id: 'SERVICE',
+          })}
+        </h4>
+        <p className="normal color_blue_200">
+          {formatMessage({
+            id: 'MANY_OPTIONS_AVAILABLE',
+          })}
+        </p>
       </div>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <FormProvider {...methods}>
@@ -32,7 +42,9 @@ export const HeaderServices: React.FC = () => {
             id="search"
             name="search"
             type="text"
-            placeholder="Pesquisar"
+            placeholder={formatMessage({
+              id: 'SEARCH',
+            })}
             icon={{
               direction: 'left',
               icon: <Search width={24} height={24} color={theme.colors.GREY[700]} />,
